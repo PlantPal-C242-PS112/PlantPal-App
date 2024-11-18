@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.android.plantpal.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_plant"
+        android:name="com.android.plantpal.ui.plant.PlantFragment"
+        android:label="Tanamanku"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_discussion"
+        android:name="com.android.plantpal.ui.discussion.DiscussionFragment"
+        android:label="Diskusi"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="com.android.plantpal.ui.explore.ExploreFragment"
+        android:label="Eksplor"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.android.plantpal.ui.account.AccountFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_account" />
+</navigation>
