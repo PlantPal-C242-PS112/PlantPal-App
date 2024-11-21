@@ -3,4 +3,27 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="password_too_short">Kata sandi terlalu pendek, harus lebih dari 8 karakter</string>
+    <string name="invalid_email">Email tidak valid, format: nama@domain.com</string>
+    <string name="welcome">Selamat Datang!</string>
+    <string name="please_login_with_your_information">Silahkan login dengan informasi anda</string>
+    <string name="email_address">Alamat Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk</string>
+    <string name="lupa_kata_sandi"><u>Lupa Kata Sandi?</u></string>
+    <string name="please_register_with_your_information">Silahkan daftar sesuai informasi anda</string>
+    <string name="your_name">Nama Lengkap</string>
+    <string name="register">Daftar</string>
+    <string name="username">Username</string>
+    <string name="sudah_punya_akun">Sudah punya akun? <u>Silahkan Login</u></string>
+    <string name="belum_punya_akun">Belum punya akun? <u>Silahkan Daftar</u></string>
+    <string name="email_and_pass_empty">Alamat email dan kata sandi tidak boleh kosong!\n</string>
+    <string name="login_success">Login Berhasil!</string>
+    <string name="login_failed">Login Gagal!</string>
+    <string name="failed">Gagal</string>
+    <string name="please_wait">Harap tunggu...</string>
+    <string name="success">Berhasil!</string>
+    <string name="all_req">Semua field harus diisi!</string>
+    <string name="register_success">Akun berhasil didaftarkan!</string>
+    <string name="register_failed">Akun tidak berhasil didaftarkan..</string>
 </resources>
