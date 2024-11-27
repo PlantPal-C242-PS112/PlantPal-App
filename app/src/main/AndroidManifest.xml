@@ -19,6 +19,15 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.forgotpw.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.otp.OtpVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.changepassword.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
