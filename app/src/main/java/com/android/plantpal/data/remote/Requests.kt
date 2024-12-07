@@ -10,3 +10,7 @@ data class LoginRequest(
     val identifier: String,
     val password: String,
 )
+
+data class CommentRequest(
+    val content: String
+)

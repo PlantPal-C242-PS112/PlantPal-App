@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkLogin() {
         mainViewModel.getSession().observe(this@MainActivity) { user ->
             if (user.isLogin) {
-                val navController = findNavController(R.id.nav_host_fragment_activity_main)
-                navController.navigate(R.id.navigation_home)
+
             } else {
                 val intent = Intent(this@MainActivity, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

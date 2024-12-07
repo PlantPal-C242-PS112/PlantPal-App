@@ -9,7 +9,8 @@
         android:id="@+id/navigation_home"
         android:name="com.android.plantpal.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_plant"
@@ -19,9 +20,9 @@
 
     <fragment
         android:id="@+id/navigation_discussion"
-        android:name="com.android.plantpal.ui.discussion.DiscussionFragment"
+        android:name="com.android.plantpal.ui.discussion.DiscussionsFragment"
         android:label="Diskusi"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_discussions" />
 
     <fragment
         android:id="@+id/navigation_explore"
@@ -34,4 +35,5 @@
         android:name="com.android.plantpal.ui.account.AccountFragment"
         android:label="Akun"
         tools:layout="@layout/fragment_account" />
+
 </navigation>

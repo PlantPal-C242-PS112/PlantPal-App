@@ -21,9 +21,14 @@
     <string name="login_success">Login Berhasil!</string>
     <string name="login_failed">Login Gagal!</string>
     <string name="failed">Gagal</string>
-    <string name="please_wait">Harap tunggu...</string>
+    <string name="please_wait">Harap tunggu..</string>
     <string name="success">Berhasil!</string>
     <string name="all_req">Semua field harus diisi!</string>
     <string name="register_success">Akun berhasil didaftarkan!</string>
     <string name="register_failed">Akun tidak berhasil didaftarkan..</string>
+    <string name="icon_analyze">Icon Analyze</string>
+    <string name="icon_analyze_desc">Icon Analyze</string>
+    <string name="retry">Coba lagi</string>
+    <string name="input_too_short">Pertanyaan terlalu pendek, harus lebih dari 20 karakter</string>
+    <string name="input_too_short_desc">Deskripsi terlalu pendek, harus lebih dari 20 karakter</string>
 </resources>
