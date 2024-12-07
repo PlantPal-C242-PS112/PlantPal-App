@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -45,6 +46,8 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, viewModelFactory)[AccountViewModel::class.java]
 
@@ -62,11 +65,14 @@ class EditProfileActivity : AppCompatActivity() {
                     val userData = result.data.data
                     val fullname = viewModel.fullname ?: userData.fullname
                     val photoUri = viewModel.currentImageUri ?: Uri.parse(userData.profilePhoto.toString())
+                    Log.d("UpdateProfile", "$fullname")
 
                     binding.edFullnameProf.setText(fullname)
                     Glide.with(binding.profilePic.context)
                         .load(photoUri)
                         .into(binding.profilePic)
+
+                    Log.d("UpdateProfile", "$photoUri")
 
                     setupButton(userData.fullname, fullname)
                 }
@@ -86,6 +92,7 @@ class EditProfileActivity : AppCompatActivity() {
                 isNameChanged = s.toString().trim() != initialFullname
                 viewModel.fullname = s.toString().trim()
                 updateSaveButtonVisibility()
+                Log.d("UpdateProfile1", "${viewModel.fullname}")
             }
 
             override fun afterTextChanged(s: Editable) {}
@@ -110,31 +117,33 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 } else null
 
-                updateProfile(imageFile, currentFullname)
+                updateProfile(imageFile, viewModel.fullname)
+                Log.d("Updet", "${viewModel.fullname}")
             }
         }
     }
 
-    private fun updateProfile(photoFile: File?, currentFullname: String) {
+    private fun updateProfile(photoFile: File?, currentFullname: String?) {
         Log.d("UpdateProfile", "$photoFile, $currentFullname")
-        viewModel.updateProfile(photoFile, currentFullname).observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    loadingDialog.startLoadingDialog()
-                }
-                is Result.Success -> {
-                    loadingDialog.dismissDialog()
-                    successDialog.startSuccessDialog("Upload Berhasil!")
-                    navigateBack()
-                }
-                is Result.Error -> {
-                    loadingDialog.dismissDialog()
-                    failedDialog.startFailedDialog("Upload Gagal!")
-                    Log.e("Upload", "Error processing profile update: ${result.error}")
+        if (currentFullname != null) {
+            viewModel.updateProfile(photoFile, currentFullname).observe(this) { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        loadingDialog.startLoadingDialog()
+                    }
+                    is Result.Success -> {
+                        loadingDialog.dismissDialog()
+                        successDialog.startSuccessDialog("Perubahan Berhasil Disimpan!")
+                        navigateBack()
+                    }
+                    is Result.Error -> {
+                        loadingDialog.dismissDialog()
+                        failedDialog.startFailedDialog("Perubahan Gagal Disimpan!")
+                        Log.e("Upload", "Error processing profile update: ${result.error}")
+                    }
                 }
             }
         }
-
     }
 
     private fun updateSaveButtonVisibility() {
@@ -167,6 +176,16 @@ class EditProfileActivity : AppCompatActivity() {
             delay(2000)
             successDialog.dismissDialog()
             finish()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

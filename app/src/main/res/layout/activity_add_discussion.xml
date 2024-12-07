@@ -150,7 +150,6 @@
         android:layout_width="match_parent"
         app:cornerRadius="32dp"
         android:layout_height="52dp"
-        app:iconGravity="textStart"
         android:textAllCaps="false"
         android:text="Upload"
         android:layout_alignParentBottom="true"

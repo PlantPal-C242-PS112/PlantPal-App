@@ -1,21 +1,20 @@
-package com.android.plantpal.ui.otp
+package com.android.plantpal.ui.register
 
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.plantpal.R
-import com.android.plantpal.databinding.ActivityOtpVerificationBinding
+import com.android.plantpal.databinding.ActivityEmailVerificationOtpBinding
 import com.android.plantpal.ui.ViewModelFactory
-import com.android.plantpal.ui.changepassword.ChangePasswordActivity
-import com.android.plantpal.ui.forgotpw.ForgotPasswordActivity
+import com.android.plantpal.ui.login.LoginActivity
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.FailedDialog
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
@@ -23,19 +22,17 @@ import com.android.plantpal.ui.utils.dialog.SuccessDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class OtpVerificationActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityOtpVerificationBinding
-    private lateinit var otpVerificationViewModel: OtpVerificationViewModel
+class EmailVerificationOtpActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEmailVerificationOtpBinding
+    private lateinit var registerViewModel: RegisterViewModel
     private val successDialog = SuccessDialog(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOtpVerificationBinding.inflate(layoutInflater)
+        binding = ActivityEmailVerificationOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
-        otpVerificationViewModel = ViewModelProvider(this, viewModelFactory)[OtpVerificationViewModel::class.java]
+        registerViewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
 
         setupView()
         setupAction()
@@ -62,12 +59,7 @@ class OtpVerificationActivity : AppCompatActivity() {
         binding.btnVerifyOtp.setOnClickListener {
             verifyOtp()
         }
-
-        binding.btnBackToForgotPassword.setOnClickListener {
-            backToForgotPassword()
-        }
     }
-
 
     private fun verifyOtp() {
         val loadingDialog = LoadingDialog(this)
@@ -75,7 +67,7 @@ class OtpVerificationActivity : AppCompatActivity() {
         val email = intent.getStringExtra("EMAIL") ?: ""
 
         if (otp.isNotEmpty() && email.isNotEmpty()) {
-            otpVerificationViewModel.verifyForgotPasswordOtp(email, otp).observe(this) { result ->
+            registerViewModel.verifyEmail(email, otp).observe(this) { result ->
                 when (result) {
                     is Result.Loading -> {
                         loadingDialog.startLoadingDialog()
@@ -84,7 +76,7 @@ class OtpVerificationActivity : AppCompatActivity() {
                     is Result.Success -> {
                         loadingDialog.dismissDialog()
                         successDialog.startSuccessDialog(getString(R.string.otp_verified))
-                        navigateToChangePassword()
+                        navigateToLogin()
                     }
 
                     is Result.Error -> {
@@ -99,24 +91,11 @@ class OtpVerificationActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToChangePassword() {
+    private fun navigateToLogin() {
         lifecycleScope.launch {
             delay(2000)
             successDialog.dismissDialog()
-            Intent(this@OtpVerificationActivity, ChangePasswordActivity::class.java).also {
-                val email = intent.getStringExtra("EMAIL") ?: ""
-                it.putExtra("EMAIL", email)
-                startActivity(it)
-            }
-        }
-    }
-
-    private fun backToForgotPassword() {
-        lifecycleScope.launch {
-            delay(2000)
-            successDialog.dismissDialog()
-            Intent(this@OtpVerificationActivity, ForgotPasswordActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            Intent(this@EmailVerificationOtpActivity, LoginActivity::class.java).also {
                 startActivity(it)
                 finish()
             }
@@ -130,4 +109,5 @@ class OtpVerificationActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
     }
+
 }

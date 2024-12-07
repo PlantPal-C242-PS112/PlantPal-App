@@ -12,7 +12,9 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
+import com.android.plantpal.data.remote.response.DetailDiseaseResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
+import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.PlantsResponse
@@ -44,7 +46,6 @@ interface ApiService {
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
-
 
     @GET("discussions")
     suspend fun getAllDiscussions(
@@ -126,4 +127,14 @@ interface ApiService {
     suspend fun changeForgotPassword(
         @Body changeForgotPasswordRequest: ChangeForgotPasswordRequest
     ): ChangeForgotPasswordResponse
+
+    @GET("diseases")
+    suspend fun getAllDiseases() : DiseaseResponse
+
+
+    @GET("diseases/{id}")
+    suspend fun getDetailDisease(
+        @Path("id") id: Int
+    ): DetailDiseaseResponse
+
 }

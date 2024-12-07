@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -18,6 +20,7 @@ import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.databinding.ActivityRegisterBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.login.LoginActivity
+import com.android.plantpal.ui.otp.OtpVerificationActivity
 import com.android.plantpal.ui.utils.dialog.FailedDialog
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.dialog.SuccessDialog
@@ -85,7 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                 is Result.Success -> {
                     loadingDialog.dismissDialog()
                     successDialog.startSuccessDialog(getString(R.string.register_success))
-                    navigateToLogin()
+                    sendOtpEmailVerif(email)
                 }
                 is Result.Error -> {
                     loadingDialog.dismissDialog()
@@ -95,6 +98,36 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun sendOtpEmailVerif(email: String) {
+        val loadingDialog = LoadingDialog(this)
+        registerViewModel.sendVerification(email).observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    loadingDialog.startLoadingDialog()
+                }
+                is Result.Success -> {
+                    loadingDialog.dismissDialog()
+                    val successDialog = SuccessDialog(this)
+                    successDialog.startSuccessDialog(getString(R.string.otp_sent_success))
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        navigateToVerificationEmail(email)
+                    }, 2000)
+                }
+                is Result.Error -> {
+                    val failedDialog = FailedDialog(this)
+                    failedDialog.startFailedDialog(getString(R.string.otp_sent_failed))
+                }
+            }
+        }
+    }
+
+    private fun navigateToVerificationEmail(email: String) {
+        Intent(this@RegisterActivity, EmailVerificationOtpActivity::class.java).also {
+            it.putExtra("EMAIL", email)
+            startActivity(it)
+        }
     }
 
     private fun navigateToLogin() {
@@ -109,11 +142,35 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-//        ObjectAnimator.ofFloat(binding.iconRegister, View.TRANSLATION_X, -30f, 30f).apply {
-//            duration = 6000
-//            repeatCount = ObjectAnimator.INFINITE
-//            repeatMode = ObjectAnimator.REVERSE
-//        }.start()
+        ObjectAnimator.ofFloat(binding.iconLogin, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        ObjectAnimator.ofFloat(binding.iconBunga, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        ObjectAnimator.ofFloat(binding.iconJeruk, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        ObjectAnimator.ofFloat(binding.iconTomat, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        ObjectAnimator.ofFloat(binding.iconTunas, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
 
         val registerButton = ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(400)
         val welcomeText = ObjectAnimator.ofFloat(binding.welcomeText, View.ALPHA, 1f).setDuration(400)

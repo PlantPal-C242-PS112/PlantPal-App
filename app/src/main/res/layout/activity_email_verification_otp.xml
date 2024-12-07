@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back_alt"
-    tools:context=".ui.otp.OtpVerificationActivity">
+    tools:context=".ui.register.EmailVerificationOtpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <ImageView
             android:id="@+id/icon_login"
@@ -45,7 +46,7 @@
                     android:id="@+id/otp_verificaiton_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/otp_verification"
+                    android:text="Verifikasi Email Anda"
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
@@ -103,23 +104,11 @@
                     android:text="@string/verify_otp"
                     app:cornerRadius="32dp" />
 
-                <TextView
-                    android:id="@+id/btnBackToForgotPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="1"
-                    android:focusable="true"
-                    tools:alpha="100"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="@string/kembali_ke_halaman_lupa_password"
-                    android:textStyle="bold"
-                    tools:ignore="TouchTargetSizeCheck" />
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

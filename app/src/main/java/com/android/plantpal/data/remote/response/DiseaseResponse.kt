@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class DiseaseResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataItem>,
+	val data: List<ListItemDisease>,
 
 	@field:SerializedName("message")
 	val message: String,
@@ -14,10 +14,7 @@ data class DiseaseResponse(
 	val status: Boolean
 )
 
-data class DataItem(
-
-	@field:SerializedName("disease_media")
-	val diseaseMedia: List<DiseaseMediaItem>,
+data class UPlant(
 
 	@field:SerializedName("name")
 	val name: String,
@@ -26,11 +23,17 @@ data class DataItem(
 	val id: Int
 )
 
-data class DiseaseMediaItem(
+data class ListItemDisease(
 
-	@field:SerializedName("type")
-	val type: String,
+	@field:SerializedName("image")
+	val image: String,
 
-	@field:SerializedName("url")
-	val url: String
+	@field:SerializedName("plant")
+	val plant: UPlant,
+
+	@field:SerializedName("name")
+	val name: String,
+
+	@field:SerializedName("id")
+	val id: Int
 )

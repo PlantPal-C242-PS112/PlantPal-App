@@ -3,7 +3,6 @@ package com.android.plantpal.ui.home.plants
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemPlant
 import com.android.plantpal.databinding.ItemPlantsBinding
 import com.bumptech.glide.Glide
