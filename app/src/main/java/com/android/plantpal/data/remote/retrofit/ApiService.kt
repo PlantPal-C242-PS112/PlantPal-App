@@ -1,8 +1,12 @@
 package com.android.plantpal.data.remote.retrofit
 
+import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
+import com.android.plantpal.data.remote.SendOtpRequest
+import com.android.plantpal.data.remote.VerifyOtpRequest
+import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.CommentResponse
 import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
@@ -10,21 +14,15 @@ import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
-import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
-import com.android.plantpal.data.remote.LoginRequest
-import com.android.plantpal.data.remote.RegisterRequest
-import com.android.plantpal.data.remote.SendOtpRequest
-import com.android.plantpal.data.remote.VerifyOtpRequest
-import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.PlantsResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
+import com.android.plantpal.data.remote.response.SendOtpResponse
 import com.android.plantpal.data.remote.response.UpdateProfileResponse
 import com.android.plantpal.data.remote.response.UserDetailResponse
+import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import com.android.plantpal.data.remote.response.SendOtpResponse
-import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -104,7 +102,6 @@ interface ApiService {
         @Path("id") id: Int
     ): LikeOrDislikeResponse
 
-}
     @POST("users/register/send-otp")
     suspend fun sendEmailVerificationOtp(
         @Body sendOtpRequest: SendOtpRequest

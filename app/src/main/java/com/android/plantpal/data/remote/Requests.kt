@@ -14,7 +14,7 @@ data class LoginRequest(
 
 data class CommentRequest(
     val content: String
-  
+)
 data class SendOtpRequest(
     val email: String
 )

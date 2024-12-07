@@ -40,12 +40,6 @@ class DiscussionsFragment : Fragment() {
 
         setupAction()
         setupRecyclerView()
-
-        viewModel.discussions.observe(viewLifecycleOwner) { result ->
-            result?.let { pagingData ->
-                adapter.submitData(lifecycle, pagingData)
-            }
-        }
     }
 
     private fun setupAction() {
@@ -64,6 +58,11 @@ class DiscussionsFragment : Fragment() {
             footer = LoadingStateAdapter { adapter.retry() }
         )
 
+        viewModel.discussions.observe(viewLifecycleOwner) { pagingData ->
+            adapter.submitData(lifecycle, pagingData)
+        }
+
+
         adapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading) {
                 showLoading(true)
@@ -72,7 +71,6 @@ class DiscussionsFragment : Fragment() {
             }
         }
 
-        // Handle item click to open discussion details
         adapter.setOnItemClickCallback(object : DiscussionAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListItemDiscussions) {
                 sendSelectedDiscussion(data)

@@ -47,6 +47,7 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(PlantsViewModel::class.java) -> {
                 PlantsViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(ForgotPasswordViewModel::class.java) -> {
                 ForgotPasswordViewModel(repository) as T
             }
