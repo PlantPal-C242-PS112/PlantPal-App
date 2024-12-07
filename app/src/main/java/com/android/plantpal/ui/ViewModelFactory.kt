@@ -11,7 +11,10 @@ import com.android.plantpal.ui.discussion.DiscussionViewModel
 import com.android.plantpal.ui.discussion.add.AddDiscussionViewModel
 import com.android.plantpal.ui.home.analyze.AnalyzeViewModel
 import com.android.plantpal.ui.home.plants.PlantsViewModel
+import com.android.plantpal.ui.changepassword.ChangePasswordViewModel
+import com.android.plantpal.ui.forgotpw.ForgotPasswordViewModel
 import com.android.plantpal.ui.login.LoginViewModel
+import com.android.plantpal.ui.otp.OtpVerificationViewModel
 import com.android.plantpal.ui.register.RegisterViewModel
 
 class ViewModelFactory private constructor(
@@ -44,6 +47,14 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(PlantsViewModel::class.java) -> {
                 PlantsViewModel(repository) as T
+            modelClass.isAssignableFrom(ForgotPasswordViewModel::class.java) -> {
+                ForgotPasswordViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(OtpVerificationViewModel::class.java) -> {
+                OtpVerificationViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ChangePasswordViewModel::class.java) -> {
+                ChangePasswordViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

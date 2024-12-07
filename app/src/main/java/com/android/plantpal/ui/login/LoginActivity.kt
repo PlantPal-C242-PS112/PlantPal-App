@@ -19,6 +19,7 @@ import com.android.plantpal.data.preference.UserPreference
 import com.android.plantpal.data.preference.dataStore
 import com.android.plantpal.databinding.ActivityLoginBinding
 import com.android.plantpal.ui.ViewModelFactory
+import com.android.plantpal.ui.forgotpw.ForgotPasswordActivity
 import com.android.plantpal.ui.register.RegisterActivity
 import com.android.plantpal.ui.utils.dialog.FailedDialog
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
@@ -109,9 +110,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.lupaPasswordText.setOnClickListener{
-            Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show()
+            navigateToForgotPassword()
         }
     }
+
 
     private fun login() {
         val loadingDialog = LoadingDialog(this)
@@ -145,6 +147,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToRegister() {
         Intent(this@LoginActivity, RegisterActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(it)
+            finish()
+        }
+    }
+
+    private fun navigateToForgotPassword() {
+        Intent(this@LoginActivity, ForgotPasswordActivity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(it)
             finish()

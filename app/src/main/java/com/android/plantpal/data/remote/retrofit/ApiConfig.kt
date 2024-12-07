@@ -1,5 +1,6 @@
 package com.android.plantpal.data.remote.retrofit
 
+import android.util.Log
 import com.android.plantpal.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,6 +12,8 @@ object ApiConfig {
     var BASE_URL = BuildConfig.BASE_URL
 
     fun getApiService(token: String): ApiService {
+        Log.d("ApiConfig", "BASE_URL: $BASE_URL")
+
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         } else {

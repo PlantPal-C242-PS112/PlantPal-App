@@ -11,6 +11,20 @@ data class LoginRequest(
     val password: String,
 )
 
+
 data class CommentRequest(
     val content: String
+  
+data class SendOtpRequest(
+    val email: String
+)
+
+data class VerifyOtpRequest(
+    val email: String,
+    val otp: String
+)
+
+data class ChangeForgotPasswordRequest(
+    val email: String,
+    val password: String
 )

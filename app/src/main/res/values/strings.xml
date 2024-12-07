@@ -31,4 +31,37 @@
     <string name="retry">Coba lagi</string>
     <string name="input_too_short">Pertanyaan terlalu pendek, harus lebih dari 20 karakter</string>
     <string name="input_too_short_desc">Deskripsi terlalu pendek, harus lebih dari 20 karakter</string>
+    <string name="otp_sent_success">OTP berhasil terkirim.</string>
+    <string name="otp_sent_failed">OTP gagal terkirim.</string>
+    <string name="send_otp">Kirim Kode</string>
+    <string name="verify_otp">Verifikasi</string>
+    <string name="kembali_ke_halaman_lupa_password">Kembali</string>
+    <string name="alamat_email">Alamat Email</string>
+    <string name="email_empty_error">Alamat email tidak boleh kosong</string>
+    <string name="change_password">Ubah Kata Sandi</string>
+    <string name="new_password">Kata Sandi Baru</string>
+    <string name="confirm_new_password">Konfirmasi Sandi Baru</string>
+    <string name="submit">Simpan</string>
+    <string name="batalkan">Batalkan</string>
+    <string name="test_gmail_com">test@gmail.com</string>
+    <string name="silahkan_masukkan_kode_yang_telah_kami_kirim">Silahkan masukkan kode yang telah kami kirim</string>
+    <string name="otp_verification">Verifikasi Kode</string>
+    <string name="resend_otp">Kirim ulang kode</string>
+    <string name="deskripsi_forgotpw">Masukkan alamat email agar kami dapat mengirimkan kode</string>
+    <string name="lupa_kata_sandi_title">Lupa Kata Sandi?</string>
+    <string name="back_to_login">Kembali</string>
+    <string name="back_to_otp">Kembali</string>
+    <string name="otp_empty">Masukkan kode otp!</string>
+    <string name="otp_verification_failed">Kode salah</string>
+    <string name="otp_verified">Verifikasi berhasil</string>
+    <string name="save_password">"Simpan Kata Sandi Baru "</string>
+    <string name="save_password_success">Kata Sandi Baru Berhasil Tersimpan</string>
+    <string name="save_password_failed">Kata Sandi Baru Tidak Berhasil Tersimpan</string>
+    <string name="new_password_empty_error">Masukkan Kata Sandi Baru</string>
+    <string name="old_password_empty_error">Masukkan Kata Sandi Lama</string>
+    <string name="passwords_same_error">Kata Sandi Tidak Boleh Sama</string>
+    <string name="old_and_new_password_empty">Masukkan Kata Sandi Lama dan Kata Sandi Baru</string>
+    <string name="email_not_found">Email Tidak Ditemukan</string>
+
+
 </resources>

@@ -10,6 +10,12 @@ import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
+import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
+import com.android.plantpal.data.remote.LoginRequest
+import com.android.plantpal.data.remote.RegisterRequest
+import com.android.plantpal.data.remote.SendOtpRequest
+import com.android.plantpal.data.remote.VerifyOtpRequest
+import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.PlantsResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
@@ -17,6 +23,8 @@ import com.android.plantpal.data.remote.response.UpdateProfileResponse
 import com.android.plantpal.data.remote.response.UserDetailResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import com.android.plantpal.data.remote.response.SendOtpResponse
+import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -26,6 +34,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+
 
 interface ApiService {
     @POST("users/register")
@@ -37,6 +46,7 @@ interface ApiService {
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
+
 
     @GET("discussions")
     suspend fun getAllDiscussions(
@@ -94,4 +104,29 @@ interface ApiService {
         @Path("id") id: Int
     ): LikeOrDislikeResponse
 
+}
+    @POST("users/register/send-otp")
+    suspend fun sendEmailVerificationOtp(
+        @Body sendOtpRequest: SendOtpRequest
+    ): SendOtpResponse
+
+    @POST("users/register/verify-otp")
+    suspend fun verifyEmailVerificationOtp(
+        @Body verifyOtpRequest: VerifyOtpRequest
+    ): VerifyOtpResponse
+
+    @POST("users/forgot-password/send-otp")
+    suspend fun sendForgotPasswordOtp(
+        @Body sendOtpRequest: SendOtpRequest
+    ): SendOtpResponse
+
+    @POST("users/forgot-password/verify-otp")
+    suspend fun verifyForgotPasswordOtp(
+        @Body verifyOtpRequest: VerifyOtpRequest
+    ): VerifyOtpResponse
+
+    @PUT("users/forgot-password/change-password")
+    suspend fun changeForgotPassword(
+        @Body changeForgotPasswordRequest: ChangeForgotPasswordRequest
+    ): ChangeForgotPasswordResponse
 }
