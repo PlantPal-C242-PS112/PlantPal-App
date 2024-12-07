@@ -22,9 +22,11 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
+import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
+import com.android.plantpal.data.remote.response.ListItemDisease
 import com.android.plantpal.data.remote.response.ListItemPlant
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
@@ -212,6 +214,16 @@ class Repository (
         }
     }
 
+    fun getAllDiseases(): LiveData<Result<List<ListItemDisease>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getAllDiseases()
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
     fun getAllDiscussions(): LiveData<PagingData<ListItemDiscussions>>
     {
         @OptIn(ExperimentalPagingApi::class)
@@ -230,11 +242,17 @@ class Repository (
         emit(Result.Loading)
         try {
             val response = apiService.getDetailDiscussion(id)
-            if (response.data != null) {
-                emit(Result.Success(response.data))
-            } else {
-                emit(Result.Error("Discussion not found"))
-            }
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun getDetailDisease(id: Int): LiveData<Result<DetailDiseaseData>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getDetailDisease(id)
+            emit(Result.Success(response.data))
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
         }

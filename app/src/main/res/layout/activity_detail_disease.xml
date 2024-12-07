@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.disease.DetailDiseaseActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_photo_diseases"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/disease_plant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/rv_photo_diseases"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/disease_type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disease Type"
+                android:textColor="@color/green"
+                android:textSize="15sp"
+                android:padding="5dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/disease_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/disease_plant"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Disease Name"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/disease_desc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/disease_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Deskripsi"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/green"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/disease_desc_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="5dp"
+            android:text="@string/lorem"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disease_desc_layout"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
+            android:id="@+id/disease_prevention_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/disease_desc_text"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Pencegahan"
+            android:textStyle="bold"
+            android:textColor="@color/green"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/disease_prevention_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/lorem"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disease_prevention_layout"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
+            android:id="@+id/disease_treatment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/disease_prevention_text"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Pengobatan"
+            android:textStyle="bold"
+            android:textColor="@color/green"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/disease_treatment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/lorem"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disease_treatment_layout"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
+            android:id="@+id/disease_cure_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/disease_treatment_text"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:text="Saran Obat Penyakit"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/disease_cure_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/lorem"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disease_cure_layout"
+            tools:ignore="TextSizeCheck" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cure_diseases"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/disease_cure_text"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

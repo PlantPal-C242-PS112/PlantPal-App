@@ -28,6 +28,28 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="Plant Photo" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/disease_plant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_photo_disease"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/disease_type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disease Type"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:padding="5dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:id="@+id/tv_item_disease"
             android:layout_width="match_parent"
@@ -38,7 +60,7 @@
             android:maxLines="2"
             android:text="Nama Penyakit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_item_photo_disease" />
+            app:layout_constraintTop_toBottomOf="@id/disease_plant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

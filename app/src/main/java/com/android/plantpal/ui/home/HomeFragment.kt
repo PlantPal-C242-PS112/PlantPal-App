@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.plantpal.R
 import com.android.plantpal.databinding.FragmentHomeBinding
 import com.android.plantpal.ui.home.analyze.AnalyzeActivity
+import com.android.plantpal.ui.home.disease.DiseasesActivity
 import com.android.plantpal.ui.home.plants.PlantActivity
 
 class HomeFragment : Fragment() {
@@ -38,8 +39,13 @@ class HomeFragment : Fragment() {
             navigateToPlant()
         }
         binding.cardDiseaseMenu.setOnClickListener{
-
+            navigateToDisease()
         }
+    }
+
+    private fun navigateToDisease() {
+        val intent = Intent(requireContext(), DiseasesActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToPlant() {

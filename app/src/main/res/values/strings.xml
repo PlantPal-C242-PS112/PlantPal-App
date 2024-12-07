@@ -62,6 +62,7 @@
     <string name="passwords_same_error">Kata Sandi Tidak Boleh Sama</string>
     <string name="old_and_new_password_empty">Masukkan Kata Sandi Lama dan Kata Sandi Baru</string>
     <string name="email_not_found">Email Tidak Ditemukan</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
 
 </resources>
