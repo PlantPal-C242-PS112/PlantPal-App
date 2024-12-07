@@ -6,6 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.plantpal.MainViewModel
 import com.android.plantpal.data.Repository
 import com.android.plantpal.data.di.Injection
+import com.android.plantpal.ui.account.AccountViewModel
+import com.android.plantpal.ui.discussion.DiscussionViewModel
+import com.android.plantpal.ui.discussion.add.AddDiscussionViewModel
+import com.android.plantpal.ui.home.analyze.AnalyzeViewModel
+import com.android.plantpal.ui.home.plants.PlantsViewModel
 import com.android.plantpal.ui.changepassword.ChangePasswordViewModel
 import com.android.plantpal.ui.forgotpw.ForgotPasswordViewModel
 import com.android.plantpal.ui.login.LoginViewModel
@@ -28,6 +33,21 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AnalyzeViewModel::class.java) -> {
+                AnalyzeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DiscussionViewModel::class.java) -> {
+                DiscussionViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AccountViewModel::class.java) -> {
+                AccountViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AddDiscussionViewModel::class.java) -> {
+                AddDiscussionViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(PlantsViewModel::class.java) -> {
+                PlantsViewModel(repository) as T
             }
             modelClass.isAssignableFrom(ForgotPasswordViewModel::class.java) -> {
                 ForgotPasswordViewModel(repository) as T

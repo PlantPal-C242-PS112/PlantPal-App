@@ -1,0 +1,14 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background image -->
+    <item>
+        <bitmap
+            android:src="@drawable/menu_plant" />
+    </item>
+
+    <!-- Rounded corners mask -->
+    <item>
+        <shape>
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+</layer-list>

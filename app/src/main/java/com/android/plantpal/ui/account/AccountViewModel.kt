@@ -1,7 +1,26 @@
 package com.android.plantpal.ui.account
 
+import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.android.plantpal.data.Repository
+import com.android.plantpal.data.preference.UserModel
+import kotlinx.coroutines.launch
+import java.io.File
 
-class AccountViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class AccountViewModel(private val repository: Repository) : ViewModel() {
+
+    var currentImageUri: Uri? = null
+    var fullname: String? = null
+    fun getUserDetails() = repository.getUserDetails()
+
+    fun updateProfile(profilePicture: File?, fullname: String) = repository.updateProfile(profilePicture, fullname)
+
+    fun logout() {
+        viewModelScope.launch {
+            repository.logout()
+        }
+    }
 }
