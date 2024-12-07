@@ -15,7 +15,7 @@
         android:id="@+id/navigation_plant"
         android:name="com.android.plantpal.ui.plant.PlantFragment"
         android:label="Tanamanku"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_plant" />
 
     <fragment
         android:id="@+id/navigation_discussion"
@@ -34,4 +34,20 @@
         android:name="com.android.plantpal.ui.account.AccountFragment"
         android:label="Akun"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/myPlantsDetailFragment"
+        android:name="com.android.plantpal.ui.plant.myplantdetail.MyPlantsDetailFragment"
+        android:label="Detail Tanaman"
+        tools:layout="@layout/fragment_detail_plant">
+        <argument
+            android:name="plantId"
+            app:argType="string" /> <!-- Menambahkan argumen untuk ID tanaman -->
+    </fragment>
+
+    <action
+        android:id="@+id/action_myPlantsFragment_to_myPlantsDetailFragment"
+        app:destination="@id/myPlantsDetailFragment" />
+
+
 </navigation>

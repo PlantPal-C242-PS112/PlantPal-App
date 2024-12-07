@@ -57,6 +57,27 @@
     <string name="passwords_same_error">Kata Sandi Tidak Boleh Sama</string>
     <string name="old_and_new_password_empty">Masukkan Kata Sandi Lama dan Kata Sandi Baru</string>
     <string name="email_not_found">Email Tidak Ditemukan</string>
+    <string name="plant_title">Plant Title</string>
+    <string name="plant_description">Deskripsi tanaman</string>
+    <string name="Tanaman">Tanaman</string>
+    <string name="add_plant">Tambah Tanaman</string>
+    <string name="tab_my_plants">Tanamanku</string>
+    <string name="tab_reminders">Pengingat</string>
+    <string name="tab_analysis_history">Riwayat Analisis</string>
+    <string name="set_reminder">Buat Pengingat</string>
+    <string name="nama_tanaman">Nama Tanaman</string>
+    <string name="plant_image">Gambar Tanaman</string>
+    <string name="data_failed">Data Tidak Ditemukan\n</string>
+    <string name="reminder_icon">siram tanaman</string>
+    <string name="more_options">opsi lain</string>
+    <string name="plant_name">Nama Tanaman</string>
+    <string name="plant_description_body">Deskripsi lengkap</string>
+    <string name="plant_tips">Kiat Tanaman</string>
+    <string name="plant_tips_add">Kiat Tambahan</string>
+    <string name="plant_tips_tip">Kiat 1</string>
+    <string name="plant_detail">Detail Tanaman</string>
+    <string name="back_button">Kembali</string>
+    <string name="favorite_button">Tambah ke favorit</string>
 
 
 </resources>

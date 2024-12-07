@@ -14,6 +14,7 @@ import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
+import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import com.android.plantpal.data.remote.retrofit.ApiService
 import com.android.plantpal.ui.utils.Result
@@ -156,6 +157,22 @@ class Repository (
 
         }
     }
+
+    fun getUserPlants(token: String): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getUserPlants("Bearer $token")
+            if (response.status) {
+                emit(Result.Success(response.data))
+            } else {
+                emit(Result.Error(response.message ?: "Unknown error"))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+            Log.e("GetUserPlants", "Error: ${e.message}", e)
+        }
+    }
+
 
     private suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)

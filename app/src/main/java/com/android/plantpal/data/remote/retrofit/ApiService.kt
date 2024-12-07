@@ -5,14 +5,18 @@ import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
 import com.android.plantpal.data.remote.VerifyOtpRequest
+import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
+import com.android.plantpal.data.remote.response.UserPlantsResponse
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -51,5 +55,17 @@ interface ApiService {
     suspend fun changeForgotPassword(
         @Body changeForgotPasswordRequest: ChangeForgotPasswordRequest
     ): ChangeForgotPasswordResponse
+
+    @GET("user-plants")
+    suspend fun getUserPlants(
+        @Header("Authorization") token: String
+    ): UserPlantsResponse
+
+    @POST("user-plants")
+    suspend fun addPlant(
+        @Header ("Authorization") token: String
+    ): AddPlantResponse
+
+
 }
 

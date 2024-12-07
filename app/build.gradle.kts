@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -75,6 +77,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.test.ext:junit-ktx:1.2.1")
     implementation("androidx.test:monitor:1.7.2")
+    implementation("com.android.volley:volley:1.2.1")
     testImplementation("junit:junit:4.12")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.paging:paging-runtime-ktx:3.3.4")
