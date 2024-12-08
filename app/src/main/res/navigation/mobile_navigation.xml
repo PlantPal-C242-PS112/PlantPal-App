@@ -9,14 +9,13 @@
         android:id="@+id/navigation_home"
         android:name="com.android.plantpal.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_plant"
         android:name="com.android.plantpal.ui.plant.PlantFragment"
         android:label="Tanamanku"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_plant" />
 
     <fragment
         android:id="@+id/navigation_discussion"
@@ -35,5 +34,9 @@
         android:name="com.android.plantpal.ui.account.AccountFragment"
         android:label="Akun"
         tools:layout="@layout/fragment_account" />
+
+
+
+
 
 </navigation>
