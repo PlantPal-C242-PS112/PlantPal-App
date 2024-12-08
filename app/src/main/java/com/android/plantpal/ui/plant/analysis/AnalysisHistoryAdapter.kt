@@ -1,17 +1,21 @@
 package com.android.plantpal.ui.plant.analysis
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.plantpal.R
 import com.android.plantpal.data.remote.response.DiagnosisItem
 import com.android.plantpal.databinding.ItemAnalysisBinding
+import com.android.plantpal.ui.utils.formatToLocalDateTime
 import com.bumptech.glide.Glide
-import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.TimeZone
 
-class AnalysisHistoryAdapter : RecyclerView.Adapter<AnalysisHistoryAdapter.AnalysisHistoryViewHolder>() {
+class AnalysisHistoryAdapter(
+    private val onClick: (DiagnosisItem) -> Unit
+) : RecyclerView.Adapter<AnalysisHistoryAdapter.AnalysisHistoryViewHolder>() {
 
     private var diagnosisList: List<DiagnosisItem> = listOf()
 
@@ -23,6 +27,10 @@ class AnalysisHistoryAdapter : RecyclerView.Adapter<AnalysisHistoryAdapter.Analy
     override fun onBindViewHolder(holder: AnalysisHistoryViewHolder, position: Int) {
         val diagnosisItem = diagnosisList[position]
         holder.bind(diagnosisItem)
+
+        holder.itemView.setOnClickListener {
+            onClick(diagnosisItem)
+        }
     }
 
     override fun getItemCount(): Int = diagnosisList.size
@@ -34,20 +42,29 @@ class AnalysisHistoryAdapter : RecyclerView.Adapter<AnalysisHistoryAdapter.Analy
 
     inner class AnalysisHistoryViewHolder(private val binding: ItemAnalysisBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(diagnosisItem: DiagnosisItem) {
-            binding.tvDiseaseName.text = diagnosisItem.result.message
 
-            val formattedDate = formatDate(diagnosisItem.result.plantId)
+            val formattedDate = formatToLocalDateTime(diagnosisItem.createdAt)
             binding.tvDate.text = formattedDate
 
             Glide.with(binding.root.context)
                 .load(diagnosisItem.result.imageUrl)
                 .placeholder(R.drawable.ic_image)
                 .into(binding.ivIcon)
-        }
 
-        private fun formatDate(plantId: Int): String {
-            val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            return sdf.format(Date(plantId.toLong()))
+            if (diagnosisItem.result.message.startsWith("We are not sure", ignoreCase = true)) {
+                binding.tvDiseaseName.text = diagnosisItem.result.message
+                binding.plantType1.visibility = View.GONE
+                binding.plantType2.visibility = View.VISIBLE
+                binding.iconNext.visibility = View.GONE
+            } else{
+                binding.tvDiseaseName.text = diagnosisItem.result.className
+                    .split("__")
+                    .getOrNull(1)
+                    .orEmpty()
+                binding.plantType2.visibility = View.GONE
+                binding.plantType1.visibility = View.VISIBLE
+                binding.iconNext.visibility = View.VISIBLE
+            }
         }
     }
 }

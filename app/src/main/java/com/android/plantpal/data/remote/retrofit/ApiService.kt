@@ -177,10 +177,8 @@ interface ApiService {
         @Body request: DeletePlantRequest
     ): DeletePlantResponse
 
-    @GET("history")
-    suspend fun getDiagnosisHistory(
-        @Header("Authorization") authorization: String
-    ): DiagnosisHistoryResponse
+    @GET("diagnosis/history")
+    suspend fun getDiagnosisHistory(): DiagnosisHistoryResponse
 
 }
 

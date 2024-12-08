@@ -12,6 +12,7 @@
     <color name="peach">#FFF8E8</color>
     <color name="red">#CA1313</color>
     <color name="orange">#FF7F3E</color>
+    <color name="super_red">#ffd0d0</color>
     <color name="super_green">#EDEFEE</color>
 
 </resources>
