@@ -8,6 +8,7 @@
     tools:context=".ui.plant.analysis.AnalysisHistoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50dp"
         android:id="@+id/rv_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

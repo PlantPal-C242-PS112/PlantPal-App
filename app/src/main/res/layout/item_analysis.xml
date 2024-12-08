@@ -1,40 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="?attr/selectableItemBackground">
+    android:layout_marginTop="21dp"
+    android:layout_marginStart="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginEnd="10dp">
 
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_image" />
-
-    <LinearLayout
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_ph"
+        app:cardCornerRadius="12dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_place_holder"
+            android:contentDescription="Icon one" />
+
+    </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_disease_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nama Penyakit"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/card_ph"
+            app:layout_constraintTop_toTopOf="@id/card_ph"
+            app:layout_constraintEnd_toStartOf="@id/icon_next"
+            app:layout_constraintBottom_toTopOf="@id/plant_type1"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/plant_type1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bintik Hitam"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            app:cardCornerRadius="24dp"
+            android:visibility="visible"
+            app:strokeColor="@color/green"
+            app:cardBackgroundColor="@color/super_green"
+            app:layout_constraintTop_toBottomOf="@id/tv_disease_name"
+            app:layout_constraintStart_toEndOf="@id/card_ph"
+            app:layout_constraintBottom_toTopOf="@id/plant_type2"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/plant_type1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penyakit Terdeteksi"
+                android:textColor="@color/green"
+                android:textSize="13sp"
+                android:padding="5dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/plant_type2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="24dp"
+        app:strokeColor="@color/red"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/super_red"
+        app:layout_constraintTop_toBottomOf="@id/plant_type1"
+        app:layout_constraintStart_toEndOf="@id/card_ph"
+        app:layout_constraintBottom_toTopOf="@id/tv_date"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:id="@+id/plant_type2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gagal Terdeteksi"
+            android:textColor="@color/red"
+            android:textSize="13sp"
+            android:padding="5dp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="26 Mei 2024"
+            android:layout_marginTop="5dp"
+            android:text="Nilai Keyakinan Analisis: "
+            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
-    </LinearLayout>
-</LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/plant_type2"
+            app:layout_constraintStart_toEndOf="@id/card_ph"
+            app:layout_constraintBottom_toBottomOf="@id/card_ph"
+            android:layout_marginStart="20dp"/>
+        <ImageView
+            android:id="@+id/icon_next"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_chevron_right_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="Icon one" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:padding="16dp"-->
+<!--    android:background="?attr/selectableItemBackground">-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardCornerRadius="12dp">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_icon"-->
+<!--                android:layout_width="55dp"-->
+<!--                android:layout_height="55dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:src="@drawable/ic_place_holder"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_disease_name"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Bintik Hitam"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="26 Mei 2024"-->
+<!--            android:textColor="@android:color/darker_gray"-->
+<!--            android:textSize="14sp" />-->
+<!--    </LinearLayout>-->
+<!--</LinearLayout>-->

@@ -150,3 +150,15 @@ fun calculateTimeDifference(updatedAt: String): String {
     }
 }
 
+fun formatToLocalDateTime(dateStr: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+    val date = inputFormat.parse(dateStr)
+
+    val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+    outputFormat.timeZone = TimeZone.getDefault()
+
+    return outputFormat.format(date!!)
+}
+

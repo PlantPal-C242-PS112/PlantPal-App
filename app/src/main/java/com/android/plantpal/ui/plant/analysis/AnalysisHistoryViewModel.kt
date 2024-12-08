@@ -9,7 +9,7 @@ import com.android.plantpal.ui.utils.Result
 
 class AnalysisHistoryViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getDiagnosisHistory(token: String): LiveData<Result<List<DiagnosisItem>>> {
-        return repository.getDiagnosisHistory(token)
+    fun getDiagnosisHistory(): LiveData<Result<List<DiagnosisItem>>> {
+        return repository.getDiagnosisHistory()
     }
 }

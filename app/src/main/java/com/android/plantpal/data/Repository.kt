@@ -27,9 +27,9 @@ import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
-import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DetailPlantData
 import com.android.plantpal.data.remote.response.DiagnosisItem
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
@@ -46,7 +46,6 @@ import com.android.plantpal.data.remote.retrofit.ApiService
 import com.android.plantpal.ui.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -432,10 +431,10 @@ class Repository (
         }
     }
 
-    fun getDiagnosisHistory(token: String): LiveData<Result<List<DiagnosisItem>>> = liveData(Dispatchers.IO) {
+    fun getDiagnosisHistory(): LiveData<Result<List<DiagnosisItem>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.getDiagnosisHistory("Bearer $token")
+            val response = apiService.getDiagnosisHistory()
             if (response.status) {
                 emit(Result.Success(response.data))
             } else {

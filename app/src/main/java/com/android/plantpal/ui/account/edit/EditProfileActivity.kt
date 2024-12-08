@@ -11,13 +11,11 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.plantpal.databinding.ActivityEditProfileBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.account.AccountViewModel
-import com.android.plantpal.ui.customview.CustomEditFullname
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.FailedDialog
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
@@ -74,7 +72,7 @@ class EditProfileActivity : AppCompatActivity() {
 
                     Log.d("UpdateProfile", "$photoUri")
 
-                    setupButton(userData.fullname, fullname)
+                    setupButton(userData.fullname)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -84,13 +82,13 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupButton(initialFullname: String, currentFullname: String) {
+    private fun setupButton(initialFullname: String) {
         binding.edFullnameProf.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 isNameChanged = s.toString().trim() != initialFullname
-                viewModel.fullname = s.toString().trim()
+                viewModel.fullname  = s.toString().trim()
                 updateSaveButtonVisibility()
                 Log.d("UpdateProfile1", "${viewModel.fullname}")
             }
@@ -117,25 +115,28 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 } else null
 
-                updateProfile(imageFile, viewModel.fullname)
-                Log.d("Updet", "${viewModel.fullname}")
+                updateProfile(imageFile, initialFullname)
+                Log.d("Updet", "${initialFullname}")
             }
         }
     }
 
-    private fun updateProfile(photoFile: File?, currentFullname: String?) {
-        Log.d("UpdateProfile", "$photoFile, $currentFullname")
-        if (currentFullname != null) {
-            viewModel.updateProfile(photoFile, currentFullname).observe(this) { result ->
+    private fun updateProfile(photoFile: File?, initialFullname: String?) {
+        Log.d("UpdateProfile", "$photoFile, $initialFullname")
+        val fullname = viewModel.fullname ?: initialFullname
+        if (fullname != null) {
+            viewModel.updateProfile(photoFile, fullname).observe(this) { result ->
                 when (result) {
                     is Result.Loading -> {
                         loadingDialog.startLoadingDialog()
                     }
+
                     is Result.Success -> {
                         loadingDialog.dismissDialog()
                         successDialog.startSuccessDialog("Perubahan Berhasil Disimpan!")
                         navigateBack()
                     }
+
                     is Result.Error -> {
                         loadingDialog.dismissDialog()
                         failedDialog.startFailedDialog("Perubahan Gagal Disimpan!")
