@@ -84,10 +84,15 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Coroutines
+    implementation("com.github.smarteist:Android-Image-Slider:1.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("io.github.chaosleung:pinview:1.4.4")
+
+    implementation ("com.github.yalantis:ucrop:2.2.10")
+
+
 
 }

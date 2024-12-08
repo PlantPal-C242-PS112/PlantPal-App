@@ -5,17 +5,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import com.android.plantpal.R
+import com.android.plantpal.data.database.SliderData
 import com.android.plantpal.databinding.FragmentHomeBinding
+import com.android.plantpal.ui.ViewModelFactory
+import com.android.plantpal.ui.account.AccountViewModel
 import com.android.plantpal.ui.home.analyze.AnalyzeActivity
 import com.android.plantpal.ui.home.disease.DiseasesActivity
 import com.android.plantpal.ui.home.plants.PlantActivity
+import com.android.plantpal.ui.utils.Result
+import com.bumptech.glide.Glide
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
+import com.smarteist.autoimageslider.SliderAnimations
+import com.smarteist.autoimageslider.SliderView
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var viewModel: AccountViewModel
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +38,32 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val viewModelFactory = ViewModelFactory.getInstance(requireContext().applicationContext)
+        viewModel = ViewModelProvider(this, viewModelFactory)[AccountViewModel::class.java]
         setupAction()
+        setupSlider()
+        setupData()
+    }
+
+    private fun setupData() {
+        viewModel.getUserDetails().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.textName.visibility = View.GONE
+                }
+                is Result.Success -> {
+                    binding.textName.visibility = View.VISIBLE
+                    binding.textName.text = result.data.data.fullname
+                    Glide.with(binding.profilePic.context)
+                        .load(result.data.data.profilePhoto)
+                        .into(binding.profilePic)
+                }
+                is Result.Error -> {
+                    binding.textName.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Tidak dapat load foto profil", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun setupAction() {
@@ -42,6 +77,30 @@ class HomeFragment : Fragment() {
             navigateToDisease()
         }
     }
+
+    private fun setupSlider() {
+        val sliderDataList = mutableListOf<SliderData>()
+
+        val banners = resources.obtainTypedArray(R.array.banners)
+        for (i in 0 until banners.length()) {
+            val resId = banners.getResourceId(i, 0)
+            sliderDataList.add(SliderData(resId))
+        }
+        banners.recycle()
+
+        val sliderAdapter = SliderAdapter(sliderDataList)
+
+        binding.imageSlider.apply {
+            setIndicatorAnimation(IndicatorAnimationType.WORM)
+            setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+            setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
+            setSliderAdapter(sliderAdapter)
+            setScrollTimeInSec(5)
+            isAutoCycle = true
+            startAutoCycle()
+        }
+    }
+
 
     private fun navigateToDisease() {
         val intent = Intent(requireContext(), DiseasesActivity::class.java)

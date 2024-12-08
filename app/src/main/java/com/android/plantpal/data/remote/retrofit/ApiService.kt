@@ -13,6 +13,7 @@ import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
@@ -131,10 +132,16 @@ interface ApiService {
     @GET("diseases")
     suspend fun getAllDiseases() : DiseaseResponse
 
-
     @GET("diseases/{id}")
     suspend fun getDetailDisease(
         @Path("id") id: Int
     ): DetailDiseaseResponse
+
+    @Multipart
+    @POST("diagnosis")
+    suspend fun getDiagnosis(
+        @Part image: MultipartBody.Part
+    ): DiagnosisResponse
+
 
 }

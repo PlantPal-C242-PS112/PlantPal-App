@@ -23,6 +23,7 @@ import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
@@ -346,6 +347,26 @@ class Repository (
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun getDiagnosis(
+        image: File
+    ): LiveData<Result<DiagnosisResponse>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val requestImageFile = image.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = requestImageFile.let {
+                MultipartBody.Part.createFormData(
+                    "image",
+                    image.name,
+                    it
+                )
+            }
+            val response = apiService.getDiagnosis(multipartBody)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
         }
     }
 

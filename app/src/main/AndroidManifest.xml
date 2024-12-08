@@ -22,6 +22,9 @@
         android:theme="@style/Theme.PlantPal"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.analyze.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.register.EmailVerificationOtpActivity"
             android:exported="false" />
         <activity
@@ -63,6 +66,10 @@
         <activity
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
