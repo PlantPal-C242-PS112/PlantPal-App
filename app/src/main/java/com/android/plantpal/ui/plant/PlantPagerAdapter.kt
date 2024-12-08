@@ -12,9 +12,9 @@ class PlantPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MyPlantsFragment() // Fragment untuk "Tanamanku"
-            1 -> RemindersFragment() // Fragment untuk "Pengingat"
-            2 -> AnalysisHistoryFragment() // Fragment untuk "Riwayat Analisis"
+            0 -> MyPlantsFragment()
+            1 -> RemindersFragment()
+            2 -> AnalysisHistoryFragment()
             else -> throw IllegalStateException("Invalid position: $position")
         }
     }

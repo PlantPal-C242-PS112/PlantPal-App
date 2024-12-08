@@ -22,11 +22,9 @@ class PlantFragment : Fragment() {
         _binding = FragmentPlantBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Set up ViewPager2 dengan Adapter
         val adapter = PlantPagerAdapter(this)
         binding.viewPager.adapter = adapter
 
-        // Hubungkan TabLayout dengan ViewPager2
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.tab_my_plants)

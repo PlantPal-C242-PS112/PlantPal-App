@@ -32,7 +32,8 @@ class PlantAdapter(
     inner class PlantViewHolder(private val binding: ItemPlantBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(plant: UserPlant) {
             binding.tvPlantName.text = plant.plant.name
-            binding.tvPlantReminder.text = "Pengingat tanam: ${plant.sowing_date}"
+            val sowingDateText = plant.sowingDate ?: "Tanggal tanam tidak tersedia"
+            binding.tvPlantReminder.text = "Pengingat tanam: $sowingDateText"
 
             Glide.with(binding.root.context)
                 .load(plant.plant.icon)

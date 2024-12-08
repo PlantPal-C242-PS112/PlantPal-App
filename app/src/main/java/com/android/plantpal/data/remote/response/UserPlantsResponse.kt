@@ -1,19 +1,30 @@
 package com.android.plantpal.data.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class UserPlantsResponse(
+    @SerializedName("status")
     val status: Boolean,
+    @SerializedName("message")
     val message: String,
+    @SerializedName("data")
     val data: List<UserPlant>
 )
 
 data class UserPlant(
-    val plant_id: Int,
-    val sowing_date: String?,
-    val plant: PlantDetail,
-    val created_at: String
+    @SerializedName("plant_id")
+    val plantId: Int,
+    @SerializedName("sowing_date")
+    val sowingDate: String?,
+    @SerializedName("plant")
+    val plant: UserPlantDetail,
+    @SerializedName("created_at")
+    val createdAt: String
 )
 
-data class PlantDetail(
+data class UserPlantDetail(
+    @SerializedName("name")
     val name: String,
+    @SerializedName("icon")
     val icon: String
 )

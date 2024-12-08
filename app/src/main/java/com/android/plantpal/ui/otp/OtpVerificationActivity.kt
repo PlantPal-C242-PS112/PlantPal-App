@@ -1,9 +1,11 @@
 package com.android.plantpal.ui.otp
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -37,6 +39,7 @@ class OtpVerificationActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+        playAnimation()
 
         val email = intent.getStringExtra("EMAIL") ?: ""
         binding.emailForgotPassword.text = email
@@ -118,5 +121,13 @@ class OtpVerificationActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.iconLogin, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 }
