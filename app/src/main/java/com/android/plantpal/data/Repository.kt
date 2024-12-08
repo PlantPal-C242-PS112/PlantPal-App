@@ -27,6 +27,7 @@ import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DetailPlantData
 import com.android.plantpal.data.remote.response.DiagnosisItem
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
@@ -377,6 +378,26 @@ class Repository (
         }
     }
 
+    fun getDiagnosis(
+        image: File
+    ): LiveData<Result<DiagnosisResponse>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val requestImageFile = image.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = requestImageFile.let {
+                MultipartBody.Part.createFormData(
+                    "image",
+                    image.name,
+                    it
+                )
+            }
+            val response = apiService.getDiagnosis(multipartBody)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
     fun getUserPlants(): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
@@ -424,7 +445,6 @@ class Repository (
             emit(Result.Error("Error: ${e.message}"))
         }
     }
-
 
     companion object {
         fun getInstance(

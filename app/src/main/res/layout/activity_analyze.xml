@@ -11,25 +11,13 @@
         android:padding="16dp"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progress_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/iv_photo"
             android:layout_width="0dp"
             android:layout_height="400dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_place_holder"
             android:contentDescription="Photo" />
 
@@ -153,8 +141,9 @@
             android:text="Analisis Tanaman Saya"
             android:icon="@drawable/baseline_tips_and_updates_24"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_camera"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_gallery"
-            android:layout_marginVertical="16dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="50dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

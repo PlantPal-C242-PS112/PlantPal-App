@@ -17,11 +17,6 @@
         android:title="Diskusi" />
 
     <item
-        android:id="@+id/navigation_explore"
-        android:icon="@drawable/baseline_language_24"
-        android:title="Eksplor" />
-
-    <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/account_circle"
         android:title="Akun" />

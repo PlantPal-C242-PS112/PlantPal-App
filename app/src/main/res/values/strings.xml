@@ -81,5 +81,13 @@
     <string name="tab_reminders">Pengingat</string>
     <string name="tab_analysis_history">Riwayat Analisis</string>
 
+    <integer-array name="banners">
+        <item>@drawable/welcome_banner</item>
+        <item>@drawable/diagnose_banner</item>
+        <item>@drawable/discussion_banner</item>
+        <item>@drawable/budidaya_banner</item>
+    </integer-array>
 
 </resources>
+
+

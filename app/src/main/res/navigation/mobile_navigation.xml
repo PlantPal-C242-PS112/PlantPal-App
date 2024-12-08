@@ -24,12 +24,6 @@
         tools:layout="@layout/fragment_discussions" />
 
     <fragment
-        android:id="@+id/navigation_explore"
-        android:name="com.android.plantpal.ui.explore.ExploreFragment"
-        android:label="Eksplor"
-        tools:layout="@layout/fragment_explore" />
-
-    <fragment
         android:id="@+id/navigation_account"
         android:name="com.android.plantpal.ui.account.AccountFragment"
         android:label="Akun"

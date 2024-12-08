@@ -18,6 +18,7 @@ import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DetailPlantsResponse
 import com.android.plantpal.data.remote.response.DiagnosisHistoryResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
@@ -140,12 +141,17 @@ interface ApiService {
     @GET("diseases")
     suspend fun getAllDiseases() : DiseaseResponse
 
-
     @GET("diseases/{id}")
     suspend fun getDetailDisease(
         @Path("id") id: Int
     ): DetailDiseaseResponse
 
+    @Multipart
+    @POST("diagnosis")
+    suspend fun getDiagnosis(
+        @Part image: MultipartBody.Part
+    ): DiagnosisResponse
+  
     @GET("plants/{id}")
     suspend fun getDetailPlants(
         @Path("id") id: Int
@@ -175,5 +181,6 @@ interface ApiService {
     suspend fun getDiagnosisHistory(
         @Header("Authorization") authorization: String
     ): DiagnosisHistoryResponse
+
 }
 
