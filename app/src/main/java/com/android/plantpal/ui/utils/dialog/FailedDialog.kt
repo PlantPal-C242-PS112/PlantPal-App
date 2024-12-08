@@ -3,6 +3,7 @@ package com.android.plantpal.ui.utils.dialog
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.android.plantpal.R
@@ -11,14 +12,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class FailedDialog(private val activity: Activity) {
+class FailedDialog(private val activity: Context) {
 
     private lateinit var dialog: AlertDialog
 
     @SuppressLint("InflateParams")
     fun startFailedDialog(message: String, autoDismiss: Boolean = true, delayMillis: Long = 2000) {
         val builder = AlertDialog.Builder(activity)
-        val inflater: LayoutInflater = activity.layoutInflater
+        val inflater: LayoutInflater =  (activity as Activity).layoutInflater
         val view = inflater.inflate(R.layout.failed_dialog, null)
 
         val messageTextView: TextView = view.findViewById(R.id.message)

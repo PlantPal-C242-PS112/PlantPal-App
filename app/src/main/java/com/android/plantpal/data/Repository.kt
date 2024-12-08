@@ -11,19 +11,25 @@ import androidx.paging.liveData
 import com.android.plantpal.data.database.DiscussionRoomDatabase
 import com.android.plantpal.data.preference.UserModel
 import com.android.plantpal.data.preference.UserPreference
+import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
+import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
 import com.android.plantpal.data.remote.VerifyOtpRequest
+import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
+import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.DiagnosisResponse
+import com.android.plantpal.data.remote.response.DetailPlantData
+import com.android.plantpal.data.remote.response.DiagnosisItem
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
@@ -34,11 +40,13 @@ import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
 import com.android.plantpal.data.remote.response.UpdateProfileResponse
 import com.android.plantpal.data.remote.response.UserDetailResponse
+import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import com.android.plantpal.data.remote.retrofit.ApiService
 import com.android.plantpal.ui.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -259,6 +267,26 @@ class Repository (
         }
     }
 
+    fun getDetailPlants(id: Int): LiveData<Result<DetailPlantData>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getDetailPlants(id)
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun getCultivationTips(id: Int): LiveData<Result<CultivationData>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getCultivationTips(id)
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
     fun addDiscussion(
         title: String,
         content: String,
@@ -365,6 +393,54 @@ class Repository (
             }
             val response = apiService.getDiagnosis(multipartBody)
             emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun getUserPlants(): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getUserPlants("Bearer <token>")
+            if (response.status) {
+                emit(Result.Success(response.data))
+            } else {
+                emit(Result.Error(response.message))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun addPlant(plantId: Int): LiveData<Result<AddPlantResponse>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.addPlant(AddPlantRequest(plantId))
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun deletePlant(plantId: Int): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try{
+            apiService.deletePlant(DeletePlantRequest(plantId))
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun getDiagnosisHistory(token: String): LiveData<Result<List<DiagnosisItem>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getDiagnosisHistory("Bearer $token")
+            if (response.status) {
+                emit(Result.Success(response.data))
+            } else {
+                emit(Result.Error("Error: Unable to fetch data"))
+            }
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
         }

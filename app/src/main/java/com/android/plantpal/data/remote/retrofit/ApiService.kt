@@ -1,19 +1,26 @@
 package com.android.plantpal.data.remote.retrofit
 
+import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
+import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
 import com.android.plantpal.data.remote.VerifyOtpRequest
+import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.ChangeForgotPasswordResponse
 import com.android.plantpal.data.remote.response.CommentResponse
 import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
+import com.android.plantpal.data.remote.response.CultivationTipsResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
+import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
 import com.android.plantpal.data.remote.response.DiagnosisResponse
+import com.android.plantpal.data.remote.response.DetailPlantsResponse
+import com.android.plantpal.data.remote.response.DiagnosisHistoryResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
@@ -23,12 +30,14 @@ import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
 import com.android.plantpal.data.remote.response.UpdateProfileResponse
 import com.android.plantpal.data.remote.response.UserDetailResponse
+import com.android.plantpal.data.remote.response.UserPlantsResponse
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -142,6 +151,36 @@ interface ApiService {
     suspend fun getDiagnosis(
         @Part image: MultipartBody.Part
     ): DiagnosisResponse
+  
+    @GET("plants/{id}")
+    suspend fun getDetailPlants(
+        @Path("id") id: Int
+    ): DetailPlantsResponse
 
+    @GET("plants/{id}/cultivation-tips")
+    suspend fun getCultivationTips(
+        @Path("id") id: Int
+    ): CultivationTipsResponse
+
+    @GET("user-plants")
+    suspend fun getUserPlants(
+        @Header("Authorization") authorization: String
+    ): UserPlantsResponse
+
+    @POST("user-plants")
+    suspend fun addPlant(
+        @Body body: AddPlantRequest
+    ): AddPlantResponse
+
+    @DELETE("user-plants")
+    suspend fun deletePlant(
+        @Body request: DeletePlantRequest
+    ): DeletePlantResponse
+
+    @GET("history")
+    suspend fun getDiagnosisHistory(
+        @Header("Authorization") authorization: String
+    ): DiagnosisHistoryResponse
 
 }
+

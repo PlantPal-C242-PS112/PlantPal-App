@@ -28,3 +28,11 @@ data class ChangeForgotPasswordRequest(
     val email: String,
     val password: String
 )
+
+data class AddPlantRequest(
+    val plantId: Int
+)
+
+data class DeletePlantRequest(
+    val plantId: Int
+)

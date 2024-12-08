@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.android.plantpal.databinding.FragmentDashboardBinding
+import com.android.plantpal.R
+import com.android.plantpal.databinding.FragmentPlantBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class PlantFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentPlantBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +19,21 @@ class PlantFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val plantViewModel =
-            ViewModelProvider(this).get(PlantViewModel::class.java)
-
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentPlantBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        plantViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val adapter = PlantPagerAdapter(this)
+        binding.viewPager.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> getString(R.string.tab_my_plants)
+                1 -> getString(R.string.tab_reminders)
+                2 -> getString(R.string.tab_analysis_history)
+                else -> null
+            }
+        }.attach()
+
         return root
     }
 
