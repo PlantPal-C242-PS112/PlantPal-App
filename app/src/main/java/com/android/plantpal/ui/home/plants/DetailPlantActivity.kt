@@ -1,27 +1,20 @@
 package com.android.plantpal.ui.home.plants
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.R
 import com.android.plantpal.data.remote.response.CultivationData
-import com.android.plantpal.data.remote.response.CultivationPlantMedia
 import com.android.plantpal.data.remote.response.DetailPlantData
 import com.android.plantpal.data.remote.response.PlantMedia
-import com.android.plantpal.data.remote.response.UserPlant
-import com.android.plantpal.data.remote.response.UserPlantDetail
 import com.android.plantpal.databinding.ActivityDetailPlantBinding
 import com.android.plantpal.ui.ViewModelFactory
-import com.android.plantpal.ui.plant.MyPlantsViewModel
-import com.android.plantpal.ui.plant.PlantViewModel
-import com.bumptech.glide.Glide
 import com.android.plantpal.ui.utils.Result
+import com.bumptech.glide.Glide
 
 @Suppress("DEPRECATION")
 

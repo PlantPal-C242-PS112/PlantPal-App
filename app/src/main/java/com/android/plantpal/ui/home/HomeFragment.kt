@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.android.plantpal.R
 import com.android.plantpal.data.database.SliderData
 import com.android.plantpal.databinding.FragmentHomeBinding
@@ -56,11 +57,11 @@ class HomeFragment : Fragment() {
                     binding.textName.text = result.data.data.fullname
                     Glide.with(binding.profilePic.context)
                         .load(result.data.data.profilePhoto)
+                        .error(R.drawable.person_pc)
                         .into(binding.profilePic)
                 }
                 is Result.Error -> {
                     binding.textName.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Tidak dapat load foto profil", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -76,6 +77,17 @@ class HomeFragment : Fragment() {
         binding.cardDiseaseMenu.setOnClickListener{
             navigateToDisease()
         }
+        binding.cardDiscussion.setOnClickListener {
+            navigateToDiscussion()
+        }
+    }
+
+    private fun navigateToDiscussion() {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.navigation_home, inclusive = false, saveState = true)
+            .setLaunchSingleTop(true)
+            .build()
+        findNavController().navigate(R.id.navigation_discussion, null, navOptions)
     }
 
     private fun setupSlider() {
@@ -93,9 +105,9 @@ class HomeFragment : Fragment() {
         binding.imageSlider.apply {
             setIndicatorAnimation(IndicatorAnimationType.WORM)
             setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-            setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
+            autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
             setSliderAdapter(sliderAdapter)
-            setScrollTimeInSec(5)
+            scrollTimeInSec = 10
             isAutoCycle = true
             startAutoCycle()
         }
@@ -116,7 +128,6 @@ class HomeFragment : Fragment() {
         val intent = Intent(requireContext(), AnalyzeActivity::class.java)
         startActivity(intent)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -22,7 +22,7 @@
         android:theme="@style/Theme.PlantPal"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.analyze.DetailHistoryActivity"
+            android:name=".ui.plant.analysis.DetailHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.analyze.ResultActivity"

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/super_green"
     tools:context=".ui.home.plants.DetailPlantActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

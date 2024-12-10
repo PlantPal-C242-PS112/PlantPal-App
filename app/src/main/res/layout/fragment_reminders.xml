@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/super_green"
     tools:context=".ui.plant.reminder.RemindersFragment">
 
     <androidx.recyclerview.widget.RecyclerView

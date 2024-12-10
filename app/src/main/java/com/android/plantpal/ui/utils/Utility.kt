@@ -162,3 +162,13 @@ fun formatToLocalDateTime(dateStr: String): String {
     return outputFormat.format(date!!)
 }
 
+fun processHtml(html: String): String {
+    return html.replace("<ul>", "")
+        .replace("</ul>", "")
+        .replace("<li>", "• ") // Add bullet point symbol
+        .replace("</li>", "<br>") // Replace closing tag with line break
+        .replace("<p>", "") // Remove <p> tag
+        .replace("</p>", "<br>") // Replace closing </p> with line break
+        .replace("<br><br>", "<br>") // Prevent double line breaks
+}
+

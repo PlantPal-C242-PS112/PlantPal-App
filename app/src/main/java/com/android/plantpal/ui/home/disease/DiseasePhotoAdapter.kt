@@ -3,7 +3,6 @@ package com.android.plantpal.ui.home.disease
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.DiseaseMediaItem
 import com.android.plantpal.databinding.ItemPictureDiseaseBinding
 import com.bumptech.glide.Glide
@@ -15,6 +14,7 @@ class DiseasePhotoAdapter(private val disease: List<DiseaseMediaItem>) : Recycle
             Glide.with(binding.diseaseImage.context)
                 .load(disease.url)
                 .into(binding.diseaseImage)
+
         }
     }
 

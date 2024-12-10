@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
@@ -15,6 +16,7 @@ import com.android.plantpal.ui.LoadingStateAdapter
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.discussion.add.AddDiscussionActivity
 import com.android.plantpal.ui.discussion.detail.DetailDiscussionActivity
+import com.android.plantpal.ui.utils.Result
 
 class DiscussionsFragment : Fragment() {
 
@@ -62,7 +64,6 @@ class DiscussionsFragment : Fragment() {
             adapter.submitData(lifecycle, pagingData)
         }
 
-
         adapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading) {
                 showLoading(true)
@@ -75,7 +76,30 @@ class DiscussionsFragment : Fragment() {
             override fun onItemClicked(data: ListItemDiscussions) {
                 sendSelectedDiscussion(data)
             }
+
+            override fun onLikeClicked(discussion: ListItemDiscussions) {
+                handleLikeClick(discussion.id)
+            }
         })
+    }
+
+    private fun handleLikeClick(id: Int) {
+        viewModel.likeOrDislike(id).observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
+                is Result.Success -> {
+                    if(::adapter.isInitialized){
+                        adapter.refresh()
+                    }
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), "Error: ${result.error}", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {}
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

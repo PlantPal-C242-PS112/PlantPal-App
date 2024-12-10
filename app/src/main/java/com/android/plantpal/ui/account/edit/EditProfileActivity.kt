@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.android.plantpal.R
 import com.android.plantpal.databinding.ActivityEditProfileBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.account.AccountViewModel
@@ -68,6 +69,7 @@ class EditProfileActivity : AppCompatActivity() {
                     binding.edFullnameProf.setText(fullname)
                     Glide.with(binding.profilePic.context)
                         .load(photoUri)
+                        .error(R.drawable.person_pc)
                         .into(binding.profilePic)
 
                     Log.d("UpdateProfile", "$photoUri")

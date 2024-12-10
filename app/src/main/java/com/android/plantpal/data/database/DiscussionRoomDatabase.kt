@@ -6,12 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.android.plantpal.data.remote.response.ListItemDiscussions
-import com.android.plantpal.data.remote.response.Plant
-import com.android.plantpal.data.remote.response.User
 
 @Database(
     entities = [ListItemDiscussions::class, RemoteKeys::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 

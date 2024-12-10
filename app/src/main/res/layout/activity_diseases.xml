@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/super_green"
     tools:context=".ui.home.disease.DiseasesActivity">
 
     <LinearLayout
@@ -14,8 +15,8 @@
             android:id="@+id/rv_disease"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="10dp" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

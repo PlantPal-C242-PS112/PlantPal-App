@@ -1,7 +1,6 @@
 package com.android.plantpal.ui.plant
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.plantpal.data.Repository
 import com.android.plantpal.data.remote.response.AddPlantResponse

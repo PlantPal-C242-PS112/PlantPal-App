@@ -3,7 +3,6 @@ package com.android.plantpal.ui.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.android.plantpal.data.Repository
-import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
 import com.android.plantpal.data.remote.response.VerifyOtpResponse

@@ -18,9 +18,9 @@ import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
 import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
-import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DetailPlantsResponse
 import com.android.plantpal.data.remote.response.DiagnosisHistoryResponse
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
@@ -39,6 +39,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -60,7 +61,7 @@ interface ApiService {
     @GET("discussions")
     suspend fun getAllDiscussions(
         @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 10
+        @Query("limit") limit: Int = 50
     ): DiscussionResponse
 
     @GET("users")
@@ -179,6 +180,14 @@ interface ApiService {
 
     @GET("diagnosis/history")
     suspend fun getDiagnosisHistory(): DiagnosisHistoryResponse
+
+    @PATCH("diagnosis/history/{id}")
+    suspend fun deleteHistory(
+        @Path("id") id: String
+    )
+
+    @PATCH("diagnosis/history")
+    suspend fun deleteAllHistory()
 
 }
 

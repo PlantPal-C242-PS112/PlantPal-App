@@ -24,10 +24,12 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
             binding.plantTypeText.text = discussion.plant.name
             Glide.with(binding.ivItemPhoto.context)
                 .load(discussion.mediaUrl)
+                .error(R.drawable.ic_place_holder)
                 .into(binding.ivItemPhoto)
 
             Glide.with(binding.profilePic.context)
                 .load(discussion.user.profilePhoto)
+                .error(R.drawable.person_pc)
                 .into(binding.profilePic)
 
             val updatedAt = discussion.updatedAt
@@ -38,17 +40,29 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
                 callback?.onItemClicked(discussion)
             }
 
-            var isLiked = false
+            if(discussion.isLiked){
+                binding.like.setImageResource(R.drawable.baseline_favorite_24)
+            }else{
+                binding.like.setImageResource(R.drawable.baseline_favorite_border_24)
+            }
 
             binding.like.setOnClickListener {
-                isLiked = !isLiked
-
-                if (isLiked) {
-                    binding.like.setImageResource(R.drawable.baseline_favorite_24)
-                } else {
-                    binding.like.setImageResource(R.drawable.baseline_favorite_border_24)
-                }
+                // Toggle like state
+                val updatedDiscussion = discussion.copy(isLiked = !discussion.isLiked)
+                callback?.onLikeClicked(updatedDiscussion)
             }
+
+//            var isLiked = false
+//
+//            binding.like.setOnClickListener {
+//                isLiked = !isLiked
+//
+//                if (isLiked) {
+//
+//                } else {
+//
+//                }
+//            }
         }
     }
 
@@ -62,10 +76,17 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
         if (discussion != null) {
             holder.bind(discussion, onItemClickCallback)
         }
+
+//        holder.itemView.setOnClickListener {
+//            if (discussion != null) {
+//                onClick(discussion)
+//            }
+//        }
     }
 
     interface OnItemClickCallback {
         fun onItemClicked(data: ListItemDiscussions)
+        fun onLikeClicked(discussion: ListItemDiscussions)
     }
 
     fun setOnItemClickCallback(callback: OnItemClickCallback) {
