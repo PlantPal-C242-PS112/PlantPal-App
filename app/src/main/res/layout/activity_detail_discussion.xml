@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/super_green"
     tools:context=".ui.discussion.detail.DetailDiscussionActivity">
 
     <ScrollView
@@ -175,25 +176,25 @@
                 android:contentDescription="Comment"
                 android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="@id/like"
-                app:layout_constraintEnd_toStartOf="@id/share"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/like"
                 app:layout_constraintTop_toTopOf="@id/like"
                 app:srcCompat="@drawable/baseline_comment_24"
                 tools:ignore="TouchTargetSizeCheck" />
 
-            <ImageView
-                android:id="@+id/share"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:clickable="true"
-                android:contentDescription="Share"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="@id/comment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/comment"
-                app:layout_constraintTop_toTopOf="@id/comment"
-                app:srcCompat="@drawable/baseline_share_24"
-                tools:ignore="TouchTargetSizeCheck" />
+<!--            <ImageView-->
+<!--                android:id="@+id/share"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:clickable="true"-->
+<!--                android:contentDescription="Share"-->
+<!--                android:focusable="true"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/comment"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/comment"-->
+<!--                app:layout_constraintTop_toTopOf="@id/comment"-->
+<!--                app:srcCompat="@drawable/baseline_share_24"-->
+<!--                tools:ignore="TouchTargetSizeCheck" />-->
 
             <View
                 android:id="@+id/line2"

@@ -445,6 +445,27 @@ class Repository (
         }
     }
 
+    fun deleteHistory(id: String): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            apiService.deleteHistory(id)
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun deleteAllHistory(): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            apiService.deleteAllHistory()
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+
     companion object {
         fun getInstance(
             preference: UserPreference,

@@ -1,14 +1,10 @@
 package com.android.plantpal.ui.customview
 
 import android.content.Context
-import android.graphics.Canvas
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import com.android.plantpal.R
-import com.google.android.material.textfield.TextInputLayout
 
 class CustomEditFullname : AppCompatEditText {
 

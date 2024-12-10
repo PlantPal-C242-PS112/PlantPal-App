@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/myimage"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/welcome_banner"
         app:layout_constraintEnd_toEndOf="parent"

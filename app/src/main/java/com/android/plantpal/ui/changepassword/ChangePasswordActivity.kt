@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.android.plantpal.R
-import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.databinding.ActivityChangePasswordBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.login.LoginActivity

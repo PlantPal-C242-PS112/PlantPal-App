@@ -2,24 +2,19 @@ package com.android.plantpal.ui.home.disease
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.plantpal.R
 import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.DiseaseMediaItem
 import com.android.plantpal.data.remote.response.MedicineLinksItem
-import com.android.plantpal.data.remote.response.MedicinesItem
-import com.android.plantpal.databinding.ActivityDetailDiscussionBinding
 import com.android.plantpal.databinding.ActivityDetailDiseaseBinding
 import com.android.plantpal.ui.ViewModelFactory
-import com.android.plantpal.ui.discussion.DiscussionViewModel
-import com.android.plantpal.ui.discussion.detail.DetailDiscussionActivity
 import com.android.plantpal.ui.utils.Result
 
 @Suppress("DEPRECATION")
@@ -63,41 +58,58 @@ class DetailDiseaseActivity : AppCompatActivity() {
     private fun setDiseaseDetail(disease: DetailDiseaseData) {
         supportActionBar?.title = "Detail Penyakit ${disease.name}"
 
-        setDiseasePicture(disease.diseaseMedia)
+        val imageMediaItem = DiseaseMediaItem(
+            type = "image",
+            url = disease.image
+        )
+
+        val updatedDiseaseMedia = listOf(imageMediaItem) + disease.diseaseMedia
+
+        setDiseasePicture(updatedDiseaseMedia)
 
         val allMedicineLinks = disease.medicines.flatMap { it.medicineLinks }
         setMedicines(allMedicineLinks)
 
         binding.diseaseName.text = disease.name
         binding.diseaseDescText.text = HtmlCompat.fromHtml(
-            disease.description,
+            disease.description.replace("<p>", "").replace("</p>", "<br>"),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+
         binding.diseasePreventionText.text = HtmlCompat.fromHtml(
-            disease.prevention,
+            disease.prevention.replace("<p>", "").replace("</p>", "<br>"),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+
         binding.diseaseTypeText.text = HtmlCompat.fromHtml(
-            disease.plant.name,
+            disease.plant.name.replace("<p>", "").replace("</p>", "<br>"),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
         binding.diseaseTreatmentText.text = HtmlCompat.fromHtml(
-            disease.treatment,
+            disease.treatment.replace("<p>", "").replace("</p>", "<br>"),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
-        binding.diseaseCureText.text = HtmlCompat.fromHtml(
-            disease.medicines.toString(),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
+        val medicines = disease.medicines.toString()
+
+        if (medicines.isNotEmpty()){
+            binding.diseaseCureText.text = HtmlCompat.fromHtml(
+                disease.medicines.toString().replace("<p>", "").replace("</p>", "<br>"),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+        }else{
+            binding.cardMed.visibility = View.GONE
+        }
+
+
 
         val medicinesText = disease.medicines.joinToString(separator = "\n") { medicine ->
             medicine.description
         }
 
         if (medicinesText.isEmpty()) {
-            binding.diseaseCureLayout.visibility = View.GONE
+            binding.cardCure.visibility = View.GONE
         }
 
         binding.diseaseCureText.text = HtmlCompat.fromHtml(

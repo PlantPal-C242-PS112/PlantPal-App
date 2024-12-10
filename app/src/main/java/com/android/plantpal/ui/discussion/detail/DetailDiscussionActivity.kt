@@ -1,6 +1,5 @@
 package com.android.plantpal.ui.discussion.detail
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -45,7 +44,6 @@ class DetailDiscussionActivity : AppCompatActivity() {
         val discId = intent.getIntExtra(KEY_DISCUSSION_ID, -1)
 
         observeDiscussionDetails(discId)
-        setupAction()
     }
 
     private fun observeComments(discId: Int) {
@@ -71,11 +69,6 @@ class DetailDiscussionActivity : AppCompatActivity() {
         binding.rvComment.adapter = adapter
     }
 
-    private fun setupAction() {
-
-
-    }
-
     private fun observeDiscussionDetails(eventId: Int) {
         viewModel.getDetailDiscussion(eventId).observe(this) { result ->
             when (result) {
@@ -85,10 +78,9 @@ class DetailDiscussionActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
                     val discussion = result.data
-//                    checkFavoriteEvent(event.id.toString())
                     setDetailDiscussion(discussion)
                     observeComments(discussion.id)
-//                    setupFavoriteButton(event)
+                    setLike(discussion)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -112,6 +104,7 @@ class DetailDiscussionActivity : AppCompatActivity() {
 
         Glide.with(binding.profilePic.context)
             .load(discussion.user.profilePhoto)
+            .error(R.drawable.person_pc)
             .into(binding.profilePic)
 
         val updatedAt = discussion.updatedAt
@@ -122,20 +115,9 @@ class DetailDiscussionActivity : AppCompatActivity() {
         Log.d("Islike", "${discussion.isLiked}")
 
         binding.like.setOnClickListener {
+            Log.d("IslikeClick", "not ${discussion.isLiked}")
             handleLikeClick(discussion.id, discussion.isLiked)
         }
-
-        binding.share.setOnClickListener {
-            val discussionLink = "https://plantpal-api-454827052627.asia-southeast1.run.app/api/v1/discussions/${discussion.id}"
-
-            val sharingIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, discussionLink)  // Share the link
-                putExtra(Intent.EXTRA_SUBJECT, "Check out this discussion!")  // Set the subject (optional)
-            }
-            startActivity(Intent.createChooser(sharingIntent, "Share using"))
-        }
-
 
         val userIdDisc = discussion.user.id.toString()
         mainViewModel.getSession().observe(this) { userModel ->
@@ -150,38 +132,25 @@ class DetailDiscussionActivity : AppCompatActivity() {
             }
         }
 
-
-
         binding.buttonSend.setOnClickListener{
             uploadComment(discussion.id)
         }
+    }
 
-//        binding.like.setOnClickListener {
-//            viewModel.likeOrDislike(discussion.id).observe(this){result ->
-//                when (result) {
-//                    is Result.Loading -> {
-//                    }
-//                    is Result.Success -> {
-//                        if(result.data.data.is)
-//                    }
-//                    is Result.Error -> {
-//                        binding.progressBar.visibility = View.GONE
-//                        Toast.makeText(this, "Error: ${result.error}", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//        }
+    private fun setLike(discussion: DetailDiscussionData) {
+        val isLiked = discussion.isLiked
+        updateLikeButtonUI(isLiked)
     }
 
     private fun handleLikeClick(discussionId: Int, isLiked: Boolean) {
         viewModel.likeOrDislike(discussionId).observe(this) { result ->
             when (result) {
-                is Result.Loading -> {
-                }
+                is Result.Loading -> { }
                 is Result.Success -> {
                     val newIsLiked = !isLiked
                     binding.countLikes.text = result.data.data.totalLikes.toString()
                     updateLikeButtonUI(newIsLiked)
+                    observeDiscussionDetails(discussionId)
                 }
                 is Result.Error -> {
                     Toast.makeText(this, "Error: ${result.error}", Toast.LENGTH_SHORT).show()
@@ -198,16 +167,13 @@ class DetailDiscussionActivity : AppCompatActivity() {
         }
     }
 
+
     private fun showPupUpMenu(id: Int) {
         val popupMenu = PopupMenu(this, binding.moreAction)
         popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.edit -> {
-                    Toast.makeText(this, "Edit Discussion", Toast.LENGTH_SHORT).show()
-                    true
-                }
                 R.id.delete -> {
                     showAlertDialog(
                         title = "Apakah Anda Yakin?",
