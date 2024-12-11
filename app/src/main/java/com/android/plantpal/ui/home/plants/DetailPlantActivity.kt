@@ -50,63 +50,112 @@ class DetailPlantActivity : AppCompatActivity() {
 
         observeCultivationTips(plantId)
 
-        binding.btnFavorite.setOnClickListener {
-            addPlantToFavorites(plantId)
-        }
+        observeUserPlant(plantId)
 
 
     }
 
 
-    private fun addPlantToFavorites(plantId: Int) {
-        viewModel.getDetailPlants(plantId).observe(this) { result ->
+//    private fun addPlantToFavorites(plantId: Int) {
+//        viewModel.getDetailPlants(plantId).observe(this) { result ->
+//            when (result) {
+//                is Result.Loading -> {
+//
+//                }
+//
+//                is Result.Success -> {
+//                    observeUserPlant(plantId)
+//                }
+//
+//                is Result.Error -> {
+//
+//                }
+//            }
+//        }
+//    }
+
+    private fun observeUserPlant(plantId: Int) {
+        viewModel.getUserPlant().observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-
+                    // Optionally show a loading indicator
                 }
 
                 is Result.Success -> {
-                    if (isFavorite) {
-                        viewModel.deletePlant(plantId).observe(this) { deleteResult ->
-                            when (deleteResult) {
-                                is Result.Loading -> {
+                    val userPlantsIds = result.data.map { it.plantId }
 
-                                }
-                                is Result.Success -> {
-                                    binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
-                                    isFavorite = false
-                                }
-                                is Result.Error -> {
+                    // Update the icon based on the plant's presence in userPlants
+                    isFavorite = userPlantsIds.contains(plantId)
+                    updateFavoriteIcon(isFavorite)
 
-                                }
-                            }
-                        }
-                    } else {
-                        viewModel.addPlant(plantId).observe(this) { addResult ->
-                            when (addResult) {
-                                is Result.Loading -> {
-                                }
-
-                                is Result.Success -> {
-                                    binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                                    isFavorite = true
-                                }
-
-                                is Result.Error -> {
-
-                                }
-                            }
+                    // Set click listener for the favorite button
+                    binding.btnFavorite.setOnClickListener {
+                        if (isFavorite) {
+                            deletePlant(plantId)
+                        } else {
+                            addPlant(plantId)
                         }
                     }
-                    isFavorite = !isFavorite
                 }
 
                 is Result.Error -> {
-
+                    // Handle error state, e.g., show a toast or log the error
+                    Log.e("DetailPlantActivity", "Error fetching user plants: ${result.error}")
                 }
             }
         }
     }
+
+    private fun addPlant(plantId: Int) {
+        viewModel.addPlant(plantId).observe(this) { addResult ->
+            when (addResult) {
+                is Result.Loading -> {
+                    // Optionally show a loading indicator
+                }
+
+                is Result.Success -> {
+                    // Update the icon to indicate the plant was added
+                    isFavorite = true
+                    updateFavoriteIcon(isFavorite)
+                }
+
+                is Result.Error -> {
+                    // Handle error, e.g., show a toast or log the error
+                    Log.e("DetailPlantActivity", "Error adding plant: ${addResult.error}")
+                }
+            }
+        }
+    }
+
+    private fun deletePlant(plantId: Int) {
+        viewModel.deletePlant(plantId).observe(this) { deleteResult ->
+            when (deleteResult) {
+                is Result.Loading -> {
+                    // Optionally show a loading indicator
+                }
+
+                is Result.Success -> {
+                    // Update the icon to indicate the plant was removed
+                    isFavorite = false
+                    updateFavoriteIcon(isFavorite)
+                }
+
+                is Result.Error -> {
+                    // Handle error, e.g., show a toast or log the error
+                    Log.e("DetailPlantActivity", "Error deleting plant: ${deleteResult.error}")
+                }
+            }
+        }
+    }
+
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
+        }
+    }
+
 
     private fun observePlantDetails(plantId: Int) {
         viewModel.getDetailPlants(plantId).observe(this) { result ->

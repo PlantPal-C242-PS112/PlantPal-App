@@ -43,5 +43,7 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
     fun deletePlant(plantId: Int) = repository.deletePlant(plantId)
 
+    fun getUserPlant() = repository.getUserPlants()
+
 
 }

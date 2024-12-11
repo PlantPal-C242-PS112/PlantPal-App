@@ -400,7 +400,7 @@ class Repository (
     fun getUserPlants(): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.getUserPlants("Bearer <token>")
+            val response = apiService.getUserPlants()
             if (response.status) {
                 emit(Result.Success(response.data))
             } else {
