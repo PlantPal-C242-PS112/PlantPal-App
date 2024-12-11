@@ -22,8 +22,8 @@ data class DiscussionResponse(
 @Entity(tableName = "discussion")
 data class ListItemDiscussions(
 
-	@field:SerializedName("updated_at")
-	val updatedAt: String? = null,
+	@field:SerializedName("created_at")
+	val createdAt: String? = null,
 
 	@field:SerializedName("plant")
 	val plant: Plant,

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.android.plantpal.R
@@ -15,6 +14,7 @@ import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.home.disease.DetailDiseaseActivity
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.formatToLocalDateTime
+import com.android.plantpal.ui.utils.showAlertDialog
 import com.bumptech.glide.Glide
 
 @Suppress("DEPRECATION")
@@ -81,6 +81,7 @@ class DetailHistoryActivity : AppCompatActivity() {
             }
             R.id.delete -> {
                 showAlertDialog(
+                    this,
                     title = "Apakah Anda Yakin?",
                     message = "Apakah Anda Ingin Menghapus Diagnosa Ini?",
                     positiveButtonText = "Ya",
@@ -90,30 +91,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showAlertDialog(
-        title: String,
-        message: String?,
-        positiveButtonText: String,
-        negativeButtonText: String,
-        onPositive: (() -> Unit)? = null,
-        onNegative: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(this).apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton(positiveButtonText) { dialog, _ ->
-                onPositive?.invoke()
-                dialog.dismiss()
-            }
-            setNegativeButton(negativeButtonText) { dialog, _ ->
-                onNegative?.invoke()
-                dialog.dismiss()
-            }
-            create()
-            show()
         }
     }
 

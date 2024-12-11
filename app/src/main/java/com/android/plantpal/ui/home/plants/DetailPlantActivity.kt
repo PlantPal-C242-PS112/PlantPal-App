@@ -1,19 +1,25 @@
 package com.android.plantpal.ui.home.plants
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.R
-import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DetailPlantData
+import com.android.plantpal.data.remote.response.ListPlantDisease
 import com.android.plantpal.data.remote.response.PlantMedia
 import com.android.plantpal.databinding.ActivityDetailPlantBinding
 import com.android.plantpal.ui.ViewModelFactory
+import com.android.plantpal.ui.home.disease.DetailDiseaseActivity
+import com.android.plantpal.ui.utils.CultivationTip
 import com.android.plantpal.ui.utils.Result
+import com.android.plantpal.ui.utils.cleanHtml
+import com.android.plantpal.ui.utils.extract
 import com.bumptech.glide.Glide
 
 @Suppress("DEPRECATION")
@@ -47,51 +53,65 @@ class DetailPlantActivity : AppCompatActivity() {
         }
 
         observePlantDetails(plantId)
-
         observeCultivationTips(plantId)
-
         observeUserPlant(plantId)
-
-
+        observePlantsDisease(plantId)
     }
 
+    private fun observePlantsDisease(plantId: Int) {
+        viewModel.getPlantDisease(plantId).observe(this) { addResult ->
+            when (addResult) {
+                is Result.Loading -> {
+                }
 
-//    private fun addPlantToFavorites(plantId: Int) {
-//        viewModel.getDetailPlants(plantId).observe(this) { result ->
-//            when (result) {
-//                is Result.Loading -> {
-//
-//                }
-//
-//                is Result.Success -> {
-//                    observeUserPlant(plantId)
-//                }
-//
-//                is Result.Error -> {
-//
-//                }
-//            }
-//        }
-//    }
+                is Result.Success -> {
+                    setPlantDiseases(addResult.data)
+                }
+
+                is Result.Error -> {
+                    Log.e("DetailPlantActivity", "Error adding plant: ${addResult.error}")
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    private fun setPlantDiseases(data: List<ListPlantDisease>) {
+        binding.rvDiseases.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val adapter = PlantDiseaseAdapter(data)
+        binding.rvDiseases.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : PlantDiseaseAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ListPlantDisease) {
+                sendSelectedDisease(data)
+            }
+        })
+    }
+
+    private fun sendSelectedDisease(data: ListPlantDisease) {
+        val intent = Intent(this, DetailDiseaseActivity::class.java)
+        intent.putExtra(DetailDiseaseActivity.KEY_DISEASE_ID, data.id)
+        startActivity(intent)
+    }
 
     private fun observeUserPlant(plantId: Int) {
         viewModel.getUserPlant().observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-                    // Optionally show a loading indicator
                 }
 
                 is Result.Success -> {
                     val userPlantsIds = result.data.map { it.plantId }
 
-                    // Update the icon based on the plant's presence in userPlants
                     isFavorite = userPlantsIds.contains(plantId)
                     updateFavoriteIcon(isFavorite)
 
-                    // Set click listener for the favorite button
                     binding.btnFavorite.setOnClickListener {
                         if (isFavorite) {
                             deletePlant(plantId)
+                            Log.e("DeleteUserPlant", "Clicked")
+
                         } else {
                             addPlant(plantId)
                         }
@@ -99,9 +119,10 @@ class DetailPlantActivity : AppCompatActivity() {
                 }
 
                 is Result.Error -> {
-                    // Handle error state, e.g., show a toast or log the error
                     Log.e("DetailPlantActivity", "Error fetching user plants: ${result.error}")
                 }
+
+                else -> {}
             }
         }
     }
@@ -110,19 +131,18 @@ class DetailPlantActivity : AppCompatActivity() {
         viewModel.addPlant(plantId).observe(this) { addResult ->
             when (addResult) {
                 is Result.Loading -> {
-                    // Optionally show a loading indicator
                 }
 
                 is Result.Success -> {
-                    // Update the icon to indicate the plant was added
                     isFavorite = true
                     updateFavoriteIcon(isFavorite)
                 }
 
                 is Result.Error -> {
-                    // Handle error, e.g., show a toast or log the error
                     Log.e("DetailPlantActivity", "Error adding plant: ${addResult.error}")
                 }
+
+                else -> {}
             }
         }
     }
@@ -131,28 +151,27 @@ class DetailPlantActivity : AppCompatActivity() {
         viewModel.deletePlant(plantId).observe(this) { deleteResult ->
             when (deleteResult) {
                 is Result.Loading -> {
-                    // Optionally show a loading indicator
                 }
 
                 is Result.Success -> {
-                    // Update the icon to indicate the plant was removed
                     isFavorite = false
                     updateFavoriteIcon(isFavorite)
                 }
 
                 is Result.Error -> {
-                    // Handle error, e.g., show a toast or log the error
                     Log.e("DetailPlantActivity", "Error deleting plant: ${deleteResult.error}")
                 }
+
+                else -> {}
             }
         }
     }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
         if (isFavorite) {
-            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
+            binding.btnFavorite.setIconResource(R.drawable.ic_favorite_filled)
         } else {
-            binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
+            binding.btnFavorite.setIconResource(R.drawable.ic_favorite)
         }
     }
 
@@ -165,14 +184,12 @@ class DetailPlantActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     val plant = result.data
-                    Log.d("DetailPlantActivity", "Plant Description: ${plant.description}")
                     setPlantDetail(plant)
                 }
                 is Result.Error -> {
-                    Log.e("DetailPlantActivity", "Error loading plant details: ${result.error}")
-
-
                 }
+
+                else -> {}
             }
         }
     }
@@ -184,16 +201,30 @@ class DetailPlantActivity : AppCompatActivity() {
 
                 }
                 is Result.Success -> {
-                    val cultivationData = result.data
-                    Log.d("DetailPlantActivity", "Cultivation Tips: ${cultivationData.cultivationTips}")
-                    setCultivationTips(cultivationData)
+                    val cultivationData = cleanHtml(result.data.cultivationTips)
+                    val extractedData = extract(cultivationData)
+                    setDataCultivation(extractedData)
                 }
                 is Result.Error -> {
                 }
+
+                else -> {}
             }
         }
     }
 
+    private fun setDataCultivation(hello: CultivationTip) {
+        val data = hello.sections
+
+        binding.rvCult.layoutManager = LinearLayoutManager(this)
+
+        val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        binding.rvCult.addItemDecoration(dividerItemDecoration)
+
+        val adapter = CultTipsAdapter(data)
+        binding.rvCult.adapter = adapter
+
+    }
     private fun setPlantDetail(plant: DetailPlantData) {
         Log.d("DetailPlantActivity", "Setting plant detail for: ${plant.name}")
         supportActionBar?.title = "Detail Tanaman ${plant.name}"
@@ -219,27 +250,6 @@ class DetailPlantActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCultivationTips(cultivationData: CultivationData) {
-        supportActionBar?.title = "Kiat Budidaya ${cultivationData.name}"
-
-        binding.tvDescriptionCultivation.text = HtmlCompat.fromHtml(
-            cultivationData.cultivationTips,
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
-        val plantMediaAdapter = PlantMediaAdapter(cultivationData.plantMedia)
-        binding.rvCultivationTips.apply {
-            layoutManager = LinearLayoutManager(this@DetailPlantActivity)
-            adapter = plantMediaAdapter
-        }
-        val cultivationTipsAdapter = CultivationTipsAdapter(listOf(cultivationData.cultivationTips)) // Use list for display
-        binding.rvCultivationTips.apply {
-            layoutManager = LinearLayoutManager(this@DetailPlantActivity)
-            adapter = cultivationTipsAdapter
-        }
-
-    }
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -249,8 +259,6 @@ class DetailPlantActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 
     companion object {
         const val KEY_PLANT_ID = "key_plant_id"

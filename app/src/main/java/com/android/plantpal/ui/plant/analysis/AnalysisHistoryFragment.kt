@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.data.remote.response.DiagnosisItem
@@ -16,6 +14,7 @@ import com.android.plantpal.databinding.FragmentAnalysisHistoryBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
+import com.android.plantpal.ui.utils.showAlertDialog
 
 class AnalysisHistoryFragment : Fragment() {
 
@@ -53,28 +52,31 @@ class AnalysisHistoryFragment : Fragment() {
     }
 
     private fun deleteAll() {
-        analysisHistoryViewModel.deleteAllHistory().observe(viewLifecycleOwner, Observer { result ->
+        analysisHistoryViewModel.deleteAllHistory().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
                 }
+
                 is Result.Success -> {
                     showLoading(false)
                     observeHistory()
                 }
+
                 is Result.Error -> {
                     showLoading(false)
                 }
             }
-        })
+        }
     }
 
     private fun observeHistory() {
-        analysisHistoryViewModel.getDiagnosisHistory().observe(viewLifecycleOwner, Observer { result ->
+        analysisHistoryViewModel.getDiagnosisHistory().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
                 }
+
                 is Result.Success -> {
                     showLoading(false)
                     if (result.data.isNotEmpty()) {
@@ -82,6 +84,7 @@ class AnalysisHistoryFragment : Fragment() {
                         binding.buttonDeleteAll.visibility = View.VISIBLE
                         binding.buttonDeleteAll.setOnClickListener {
                             showAlertDialog(
+                                requireContext(),
                                 title = "Apakah Anda Yakin?",
                                 message = "Apakah Anda Ingin Menghapus Semua Riwayat Diagnosa?",
                                 positiveButtonText = "Ya",
@@ -95,13 +98,18 @@ class AnalysisHistoryFragment : Fragment() {
                     }
                     analysisAdapter.submitList(result.data)
                 }
+
                 is Result.Error -> {
                     showLoading(false)
                     binding.buttonDeleteAll.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Terjadi kesalahan: ${result.error}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Terjadi kesalahan: ${result.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        })
+        }
     }
 
 
@@ -117,30 +125,6 @@ class AnalysisHistoryFragment : Fragment() {
             val intent = Intent(requireContext(), DetailHistoryActivity::class.java)
             intent.putExtra("data", diagnosisItem)
             startActivity(intent)
-        }
-    }
-
-    private fun showAlertDialog(
-        title: String,
-        message: String?,
-        positiveButtonText: String,
-        negativeButtonText: String,
-        onPositive: (() -> Unit)? = null,
-        onNegative: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(requireContext()).apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton(positiveButtonText) { dialog, _ ->
-                onPositive?.invoke()
-                dialog.dismiss()
-            }
-            setNegativeButton(negativeButtonText) { dialog, _ ->
-                onNegative?.invoke()
-                dialog.dismiss()
-            }
-            create()
-            show()
         }
     }
 

@@ -1,9 +1,8 @@
-package com.android.plantpal.ui.plant
+package com.android.plantpal.ui.plant.myplant
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.android.plantpal.data.Repository
-import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.ui.utils.Result
 
@@ -13,11 +12,4 @@ class MyPlantsViewModel(private val repository: Repository) : ViewModel() {
         return repository.getUserPlants()
     }
 
-    fun addPlant(plantId: Int): LiveData<Result<AddPlantResponse>> {
-        return repository.addPlant(plantId)
-    }
-
-    fun deletePlant(plantId: Int): LiveData<Result<Boolean>> {
-        return repository.deletePlant(plantId)
-    }
 }

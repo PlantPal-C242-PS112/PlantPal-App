@@ -11,7 +11,7 @@ class AddDiscussionViewModel (private val repository: Repository) : ViewModel() 
 
     fun getAllPlants() = repository.getAllPlants()
 
-    fun addDiscussion(title: String, content: String, media: File, plant_id: Int) =
-        repository.addDiscussion(title, content, media, plant_id)
+    fun addDiscussion(title: String, content: String, media: File, plantId: Int) =
+        repository.addDiscussion(title, content, media, plantId)
 
 }

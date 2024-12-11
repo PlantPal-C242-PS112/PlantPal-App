@@ -12,7 +12,7 @@ interface DiscussionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDiscussion(discussion: List<ListItemDiscussions>)
 
-    @Query("SELECT * FROM discussion ORDER BY id DESC")
+    @Query("SELECT * FROM discussion ORDER BY createdAt DESC")
     fun getAllDiscussion(): PagingSource<Int, ListItemDiscussions>
 
     @Query("DELETE FROM discussion")

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +20,7 @@ import com.android.plantpal.ui.discussion.CommentAdapter
 import com.android.plantpal.ui.discussion.DiscussionViewModel
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.calculateTimeDifference
+import com.android.plantpal.ui.utils.showAlertDialog
 import com.bumptech.glide.Glide
 
 @Suppress("DEPRECATION")
@@ -107,8 +107,8 @@ class DetailDiscussionActivity : AppCompatActivity() {
             .error(R.drawable.person_pc)
             .into(binding.profilePic)
 
-        val updatedAt = discussion.updatedAt
-        val hoursDifference = calculateTimeDifference(updatedAt)
+        val createdAt = discussion.createdAt
+        val hoursDifference = calculateTimeDifference(createdAt)
         binding.hour.text = hoursDifference
 
         updateLikeButtonUI(discussion.isLiked)
@@ -167,7 +167,6 @@ class DetailDiscussionActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showPupUpMenu(id: Int) {
         val popupMenu = PopupMenu(this, binding.moreAction)
         popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
@@ -176,6 +175,7 @@ class DetailDiscussionActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.delete -> {
                     showAlertDialog(
+                        this,
                         title = "Apakah Anda Yakin?",
                         message = "Apakah Anda Ingin Menghapus Diskusi Ini?",
                         positiveButtonText = "Ya",
@@ -190,29 +190,6 @@ class DetailDiscussionActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    private fun showAlertDialog(
-        title: String,
-        message: String?,
-        positiveButtonText: String,
-        negativeButtonText: String,
-        onPositive: (() -> Unit)? = null,
-        onNegative: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(this).apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton(positiveButtonText) { dialog, _ ->
-                onPositive?.invoke()
-                dialog.dismiss()
-            }
-            setNegativeButton(negativeButtonText) { dialog, _ ->
-                onNegative?.invoke()
-                dialog.dismiss()
-            }
-            create()
-            show()
-        }
-    }
     private fun deleteDiscussion(id: Int) {
         viewModel.deleteDiscussion(id).observe(this) { result ->
             when (result) {

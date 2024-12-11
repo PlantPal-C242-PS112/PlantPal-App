@@ -10,7 +10,7 @@ import com.android.plantpal.ui.utils.Result
 
 class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
-    val plantDetailsWithCultivationTips = MediatorLiveData<Pair<Result<DetailPlantData>?, Result<CultivationData>?>>()
+    private val plantDetailsWithCultivationTips = MediatorLiveData<Pair<Result<DetailPlantData>?, Result<CultivationData>?>>()
 
     fun setPlantId(id: Int) {
         val detailPlantsLiveData = getDetailPlantsLiveData(id)
@@ -24,11 +24,11 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getDetailPlantsLiveData(id: Int): LiveData<Result<DetailPlantData>> {
+    private fun getDetailPlantsLiveData(id: Int): LiveData<Result<DetailPlantData>> {
         return repository.getDetailPlants(id)
     }
 
-    fun getCultivationTipsLiveData(id: Int): LiveData<Result<CultivationData>> {
+    private fun getCultivationTipsLiveData(id: Int): LiveData<Result<CultivationData>> {
         return repository.getCultivationTips(id)
     }
 
@@ -44,6 +44,8 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
     fun deletePlant(plantId: Int) = repository.deletePlant(plantId)
 
     fun getUserPlant() = repository.getUserPlants()
+
+    fun getPlantDisease(id: Int) = repository.getPlantDiseases(id)
 
 
 }
