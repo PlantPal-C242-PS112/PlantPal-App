@@ -80,6 +80,28 @@
     <string name="tab_my_plants">Tanamanku</string>
     <string name="tab_reminders">Pengingat</string>
     <string name="tab_analysis_history">Riwayat Analisis</string>
+    <string name="detail_tanamanku">Detail Tanamanku</string>
+    <string name="back">kembali</string>
+    <string name="nama_tanman">Nama Tanman</string>
+    <string name="desc_myplant">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="pengingat">Pengingat</string>
+    <string name="tambah_pengingat">+ Tambah pengingat</string>
+    <string name="water_reminder_icon">siram tanaman</string>
+    <string name="siram_tanaman">Siram tanaman</string>
+    <string name="fertilizer_reminder_icon">fertilizer reminder</string>
+    <string name="rotate_plant_icon">rotate plant</string>
+    <string name="humidity_reminder_icon">humidity reminder</string>
+    <string name="titleAlarm">Judul Pengingat\n</string>
+    <string name="messageaAlarm">Tulis Pesan</string>
+    <string name="schedule_notification">Tambah Pengingat</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="alarm_message">Tambahkan Pesan</string>
+    <string name="alarm_title">Judul Pengingat</string>
+    <string name="create_a_alarm">Tambah Pengingat</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="time">Time</string>
+    <string name="messageAlarm">Tanaman apa yang ingin diberi pengingat?</string>
 
     <integer-array name="banners">
         <item>@drawable/welcome_banner</item>

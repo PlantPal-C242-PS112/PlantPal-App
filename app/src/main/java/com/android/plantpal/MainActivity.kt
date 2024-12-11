@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         checkLogin()
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         val appBarConfiguration = AppBarConfiguration(
@@ -39,6 +39,18 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        handleDeepLink(navController)
+    }
+
+    private fun handleDeepLink(navController: NavController) {
+        val deepLinkIntent = intent
+        if (deepLinkIntent != null && deepLinkIntent.action == Intent.ACTION_VIEW) {
+            val deepLinkUri = deepLinkIntent.data
+            if (deepLinkUri != null && deepLinkUri.host == "reminders") {
+                navController.navigate(R.id.navigation_reminders)
+            }
+        }
     }
 
     private fun checkLogin() {

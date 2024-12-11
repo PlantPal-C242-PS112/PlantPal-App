@@ -13,12 +13,4 @@ class MyPlantsViewModel(private val repository: Repository) : ViewModel() {
     fun getUserPlants(): LiveData<Result<List<UserPlant>>> {
         return repository.getUserPlants()
     }
-
-    fun addPlant(plantId: Int): LiveData<Result<AddPlantResponse>> {
-        return repository.addPlant(plantId)
-    }
-
-    fun deletePlant(plantId: Int): LiveData<Result<Boolean>> {
-        return repository.deletePlant(plantId)
-    }
 }

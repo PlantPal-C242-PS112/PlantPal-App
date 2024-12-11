@@ -7,6 +7,11 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.NOTIFICATION" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
@@ -21,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlantPal"
         tools:targetApi="31">
+        <receiver
+            android:name=".ui.plant.reminder.ReminderNotification"
+            android:enabled="true" />
         <activity
             android:name=".ui.home.analyze.DetailHistoryActivity"
             android:exported="false" />
@@ -70,6 +78,9 @@
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.plant.reminder.SetAlarmActivity"
+            android:exported="false" />
+        <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -79,8 +90,13 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="plantpal" android:host="reminders" />
             </intent-filter>
         </activity>
 

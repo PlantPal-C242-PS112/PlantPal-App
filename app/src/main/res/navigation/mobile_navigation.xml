@@ -29,6 +29,16 @@
         android:label="Akun"
         tools:layout="@layout/fragment_account" />
 
+    <fragment
+        android:id="@+id/navigation_reminders"
+        android:name="com.android.plantpal.ui.plant.reminder.RemindersFragment"
+        android:label="Reminders"
+        tools:layout="@layout/fragment_reminders">
+        <deepLink
+            app:uri="plantpal://reminders" />
+    </fragment>
+
+
 
 
 

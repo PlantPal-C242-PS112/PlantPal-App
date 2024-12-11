@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:backgroundTint="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,63 +12,72 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Tanggal pengingat -->
         <TextView
-            android:id="@+id/text_reminder_date"
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/message"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/completedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="21 November 2024"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:text="Selesai"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"/>
 
-        <!-- Aktivitas dan tanaman -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="16dp"
+            android:gravity="end">
 
-            <!-- Ikon aktivitas -->
-            <ImageView
-                android:id="@+id/icon_reminder"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_watering"
-                android:contentDescription="@string/reminder_icon" />
-
-            <!-- Informasi aktivitas -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:layout_marginStart="1dp"
+                android:text="Batalkan"/>
 
-                <TextView
-                    android:id="@+id/text_activity_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Siram tanaman"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
+            <Button
+                android:id="@+id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:layout_marginStart="1dp"
+                android:text="Selesai"/>
 
-                <TextView
-                    android:id="@+id/text_plant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jeruk - Setiap Minggu"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/icon_more_options"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_more"
-                android:contentDescription="@string/more_options"
-                android:layout_gravity="center_vertical" />
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

@@ -41,21 +41,16 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_plant_reminder"
+            <Button
+                android:id="@+id/btn_plant_reminder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buat Pengingat"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/darker_gray" />
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:layout_marginStart="1dp"
+                android:text="Buat Penginat"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/btn_set_reminder"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/set_reminder"
-            app:srcCompat="@drawable/add_alarm" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

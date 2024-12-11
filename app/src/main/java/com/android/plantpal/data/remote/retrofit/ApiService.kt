@@ -163,18 +163,16 @@ interface ApiService {
     ): CultivationTipsResponse
 
     @GET("user-plants")
-    suspend fun getUserPlants(
-        @Header("Authorization") authorization: String
-    ): UserPlantsResponse
+    suspend fun getUserPlants(): UserPlantsResponse
 
     @POST("user-plants")
     suspend fun addPlant(
-        @Body body: AddPlantRequest
+        @Body addPlantRequest: AddPlantRequest
     ): AddPlantResponse
 
     @DELETE("user-plants")
     suspend fun deletePlant(
-        @Body request: DeletePlantRequest
+        @Body deletePlantRequest: DeletePlantRequest
     ): DeletePlantResponse
 
     @GET("diagnosis/history")

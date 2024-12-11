@@ -25,6 +25,7 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
+import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.DetailPlantData
@@ -44,8 +45,10 @@ import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import com.android.plantpal.data.remote.retrofit.ApiService
 import com.android.plantpal.ui.utils.Result
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -400,7 +403,17 @@ class Repository (
     fun getUserPlants(): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.getUserPlants("Bearer <token>")
+            val userSession = userPreference.getSession().first()
+
+            val token = userSession.token
+
+            if (token.isEmpty()) {
+                emit(Result.Error("Token is missing"))
+                return@liveData
+            }
+
+            val response = apiService.getUserPlants()
+
             if (response.status) {
                 emit(Result.Success(response.data))
             } else {
@@ -415,17 +428,23 @@ class Repository (
         emit(Result.Loading)
         try {
             val response = apiService.addPlant(AddPlantRequest(plantId))
-            emit(Result.Success(response))
+
+            if (response.status) {
+                Result.Success(true)
+            } else {
+                Result.Error("Failed to add plant: ${response.message}")
+            }
         } catch (e: Exception) {
-            emit(Result.Error("Error: ${e.message}"))
+            Result.Error(e.message ?: "Unknown error occurred")
         }
     }
 
-    fun deletePlant(plantId: Int): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+
+    fun deletePlant(plantId: Int): LiveData<Result<DeletePlantResponse>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try{
-            apiService.deletePlant(DeletePlantRequest(plantId))
-            emit(Result.Success(true))
+            val response = apiService.deletePlant(DeletePlantRequest(plantId))
+            emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error("ErrorDel: ${e.message}"))
         }
@@ -444,6 +463,7 @@ class Repository (
             emit(Result.Error("Error: ${e.message}"))
         }
     }
+
 
     companion object {
         fun getInstance(

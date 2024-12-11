@@ -4,24 +4,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.R
+import com.android.plantpal.data.preference.UserPreference
+import com.android.plantpal.data.preference.dataStore
 import com.android.plantpal.data.remote.response.CultivationData
-import com.android.plantpal.data.remote.response.CultivationPlantMedia
 import com.android.plantpal.data.remote.response.DetailPlantData
 import com.android.plantpal.data.remote.response.PlantMedia
 import com.android.plantpal.data.remote.response.UserPlant
-import com.android.plantpal.data.remote.response.UserPlantDetail
 import com.android.plantpal.databinding.ActivityDetailPlantBinding
 import com.android.plantpal.ui.ViewModelFactory
-import com.android.plantpal.ui.plant.MyPlantsViewModel
-import com.android.plantpal.ui.plant.PlantViewModel
 import com.bumptech.glide.Glide
 import com.android.plantpal.ui.utils.Result
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 
@@ -29,6 +29,8 @@ class DetailPlantActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPlantBinding
     private lateinit var viewModel: PlantsViewModel
+    private lateinit var userPreference: UserPreference
+
 
     private var isFavorite = false
 
@@ -43,6 +45,8 @@ class DetailPlantActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, viewModelFactory)[PlantsViewModel::class.java]
 
+        userPreference = UserPreference.getInstance(applicationContext.dataStore)
+
         val plantId = intent.getIntExtra(KEY_PLANT_ID, -1)
 
         if (plantId != -1) {
@@ -54,66 +58,33 @@ class DetailPlantActivity : AppCompatActivity() {
         }
 
         observePlantDetails(plantId)
-
         observeCultivationTips(plantId)
 
         binding.btnFavorite.setOnClickListener {
-            addPlantToFavorites(plantId)
+            lifecycleScope.launch {
+                toggleFavorite(plantId)
+            }
         }
-
 
     }
 
 
-    private fun addPlantToFavorites(plantId: Int) {
-        viewModel.getDetailPlants(plantId).observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
+    private fun toggleFavorite(plantId: Int) {
+        lifecycleScope.launch {
+            try {
+                viewModel.addPlant(plantId)
 
-                }
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                isFavorite = true
 
-                is Result.Success -> {
-                    if (isFavorite) {
-                        viewModel.deletePlant(plantId).observe(this) { deleteResult ->
-                            when (deleteResult) {
-                                is Result.Loading -> {
-
-                                }
-                                is Result.Success -> {
-                                    binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
-                                    isFavorite = false
-                                }
-                                is Result.Error -> {
-
-                                }
-                            }
-                        }
-                    } else {
-                        viewModel.addPlant(plantId).observe(this) { addResult ->
-                            when (addResult) {
-                                is Result.Loading -> {
-                                }
-
-                                is Result.Success -> {
-                                    binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                                    isFavorite = true
-                                }
-
-                                is Result.Error -> {
-
-                                }
-                            }
-                        }
-                    }
-                    isFavorite = !isFavorite
-                }
-
-                is Result.Error -> {
-
-                }
+                Toast.makeText(this@DetailPlantActivity, "Plant added to favorites!", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Log.e("DetailPlantActivity", "Error adding plant to favorites: ${e.message}")
+                Toast.makeText(this@DetailPlantActivity, "Failed to add to favorites", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     private fun observePlantDetails(plantId: Int) {
         viewModel.getDetailPlants(plantId).observe(this) { result ->
@@ -153,18 +124,20 @@ class DetailPlantActivity : AppCompatActivity() {
     }
 
     private fun setPlantDetail(plant: DetailPlantData) {
-        Log.d("DetailPlantActivity", "Setting plant detail for: ${plant.name}")
         supportActionBar?.title = "Detail Tanaman ${plant.name}"
 
-        setPlantPicture(plant.plantMedia)
+        binding.imgPlant.setImageResource(R.drawable.ic_image)
+        if (plant.plantMedia.isNotEmpty()) {
+            Glide.with(this)
+                .load(plant.plantMedia[0].url)
+                .into(binding.imgPlant)
+        }
 
         binding.tvPlantName.text = plant.name
-        Log.d("DetailPlantActivity", "Description: ${plant.description}")
         binding.tvDescription.text = HtmlCompat.fromHtml(
             plant.description,
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
-
 
     }
 

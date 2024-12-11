@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.android.plantpal.data.Repository
+import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DetailPlantData
+import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.ui.utils.Result
+import java.io.File
 
 class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
@@ -32,7 +35,6 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
         return repository.getCultivationTips(id)
     }
 
-
     fun getAllPlants() = repository.getAllPlants()
 
     fun getDetailPlants(id: Int) = repository.getDetailPlants(id)
@@ -41,7 +43,10 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
     fun addPlant(plantId: Int) = repository.addPlant(plantId)
 
-    fun deletePlant(plantId: Int) = repository.deletePlant(plantId)
 
+    fun deletePlant(plantId: Int) = repository.addPlant(plantId)
 
+    fun getUserPlants(): LiveData<Result<List<UserPlant>>> {
+        return repository.getUserPlants()
+    }
 }

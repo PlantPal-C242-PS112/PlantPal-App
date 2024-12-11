@@ -1,20 +1,22 @@
 package com.android.plantpal.ui.plant.myplant
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.plantpal.R
 import com.android.plantpal.databinding.FragmentMyPlantsBinding
 import com.android.plantpal.ui.ViewModelFactory
+import com.android.plantpal.ui.home.plants.DetailPlantActivity
+import com.android.plantpal.ui.home.plants.PlantActivity
 import com.android.plantpal.ui.plant.MyPlantsViewModel
-import com.android.plantpal.ui.utils.dialog.FailedDialog
+import com.android.plantpal.ui.plant.myplantdetail.DetailMyPlantsActivity
+import com.android.plantpal.ui.plant.reminder.SetAlarmActivity
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.Result
 
@@ -32,34 +34,49 @@ class MyPlantsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyPlantsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
 
         val factory = ViewModelFactory.getInstance(requireContext())
         myPlantsViewModel = ViewModelProvider(this, factory).get(MyPlantsViewModel::class.java)
 
-        binding.rvMyPlants.layoutManager = LinearLayoutManager(context)
-        plantAdapter = PlantAdapter(emptyList()) { userPlant ->
-
+        val plantAdapter = PlantAdapter { userPlant ->
+            val intent = Intent(requireContext(), DetailPlantActivity::class.java)
+            intent.putExtra(DetailPlantActivity.KEY_PLANT_ID, userPlant.plantId)
+            startActivity(intent)
         }
+
+        binding.rvMyPlants.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMyPlants.adapter = plantAdapter
 
-        myPlantsViewModel.getUserPlants().observe(viewLifecycleOwner) { result ->
+        loadingDialog = LoadingDialog(requireActivity())
+
+        binding.fabAddPlant.setOnClickListener {
+            val intent = Intent(requireContext(), PlantActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        myPlantsViewModel.getUserPlants().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    Log.d("MyPlantsFragment", "Data received: ${result.data}")
                     plantAdapter.updateData(result.data)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
                 }
             }
-        }
-        return root
+        })
     }
 
     override fun onDestroyView() {
