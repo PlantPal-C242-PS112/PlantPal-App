@@ -25,6 +25,7 @@
             android:src="@drawable/baseline_medication_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="Medic Icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

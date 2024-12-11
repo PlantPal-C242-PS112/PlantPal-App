@@ -42,6 +42,7 @@
                     android:src="@drawable/think"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
+                    android:contentDescription="Think Icon"
                     app:layout_constraintBottom_toTopOf="@id/card_desc"
                     app:layout_constraintStart_toStartOf="parent"/>
 
@@ -107,6 +108,7 @@
 
                         <ImageView
                             android:id="@+id/icon_desc"
+                            android:contentDescription="Desc Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/baseline_description_24"
@@ -163,6 +165,7 @@
                         android:paddingTop="16dp">
 
                         <ImageView
+                            android:contentDescription="Icon Prevention"
                             android:id="@+id/icon_prevention"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -226,6 +229,7 @@
                             android:src="@drawable/baseline_medical_services_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="Icon Medic"
                             app:tint="@color/green" />
 
                         <TextView
@@ -285,6 +289,7 @@
                             android:src="@drawable/baseline_recommend_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="Icon Cure"
                             app:tint="@color/green" />
 
                         <TextView

@@ -81,7 +81,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="550dp"
+                android:layout_height="570dp"
                 android:orientation="vertical"
                 android:padding="28dp">
 
@@ -258,7 +258,8 @@
                     android:gravity="center_horizontal"
                     android:text="@string/sudah_punya_akun"
                     android:textStyle="bold"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:focusable="true" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

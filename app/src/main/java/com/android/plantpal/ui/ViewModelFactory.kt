@@ -16,8 +16,8 @@ import com.android.plantpal.ui.home.disease.DiseaseViewModel
 import com.android.plantpal.ui.home.plants.PlantsViewModel
 import com.android.plantpal.ui.login.LoginViewModel
 import com.android.plantpal.ui.otp.OtpVerificationViewModel
-import com.android.plantpal.ui.plant.MyPlantsViewModel
 import com.android.plantpal.ui.plant.analysis.AnalysisHistoryViewModel
+import com.android.plantpal.ui.plant.myplant.MyPlantsViewModel
 import com.android.plantpal.ui.register.RegisterViewModel
 
 class ViewModelFactory private constructor(

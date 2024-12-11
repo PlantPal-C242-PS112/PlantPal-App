@@ -1,9 +1,7 @@
 package com.android.plantpal.data.remote.retrofit
 
-import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
-import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
@@ -15,7 +13,6 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.CultivationTipsResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
-import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
 import com.android.plantpal.data.remote.response.DetailPlantsResponse
@@ -25,6 +22,7 @@ import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.LoginResponse
+import com.android.plantpal.data.remote.response.PlantDiseasesResponse
 import com.android.plantpal.data.remote.response.PlantsResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
@@ -37,7 +35,6 @@ import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -166,15 +163,15 @@ interface ApiService {
     @GET("user-plants")
     suspend fun getUserPlants(): UserPlantsResponse
 
-    @POST("user-plants")
+    @POST("user-plants/{plantId}")
     suspend fun addPlant(
-        @Body body: AddPlantRequest
+        @Path("plantId") plantId: Int
     ): AddPlantResponse
 
-    @DELETE("user-plants")
+    @DELETE("user-plants/{plantId}")
     suspend fun deletePlant(
-        @Body request: DeletePlantRequest
-    ): DeletePlantResponse
+        @Path("plantId") plantId: Int
+    )
 
     @GET("diagnosis/history")
     suspend fun getDiagnosisHistory(): DiagnosisHistoryResponse
@@ -183,6 +180,11 @@ interface ApiService {
     suspend fun deleteHistory(
         @Path("id") id: String
     )
+
+    @GET("plants/{id}/diseases")
+    suspend fun getPlantDiseases(
+        @Path("id") id: Int
+    ): PlantDiseasesResponse
 
     @PATCH("diagnosis/history")
     suspend fun deleteAllHistory()

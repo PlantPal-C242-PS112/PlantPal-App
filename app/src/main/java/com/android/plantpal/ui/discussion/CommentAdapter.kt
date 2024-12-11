@@ -23,7 +23,7 @@ class CommentAdapter(private val listComments: List<ListItemComment>) : Recycler
 
             val updatedAt = comment.updatedAt
             val hoursDifference = calculateTimeDifference(updatedAt)
-            binding.hour.text = "$hoursDifference"
+            binding.hour.text = hoursDifference
 
             binding.root.setOnClickListener {
                 callback?.onItemClicked(comment)

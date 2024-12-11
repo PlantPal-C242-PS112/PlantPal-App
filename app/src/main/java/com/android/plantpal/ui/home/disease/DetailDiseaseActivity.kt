@@ -33,7 +33,7 @@ class DetailDiseaseActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, viewModelFactory)[DiseaseViewModel::class.java]
 
-        val disId = intent.getIntExtra(DetailDiseaseActivity.KEY_DISEASE_ID, -1)
+        val disId = intent.getIntExtra(KEY_DISEASE_ID, -1)
 
         observeDiseaseDetails(disId)
     }

@@ -94,4 +94,6 @@ dependencies {
 
     implementation ("com.github.yalantis:ucrop:2.2.10")
 
+    implementation ("org.jsoup:jsoup:1.15.4")
+
 }

@@ -11,10 +11,8 @@ import androidx.paging.liveData
 import com.android.plantpal.data.database.DiscussionRoomDatabase
 import com.android.plantpal.data.preference.UserModel
 import com.android.plantpal.data.preference.UserPreference
-import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
-import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
@@ -35,6 +33,7 @@ import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
 import com.android.plantpal.data.remote.response.ListItemDisease
 import com.android.plantpal.data.remote.response.ListItemPlant
+import com.android.plantpal.data.remote.response.ListPlantDisease
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
@@ -117,7 +116,7 @@ class Repository (
             if (response.status) {
                 emit(Result.Success(response))
             } else {
-                emit(Result.Error(response.message ?: "Unknown error"))
+                emit(Result.Error(response.message))
             }
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
@@ -133,7 +132,7 @@ class Repository (
             if (response.status) {
                 emit(Result.Success(response))
             } else {
-                emit(Result.Error(response.message ?: "Unknown error"))
+                emit(Result.Error(response.message))
             }
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
@@ -149,7 +148,7 @@ class Repository (
             if (response.status) {
                 emit(Result.Success(response))
             } else {
-                emit(Result.Error(response.message ?: "Unknown error"))
+                emit(Result.Error(response.message))
             }
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
@@ -165,7 +164,7 @@ class Repository (
             if (response.status) {
                 emit(Result.Success(response))
             } else {
-                emit(Result.Error(response.message ?: "Password Changed Sucessfully"))
+                emit(Result.Error(response.message))
             }
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
@@ -414,7 +413,7 @@ class Repository (
     fun addPlant(plantId: Int): LiveData<Result<AddPlantResponse>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.addPlant(AddPlantRequest(plantId))
+            val response = apiService.addPlant(plantId)
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
@@ -424,7 +423,7 @@ class Repository (
     fun deletePlant(plantId: Int): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try{
-            apiService.deletePlant(DeletePlantRequest(plantId))
+            apiService.deletePlant(plantId)
             emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error("ErrorDel: ${e.message}"))
@@ -462,6 +461,16 @@ class Repository (
             emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun getPlantDiseases(id: Int): LiveData<Result<List<ListPlantDisease>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getPlantDiseases(id)
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
         }
     }
 

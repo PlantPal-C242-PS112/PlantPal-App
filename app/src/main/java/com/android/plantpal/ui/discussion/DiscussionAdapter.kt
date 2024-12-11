@@ -32,7 +32,7 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
                 .error(R.drawable.person_pc)
                 .into(binding.profilePic)
 
-            val updatedAt = discussion.updatedAt
+            val updatedAt = discussion.createdAt
             val hoursDifference = updatedAt?.let { calculateTimeDifference(it) }
             binding.hour.text = "$hoursDifference"
 
@@ -47,22 +47,9 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
             }
 
             binding.like.setOnClickListener {
-                // Toggle like state
                 val updatedDiscussion = discussion.copy(isLiked = !discussion.isLiked)
                 callback?.onLikeClicked(updatedDiscussion)
             }
-
-//            var isLiked = false
-//
-//            binding.like.setOnClickListener {
-//                isLiked = !isLiked
-//
-//                if (isLiked) {
-//
-//                } else {
-//
-//                }
-//            }
         }
     }
 
@@ -76,12 +63,6 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
         if (discussion != null) {
             holder.bind(discussion, onItemClickCallback)
         }
-
-//        holder.itemView.setOnClickListener {
-//            if (discussion != null) {
-//                onClick(discussion)
-//            }
-//        }
     }
 
     interface OnItemClickCallback {

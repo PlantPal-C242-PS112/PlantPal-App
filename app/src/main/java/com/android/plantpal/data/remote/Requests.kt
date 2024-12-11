@@ -11,7 +11,6 @@ data class LoginRequest(
     val password: String,
 )
 
-
 data class CommentRequest(
     val content: String
 )
@@ -29,10 +28,7 @@ data class ChangeForgotPasswordRequest(
     val password: String
 )
 
-data class AddPlantRequest(
-    val plantId: Int
-)
 
-data class DeletePlantRequest(
-    val plantId: Int
-)
+
+
+

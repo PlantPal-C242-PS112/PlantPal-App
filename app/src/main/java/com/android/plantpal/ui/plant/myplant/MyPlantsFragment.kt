@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.databinding.FragmentMyPlantsBinding
 import com.android.plantpal.ui.ViewModelFactory
-import com.android.plantpal.ui.plant.MyPlantsViewModel
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 
@@ -25,14 +24,14 @@ class MyPlantsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMyPlantsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         loadingDialog = LoadingDialog(requireActivity())
 
         val factory = ViewModelFactory.getInstance(requireContext())
-        myPlantsViewModel = ViewModelProvider(this, factory).get(MyPlantsViewModel::class.java)
+        myPlantsViewModel = ViewModelProvider(this, factory)[MyPlantsViewModel::class.java]
 
         binding.rvMyPlants.layoutManager = LinearLayoutManager(context)
         plantAdapter = PlantAdapter(emptyList()) { userPlant ->

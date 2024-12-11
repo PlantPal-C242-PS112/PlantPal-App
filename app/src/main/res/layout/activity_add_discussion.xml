@@ -1,160 +1,169 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/super_green"
     tools:context=".ui.discussion.add.AddDiscussionActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pic_placeholder"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_item_photo"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pic_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"
-            android:contentDescription="Photo"
-            android:layout_marginBottom="16dp"
-            app:srcCompat="@drawable/ic_place_holder" />
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/del_pic"
-            android:layout_width="60dp"
-            android:layout_height="65dp"
-            app:backgroundTint="@color/red"
-            app:cornerRadius="30dp"
-            app:icon="@drawable/baseline_delete_24"
-            app:layout_constraintEnd_toEndOf="@id/iv_item_photo"
-            app:layout_constraintTop_toTopOf="@id/iv_item_photo"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <ImageView
+                android:id="@+id/iv_item_photo"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitXY"
+                android:contentDescription="Photo"
+                android:layout_marginBottom="16dp"
+                app:srcCompat="@drawable/ic_place_holder" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/del_pic"
+                android:layout_width="60dp"
+                android:layout_height="65dp"
+                app:backgroundTint="@color/red"
+                app:cornerRadius="30dp"
+                app:icon="@drawable/baseline_delete_24"
+                app:layout_constraintEnd_toEndOf="@id/iv_item_photo"
+                app:layout_constraintTop_toTopOf="@id/iv_item_photo"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/add_photo_bulk"
-        android:layout_marginVertical="40dp"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pic_placeholder">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/add_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_photo_bulk"
+            android:layout_marginVertical="40dp"
             android:visibility="visible"
-            android:clickable="true"
-            android:contentDescription="Add Photo"
-            android:focusable="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/baseline_add_photo_alternate_24" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pic_placeholder">
+
+            <ImageView
+                android:id="@+id/add_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="visible"
+                android:clickable="true"
+                android:contentDescription="Add Photo"
+                android:focusable="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/baseline_add_photo_alternate_24" />
+
+            <TextView
+                android:id="@+id/text_add_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tambah foto"
+                app:layout_constraintStart_toStartOf="@id/add_photo"
+                app:layout_constraintEnd_toEndOf="@id/add_photo"
+                app:layout_constraintTop_toBottomOf="@id/add_photo"
+                android:textSize="12sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_add_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tambah foto"
-            app:layout_constraintStart_toStartOf="@id/add_photo"
-            app:layout_constraintEnd_toEndOf="@id/add_photo"
-            app:layout_constraintTop_toBottomOf="@id/add_photo"
-            android:textSize="12sp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/text_pick_crop_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pilih Jenis Tanaman"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/add_photo_bulk"
-        android:layout_marginHorizontal="16dp"/>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/plant_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_pick_crop_layout"
-        app:cardCornerRadius="24dp"
-        app:strokeColor="@color/green"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:strokeWidth="1dp">
-
-        <Spinner
-            android:id="@+id/spinner_crops"
+            android:id="@+id/text_pick_crop_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Pilih Jenis Tanaman"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/add_photo_bulk"
+            android:layout_marginHorizontal="16dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/plant_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/text_pick_crop_layout"
-            android:padding="4dp"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/green"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:strokeWidth="1dp">
 
-    </com.google.android.material.card.MaterialCardView>
+            <Spinner
+                android:id="@+id/spinner_crops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_pick_crop_layout"
+                android:padding="4dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/question_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pertanyaan Diskusi"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/plant_type"
-        android:layout_marginHorizontal="16dp"/>
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.android.plantpal.ui.customview.CustomFieldText
-        android:id="@+id/ed_add_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:minLines="12"
-        android:gravity="top"
-        android:layout_marginHorizontal="16dp"
-        android:layout_below="@id/question_layout"
-        android:scrollbars="vertical" />
+        <TextView
+            android:id="@+id/question_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pertanyaan Diskusi"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/plant_type"
+            android:layout_marginHorizontal="16dp"/>
 
-    <TextView
-        android:id="@+id/desc_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Deskripsi Pertanyaan"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/ed_add_question"
-        android:layout_marginHorizontal="16dp"/>
+        <com.android.plantpal.ui.customview.CustomFieldText
+            android:id="@+id/ed_add_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="12"
+            android:gravity="top"
+            android:layout_marginHorizontal="16dp"
+            android:layout_below="@id/question_layout"
+            android:scrollbars="vertical" />
 
-    <com.android.plantpal.ui.customview.CustomFieldTextDesc
-        android:id="@+id/ed_add_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:minLines="12"
-        android:gravity="top"
-        android:layout_marginHorizontal="16dp"
-        android:layout_below="@id/desc_layout"
-        android:scrollbars="vertical" />
+        <TextView
+            android:id="@+id/desc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi Pertanyaan"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/ed_add_question"
+            android:layout_marginHorizontal="16dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add"
-        android:layout_width="match_parent"
-        app:cornerRadius="32dp"
-        android:layout_height="52dp"
-        android:textAllCaps="false"
-        android:text="Upload"
-        android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="16dp"/>
+        <com.android.plantpal.ui.customview.CustomFieldTextDesc
+            android:id="@+id/ed_add_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="12"
+            android:gravity="top"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@id/desc_layout"
+            android:scrollbars="vertical" />
 
-</RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add"
+            android:layout_width="match_parent"
+            app:cornerRadius="32dp"
+            android:layout_height="52dp"
+            android:textAllCaps="false"
+            android:text="Upload"
+            android:layout_marginHorizontal="16dp"
+            android:layout_below="@id/ed_add_desc"
+            android:layout_marginVertical="16dp"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>
+
