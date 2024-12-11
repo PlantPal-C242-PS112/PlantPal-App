@@ -10,9 +10,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.appcompat.app.AlertDialog.Builder
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import com.android.plantpal.BuildConfig
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -161,4 +164,100 @@ fun formatToLocalDateTime(dateStr: String): String {
 
     return outputFormat.format(date!!)
 }
+
+data class CultivationTip(
+    val title: String,
+    val sections: List<Section>
+)
+
+data class Section(
+    val heading: String,
+    val content: String,
+    val img: String? = null
+)
+
+fun cleanHtml(inputHtml: String): String {
+    val document = Jsoup.parse(inputHtml)
+
+    return document.html()
+}
+
+fun extract(html: String): CultivationTip {
+    val doc: Document = Jsoup.parse(html)
+
+    val title = doc.select("h1").text()
+
+    val sections = mutableListOf<Section>()
+    var currentHeading: String? = null
+    val contentBuilder = StringBuilder()
+
+    for (element in doc.body().children()) {
+        when {
+            element.tagName() == "h2" || element.tagName() == "h3" -> {
+                if (currentHeading != null && contentBuilder.isNotEmpty()) {
+                    sections.add(Section(currentHeading, contentBuilder.toString().trim()))
+                    contentBuilder.clear()
+                }
+                currentHeading = element.text()
+            }
+
+            element.tagName() == "p" && element.select("img").isNotEmpty() -> {
+                val imgSrc = element.select("img").attr("src")
+                if (imgSrc.startsWith("http") && currentHeading != null) {
+                    sections.add(Section(currentHeading, contentBuilder.toString().trim(), imgSrc))
+                    contentBuilder.clear()
+                }
+            }
+
+            element.tagName() == "ul" || element.tagName() == "ol" || element.tagName() == "p" -> {
+                contentBuilder.append(element.outerHtml()).append("\n")
+            }
+
+            element.tagName() == "img" -> {
+                val imgSrc = element.attr("src")
+                if (imgSrc.startsWith("http") && currentHeading != null) {
+                    if (contentBuilder.isNotEmpty()) {
+                        sections.add(Section(currentHeading, contentBuilder.toString().trim(), imgSrc))
+                        contentBuilder.clear()
+                    }
+                }
+            }
+        }
+    }
+
+    if (currentHeading != null && contentBuilder.isNotEmpty()) {
+        sections.add(Section(currentHeading, contentBuilder.toString().trim()))
+    }
+
+    return CultivationTip(title, sections)
+}
+
+fun showAlertDialog(
+    context: Context,
+    title: String,
+    message: String? = null,
+    positiveButtonText: String,
+    negativeButtonText: String,
+    onPositive: (() -> Unit)? = null,
+    onNegative: (() -> Unit)? = null
+) {
+    Builder(context).apply {
+        setTitle(title)
+        setMessage(message)
+        setPositiveButton(positiveButtonText) { dialog, _ ->
+            onPositive?.invoke()
+            dialog.dismiss()
+        }
+        setNegativeButton(negativeButtonText) { dialog, _ ->
+            onNegative?.invoke()
+            dialog.dismiss()
+        }
+        create()
+        show()
+    }
+}
+
+
+
+
 

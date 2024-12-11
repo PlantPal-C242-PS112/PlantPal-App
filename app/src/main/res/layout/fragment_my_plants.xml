@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
+    android:background="@color/super_green"
     tools:context=".ui.plant.myplant.MyPlantsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50dp"
         android:id="@+id/rv_my_plants"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"

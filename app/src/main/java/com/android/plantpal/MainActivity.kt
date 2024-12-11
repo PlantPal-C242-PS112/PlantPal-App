@@ -2,7 +2,6 @@ package com.android.plantpal
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.plantpal.databinding.ActivityMainBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.login.LoginActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 

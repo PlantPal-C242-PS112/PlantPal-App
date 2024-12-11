@@ -1,9 +1,7 @@
 package com.android.plantpal.data.remote.retrofit
 
-import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
-import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
@@ -25,6 +23,7 @@ import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
 import com.android.plantpal.data.remote.response.LoginResponse
+import com.android.plantpal.data.remote.response.PlantDiseasesResponse
 import com.android.plantpal.data.remote.response.PlantsResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
@@ -37,8 +36,8 @@ import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -60,7 +59,7 @@ interface ApiService {
     @GET("discussions")
     suspend fun getAllDiscussions(
         @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 10
+        @Query("limit") limit: Int = 50
     ): DiscussionResponse
 
     @GET("users")
@@ -165,18 +164,31 @@ interface ApiService {
     @GET("user-plants")
     suspend fun getUserPlants(): UserPlantsResponse
 
-    @POST("user-plants")
+    @POST("user-plants/{plantId}")
     suspend fun addPlant(
-        @Body addPlantRequest: AddPlantRequest
+        @Path("plantId") plantId: Int
     ): AddPlantResponse
 
-    @DELETE("user-plants")
+    @DELETE("user-plants/{plantId}")
     suspend fun deletePlant(
-        @Body deletePlantRequest: DeletePlantRequest
-    ): DeletePlantResponse
+        @Path("plantId") plantId: Int
+    )
 
     @GET("diagnosis/history")
     suspend fun getDiagnosisHistory(): DiagnosisHistoryResponse
+
+    @PATCH("diagnosis/history/{id}")
+    suspend fun deleteHistory(
+        @Path("id") id: String
+    )
+
+    @GET("plants/{id}/diseases")
+    suspend fun getPlantDiseases(
+        @Path("id") id: Int
+    ): PlantDiseasesResponse
+
+    @PATCH("diagnosis/history")
+    suspend fun deleteAllHistory()
 
 }
 

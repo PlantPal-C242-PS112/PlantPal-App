@@ -4,16 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.android.plantpal.data.Repository
-import com.android.plantpal.data.remote.response.AddPlantResponse
 import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DetailPlantData
-import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.ui.utils.Result
-import java.io.File
 
 class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
-    val plantDetailsWithCultivationTips = MediatorLiveData<Pair<Result<DetailPlantData>?, Result<CultivationData>?>>()
+    private val plantDetailsWithCultivationTips = MediatorLiveData<Pair<Result<DetailPlantData>?, Result<CultivationData>?>>()
 
     fun setPlantId(id: Int) {
         val detailPlantsLiveData = getDetailPlantsLiveData(id)
@@ -27,13 +24,14 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getDetailPlantsLiveData(id: Int): LiveData<Result<DetailPlantData>> {
+    private fun getDetailPlantsLiveData(id: Int): LiveData<Result<DetailPlantData>> {
         return repository.getDetailPlants(id)
     }
 
-    fun getCultivationTipsLiveData(id: Int): LiveData<Result<CultivationData>> {
+    private fun getCultivationTipsLiveData(id: Int): LiveData<Result<CultivationData>> {
         return repository.getCultivationTips(id)
     }
+
 
     fun getAllPlants() = repository.getAllPlants()
 
@@ -43,10 +41,11 @@ class PlantsViewModel (private val repository: Repository) : ViewModel() {
 
     fun addPlant(plantId: Int) = repository.addPlant(plantId)
 
+    fun deletePlant(plantId: Int) = repository.deletePlant(plantId)
 
-    fun deletePlant(plantId: Int) = repository.addPlant(plantId)
+    fun getUserPlant() = repository.getUserPlants()
 
-    fun getUserPlants(): LiveData<Result<List<UserPlant>>> {
-        return repository.getUserPlants()
-    }
+    fun getPlantDisease(id: Int) = repository.getPlantDiseases(id)
+
+
 }

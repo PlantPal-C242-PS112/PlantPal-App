@@ -16,8 +16,8 @@ data class DetailDiscussionResponse(
 
 data class DetailDiscussionData(
 
-	@field:SerializedName("updated_at")
-	val updatedAt: String,
+	@field:SerializedName("created_at")
+	val createdAt: String,
 
 	@field:SerializedName("plant")
 	val plant: PlantDetail,

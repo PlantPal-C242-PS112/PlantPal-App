@@ -9,9 +9,6 @@ import com.android.plantpal.data.remote.response.DiagnosisItem
 import com.android.plantpal.databinding.ItemAnalysisBinding
 import com.android.plantpal.ui.utils.formatToLocalDateTime
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
 class AnalysisHistoryAdapter(
     private val onClick: (DiagnosisItem) -> Unit
@@ -37,7 +34,6 @@ class AnalysisHistoryAdapter(
 
     fun submitList(list: List<DiagnosisItem>) {
         diagnosisList = list
-        notifyDataSetChanged()
     }
 
     inner class AnalysisHistoryViewHolder(private val binding: ItemAnalysisBinding) : RecyclerView.ViewHolder(binding.root) {

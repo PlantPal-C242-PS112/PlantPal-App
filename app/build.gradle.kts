@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -95,5 +93,7 @@ dependencies {
     implementation("io.github.chaosleung:pinview:1.4.4")
 
     implementation ("com.github.yalantis:ucrop:2.2.10")
+
+    implementation ("org.jsoup:jsoup:1.15.4")
 
 }

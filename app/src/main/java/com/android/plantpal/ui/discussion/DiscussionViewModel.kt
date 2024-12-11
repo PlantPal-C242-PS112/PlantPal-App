@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.android.plantpal.data.Repository
 import com.android.plantpal.data.remote.response.ListItemDiscussions
-import kotlinx.coroutines.launch
 
 class DiscussionViewModel(private val repository: Repository) : ViewModel() {
 
