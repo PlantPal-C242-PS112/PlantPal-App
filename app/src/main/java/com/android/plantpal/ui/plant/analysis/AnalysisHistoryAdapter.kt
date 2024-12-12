@@ -34,6 +34,7 @@ class AnalysisHistoryAdapter(
 
     fun submitList(list: List<DiagnosisItem>) {
         diagnosisList = list
+        notifyDataSetChanged()
     }
 
     inner class AnalysisHistoryViewHolder(private val binding: ItemAnalysisBinding) : RecyclerView.ViewHolder(binding.root) {
