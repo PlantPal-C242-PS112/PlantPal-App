@@ -1,5 +1,6 @@
 package com.android.plantpal.ui.discussion
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -62,6 +63,8 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
         val discussion = getItem(position)
         if (discussion != null) {
             holder.bind(discussion, onItemClickCallback)
+        } else {
+            Log.e("DiscussionAdapter", "Item at position $position is null")
         }
     }
 

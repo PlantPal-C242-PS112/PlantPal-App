@@ -155,6 +155,10 @@
     <string name="icon_jeruk">Icon Jeruk</string>
     <string name="icon_bunga">Icon Bunga</string>
     <string name="icon_tomat">Icon Tomat</string>
+    <string name="search">Search</string>
+    <string name="cari_di_diskusi">Cari di diskusi..</string>
+    <string name="temukan_diskusi_terkait">Temukan diskusi terkait</string>
+    <string name="tambah_diskusi">Tambah Diskusi</string>
 
     <integer-array name="banners">
         <item>@drawable/welcome_banner</item>

@@ -1,10 +1,15 @@
 package com.android.plantpal.ui.discussion
 
+import android.R
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -42,12 +47,75 @@ class DiscussionsFragment : Fragment() {
 
         setupAction()
         setupRecyclerView()
+        setupSpinner()
+    }
+
+    private fun setupSpinner() {
+        viewModel.getAllPlants().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
+                is Result.Success -> {
+                    val spinner = binding.spinnerCrops
+                    val plants = result.data.map { it.name }.toTypedArray()
+
+                    val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, plants)
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    spinner.adapter = adapter
+
+                    spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            val selectedPlantName = parent?.getItemAtPosition(position).toString()
+                            viewModel.selectedPlant = selectedPlantName
+                            filterDiscussion(selectedPlantName)
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), "Tidak dapat mengambil data jenis tanaman", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun filterDiscussion(selectedPlantName: String) {
+        viewModel.filterDiscussionsByPlantId(selectedPlantName).observe(viewLifecycleOwner) { pagingData ->
+            if (pagingData != null) {
+                adapter.submitData(lifecycle, pagingData)
+            } else {
+                Toast.makeText(requireContext(), "Tidak ditemukan diskusi terkait", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupAction() {
         binding.buttonAddDiscussion.setOnClickListener {
             val intent = Intent(requireContext(), AddDiscussionActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.buttonSearch.setOnClickListener {
+            val keyword = binding.edSearch.text.toString().trim()
+            if (keyword.isNotEmpty()) {
+                searchDiscussions(keyword)
+                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
+            } else {
+                Toast.makeText(requireContext(), "Masukkan kata kunci pencarian", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun searchDiscussions(keyword: String) {
+        viewModel.searchDiscussions(keyword).observe(viewLifecycleOwner) { pagingData ->
+            if (pagingData != null) {
+                adapter.submitData(lifecycle, pagingData)
+            } else {
+                Toast.makeText(requireContext(), "Tidak ditemukan diskusi terkait", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
