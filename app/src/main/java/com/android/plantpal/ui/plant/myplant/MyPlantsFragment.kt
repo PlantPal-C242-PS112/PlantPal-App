@@ -1,5 +1,6 @@
 package com.android.plantpal.ui.plant.myplant
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.plantpal.databinding.FragmentMyPlantsBinding
 import com.android.plantpal.ui.ViewModelFactory
+import com.android.plantpal.ui.home.plants.DetailPlantActivity
 import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 
@@ -34,9 +36,12 @@ class MyPlantsFragment : Fragment() {
         myPlantsViewModel = ViewModelProvider(this, factory)[MyPlantsViewModel::class.java]
 
         binding.rvMyPlants.layoutManager = LinearLayoutManager(context)
-        plantAdapter = PlantAdapter(emptyList()) { userPlant ->
-
+        val plantAdapter = PlantAdapter { userPlant ->
+            val intent = Intent(requireContext(), DetailPlantActivity::class.java)
+            intent.putExtra(DetailPlantActivity.KEY_PLANT_ID, userPlant.plantId)
+            startActivity(intent)
         }
+
         binding.rvMyPlants.adapter = plantAdapter
 
         myPlantsViewModel.getUserPlants().observe(viewLifecycleOwner) { result ->

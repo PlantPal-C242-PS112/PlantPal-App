@@ -25,7 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/baseline_photo_camera_24"
-        android:contentDescription="Edit"
+        android:contentDescription="@string/edit"
         app:layout_constraintBottom_toBottomOf="@id/profile_pic"
         app:layout_constraintEnd_toEndOf="@id/profile_pic"/>
 
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/profile_pic"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="40dp"
-        android:text="Nama Lengkap"
+        android:text="@string/nama_lengkap"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:icon="@drawable/baseline_done_24"
         app:iconGravity="textStart"
-        android:text="Save"
+        android:text="@string/simpan"
         android:textAllCaps="false"
         app:cornerRadius="32dp"
         android:visibility="gone"
