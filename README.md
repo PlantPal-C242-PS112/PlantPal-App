@@ -8,19 +8,23 @@ PlantPal is an innovative mobile app designed to simplify plant care and ensure 
 - Join a discussion forum of plant lovers to share your concern or questions!
 
 ## Demo Application
-### Authentication
-### Diagnose Plant Disease
-- Using Camera
-- Using Gallery
-### Plant Ensyclopedia
-### Disease Ensyclopedia
-### Plant Reminders
-### History Diagnose
-### Discussion Forum
+1. Authentication  <br>
+   <img src="https://github.com/qnyara5/asset/blob/6325a681b2c98a1b0d96c09d47b85ae357d965ad/Video%20tanpa%20judul%20%E2%80%90%20Dibuat%20dengan%20Clipchamp%20(2)%20(online-video-cutter.com)%20(1)%20(1).gif" width="auto" height="400" alt="auth"/>
+2. Diagnose Plant Disease <br>
+   - Using Camera - Using Gallery <br>
+     <img src="https://github.com/qnyara5/asset/blob/aaca3a6294dd6c54a2423c2788d940e068e6ebb7/a_FIX.gif" width="auto" height="400" alt="gallery"/>
+  
+3. Plant Ensyclopedia <br>
+   <img src="https://github.com/qnyara5/asset/blob/dce46695fd3fb8086a933d80add3db0dd33ef98c/ensiklopedi_tanaman.gif" width="auto" height="400" alt="plantE"/>
+4. Disease Ensyclopedia <br>
+   <img src="https://github.com/qnyara5/asset/blob/973f6c418ca0b91146dd623a33c7ca8f6f0e94c9/ensiklopedi_penyakit.gif" width="auto" height="400" alt="diseaseE"/>
+5. Plant Reminders <br>
+6. History Diagnose <br>
+7. Discussion Forum <br>
 - Add Discussions
 - Give Comment
-### Customize Your Account
-![customize account](https://drive.google.com/file/d/1qMgVYYg8IulpwNC7ClvF1537TWSmCJC4/view?usp=drive_link)
+8. Customize Your Account <br>
+   <img src="https://github.com/qnyara5/asset/blob/aaca3a6294dd6c54a2423c2788d940e068e6ebb7/account_cust.gif" width="auto" height="400" alt="custAcc"/>
 
 
 ## ✅ Prerequisites
