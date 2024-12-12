@@ -49,6 +49,11 @@ class MyPlantsFragment : Fragment() {
             val intent = Intent(requireContext(), DetailPlantActivity::class.java)
             intent.putExtra(DetailPlantActivity.KEY_PLANT_ID, userPlant.plantId)
             startActivity(intent)
+
+            val alarmIntent = Intent(requireContext(), SetAlarmActivity::class.java)
+            alarmIntent.putExtra("PLANT_ID", userPlant.plantId)
+            Log.d("MyPlantsFragment", "Sending PLANT_ID: $userPlant")
+            startActivity(alarmIntent)
         }
 
         binding.rvMyPlants.layoutManager = LinearLayoutManager(requireContext())
@@ -77,6 +82,7 @@ class MyPlantsFragment : Fragment() {
                 }
             }
         })
+
     }
 
     override fun onDestroyView() {

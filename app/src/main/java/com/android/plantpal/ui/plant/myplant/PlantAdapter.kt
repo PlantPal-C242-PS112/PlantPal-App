@@ -47,7 +47,8 @@ class PlantAdapter(
 
             binding.btnPlantReminder.setOnClickListener {
                 val intent = Intent(binding.root.context, SetAlarmActivity::class.java)
-                intent.putExtra("plantData", userPlant) // Pass the plant data to SetAlarmActivity
+                intent.putExtra("PLANT_ID", userPlant.plantId)
+                intent.putExtra("PLANT_NAME", userPlant.plant.name)
                 binding.root.context.startActivity(intent)
             }
         }

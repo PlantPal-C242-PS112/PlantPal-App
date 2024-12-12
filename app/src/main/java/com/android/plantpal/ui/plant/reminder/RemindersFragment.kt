@@ -29,10 +29,12 @@ class RemindersFragment : Fragment() {
 
         reminderAdapter = ReminderItemAdapter(
             onCancelClick = { reminder ->
+                ReminderNotification.stopAlarm(requireContext())
                 reminderViewModel.deleteReminder(reminder)
                 Toast.makeText(requireContext(), "Reminder Canceled: ${reminder.title}", Toast.LENGTH_SHORT).show()
             },
             onDoneClick = { reminder ->
+                ReminderNotification.stopAlarm(requireContext())
                 reminderViewModel.markAsDone(reminder)
                 Toast.makeText(requireContext(), "Reminder Done: ${reminder.title}", Toast.LENGTH_SHORT).show()
             }

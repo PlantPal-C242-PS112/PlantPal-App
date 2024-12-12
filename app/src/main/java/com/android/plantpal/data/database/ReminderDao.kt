@@ -25,4 +25,8 @@ interface ReminderDao {
 
     @Query("UPDATE reminder_table SET isDone = :status WHERE id = :reminderId")
     suspend fun updateIsDone(reminderId: Long, status: Boolean)
+
+    @Query("SELECT * FROM reminder_table WHERE plantId = :plantId")
+    fun getRemindersForPlant(plantId: Int): List<ReminderEntity>
+
 }

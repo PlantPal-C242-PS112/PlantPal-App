@@ -24,7 +24,7 @@ class ReminderNotification : BroadcastReceiver()
     companion object {
         private var ringtone: Ringtone? = null
 
-        fun stopAlarm() {
+        fun stopAlarm(context: Context) {
             ringtone?.stop()
             ringtone = null
         }
@@ -76,10 +76,6 @@ class ReminderNotification : BroadcastReceiver()
             return
         }
         manager.notify(notificationID, notification)
-    }
-
-    fun stopAlarm(context: Context) {
-        ringtone?.stop()
     }
 
 }
