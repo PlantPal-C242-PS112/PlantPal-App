@@ -24,10 +24,11 @@ PlantPal is an innovative mobile app designed to simplify plant care and ensure 
    <img src="https://github.com/qnyara5/asset/blob/3495f2ac397b8a84a45d71919fd380c97bba87a6/history.gif" width="auto" height="400" alt="history">
 7. Discussion Forum <br>
 - Add Discussions
-- Give Comment
+- Give Comment <br>
+  <img src="https://github.com/qnyara5/asset/blob/b2069bc10b5f336d74bc653693ddc09e090f9d7b/com.gif" width="auto" height="400" alt="add_comment">
+  
 8. Customize Your Account <br>
    <img src="https://github.com/qnyara5/asset/blob/aaca3a6294dd6c54a2423c2788d940e068e6ebb7/account_cust.gif" width="auto" height="400" alt="custAcc"/>
-
 
 ## ✅ Prerequisites
 To use or build the app, ensure you have the following:
