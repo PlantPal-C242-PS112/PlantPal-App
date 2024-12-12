@@ -1,6 +1,7 @@
 package com.android.plantpal.ui.plant.reminder
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,8 +32,17 @@ class ReminderItemAdapter (
             binding.messageTextView.text = reminder.message
 
             val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
-            val formattedTime = dateFormat.format(reminder.time) // Pastikan reminder.time bertipe Date atau Long
+            val formattedTime = dateFormat.format(reminder.time)
             binding.timeTextView.text = formattedTime
+
+            if (reminder.isDone) {
+                binding.completedTextView.text = "Selesai"
+                binding.completedTextView.visibility = View.VISIBLE
+                binding.doneButton.isEnabled = false
+            } else {
+                binding.completedTextView.visibility = View.GONE
+                binding.doneButton.isEnabled = true
+            }
 
             binding.cancelButton.setOnClickListener {
                 onCancelClick(reminder)
@@ -40,6 +50,8 @@ class ReminderItemAdapter (
 
             binding.doneButton.setOnClickListener {
                 onDoneClick(reminder)
+                reminder.isDone = true
+                notifyItemChanged(bindingAdapterPosition)
             }
         }
     }

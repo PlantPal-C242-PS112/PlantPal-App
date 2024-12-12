@@ -1,5 +1,6 @@
 package com.android.plantpal.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -14,7 +15,7 @@ interface ReminderDao {
     suspend fun insert(reminder: ReminderEntity)
 
     @Query("SELECT * FROM reminder_table")
-    suspend fun getAllReminders(): List<ReminderEntity>
+    fun getAllReminders(): LiveData<List<ReminderEntity>>
 
     @Update
     suspend fun updateReminder(reminder: ReminderEntity)
