@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -18,6 +19,8 @@ import com.android.plantpal.R
 import com.android.plantpal.data.di.DatabaseProvider
 import com.android.plantpal.data.remote.ReminderEntity
 import com.android.plantpal.databinding.ActivitySetAlarmBinding
+import android.provider.Settings
+import android.util.Log
 import kotlinx.coroutines.launch
 import java.sql.Date
 import java.util.Calendar
@@ -32,7 +35,6 @@ class SetAlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.timePicker.setIs24HourView(false)
-
 
         initDropdown()
 
@@ -160,9 +162,30 @@ class SetAlarmActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (!alarmManager.canScheduleExactAlarms()) {
-                requestExactAlarmPermission()
-                return
+                Log.d("PermissionCheck", "Exact alarm permission not granted. Showing dialog...")
+                showPermissionDialog()
+            } else {
+                Log.d("PermissionCheck", "Exact alarm permission already granted.")
             }
         }
     }
+
+
+    private fun showPermissionDialog() {
+        Log.d("PermissionCheck", "Checking exact alarm permission...")
+        AlertDialog.Builder(this)
+            .setTitle("Izinkan Pengaturan Alarm")
+            .setMessage("Untuk menggunakan fitur ini, Anda perlu mengaktifkan izin untuk menjadwalkan alarm yang tepat. Pergi ke Pengaturan?")
+            .setPositiveButton("Ya") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+            .setNegativeButton("Tidak") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
 }
