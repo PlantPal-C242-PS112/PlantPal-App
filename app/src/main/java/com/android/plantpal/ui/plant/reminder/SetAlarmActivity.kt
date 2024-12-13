@@ -11,6 +11,9 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,9 +22,6 @@ import com.android.plantpal.R
 import com.android.plantpal.data.di.DatabaseProvider
 import com.android.plantpal.data.remote.ReminderEntity
 import com.android.plantpal.databinding.ActivitySetAlarmBinding
-import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
 import com.android.plantpal.ui.utils.showAlertDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +29,7 @@ import kotlinx.coroutines.withContext
 import java.sql.Date
 import java.util.Calendar
 
+@Suppress("DEPRECATION")
 class SetAlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySetAlarmBinding
     private var plantId: Int  = -1
@@ -41,6 +42,8 @@ class SetAlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySetAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Buat Pengingat"
 
         plantId = intent.getIntExtra("PLANT_ID", -1)
         plantName = intent.getStringExtra("PLANT_NAME")
@@ -248,6 +251,16 @@ class SetAlarmActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

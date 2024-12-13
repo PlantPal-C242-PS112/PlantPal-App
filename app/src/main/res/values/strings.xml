@@ -80,6 +80,7 @@
     <string name="tab_my_plants">Tanamanku</string>
     <string name="tab_reminders">Pengingat</string>
     <string name="tab_analysis_history">Riwayat Analisis</string>
+<<<<<<< Updated upstream
     <string name="detail_tanamanku">Detail Tanamanku</string>
     <string name="back">kembali</string>
     <string name="nama_tanman">Nama Tanman</string>
@@ -106,6 +107,8 @@
     <string name="image_desc">beri pupuk</string>
     <string name="image_pupuk">beri pupuk</string>
     <string name="image_siram">siram tanaman</string>
+=======
+>>>>>>> Stashed changes
     <string name="photo">Photo</string>
     <string name="add_photo">Add Photo</string>
     <string name="tambah_foto">Tambah Foto</string>
@@ -159,10 +162,13 @@
     <string name="icon_jeruk">Icon Jeruk</string>
     <string name="icon_bunga">Icon Bunga</string>
     <string name="icon_tomat">Icon Tomat</string>
+<<<<<<< Updated upstream
     <string name="search">Search</string>
     <string name="cari_di_diskusi">Cari di diskusi..</string>
     <string name="temukan_diskusi_terkait">Temukan diskusi terkait</string>
     <string name="tambah_diskusi">Tambah Diskusi</string>
+=======
+>>>>>>> Stashed changes
 
     <integer-array name="banners">
         <item>@drawable/welcome_banner</item>

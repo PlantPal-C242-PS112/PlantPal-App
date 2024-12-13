@@ -38,16 +38,17 @@ class ReminderNotification : BroadcastReceiver()
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             "STOP_ALARM" -> stopAlarm(context)
-            "SNOOZE_ALARM" -> {
-                stopAlarm(context)
-                // Add snooze logic here (e.g., set a new alarm after 5 minutes)
-            }
             else -> {
                 playAlarmSound(context)
-                createNotification(context, intent.getStringExtra(titleExtra), intent.getStringExtra(messageExtra))
+                createNotification(
+                    context,
+                    intent.getStringExtra(titleExtra),
+                    intent.getStringExtra(messageExtra)
+                )
             }
         }
     }
+
 
     private fun playAlarmSound(context: Context) {
         val alarmSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
@@ -113,15 +114,15 @@ class ReminderNotification : BroadcastReceiver()
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val snoozeIntent = Intent(context, ReminderNotification::class.java).apply {
-            action = "SNOOZE_ALARM"
-        }
-        val snoozePendingIntent = PendingIntent.getBroadcast(
-            context,
-            1,
-            snoozeIntent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
+//        val snoozeIntent = Intent(context, ReminderNotification::class.java).apply {
+//            action = "SNOOZE_ALARM"
+//        }
+//        val snoozePendingIntent = PendingIntent.getBroadcast(
+//            context,
+//            1,
+//            snoozeIntent,
+//            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+//        )
 
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -132,7 +133,7 @@ class ReminderNotification : BroadcastReceiver()
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .addAction(R.drawable.icon_plantpal, "Stop", stopAlarmPendingIntent)
-            .addAction(R.drawable.icon_plantpal, "Snooze", snoozePendingIntent)
+//            .addAction(R.drawable.icon_plantpal, "Snooze", snoozePendingIntent)
             .build()
 
         val manager = NotificationManagerCompat.from(context)

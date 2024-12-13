@@ -5,15 +5,4 @@
         <item>Beri Pupuk</item>
     </string-array>
 
-    <string-array name="message_alarm_list">
-        <item>Tomat</item>
-        <item>Strawberry</item>
-        <item>Paprika</item>
-        <item>Labu</item>
-        <item>Anggur</item>
-        <item>Apel</item>
-        <item>Jeruk</item>
-        <item>Kentang</item>
-        <item>Jagung</item>
-    </string-array>
 </resources>

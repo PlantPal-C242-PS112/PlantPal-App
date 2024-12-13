@@ -13,12 +13,11 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.CultivationTipsResponse
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
-import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionResponse
 import com.android.plantpal.data.remote.response.DetailDiseaseResponse
-import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DetailPlantsResponse
 import com.android.plantpal.data.remote.response.DiagnosisHistoryResponse
+import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.data.remote.response.DiscussionResponse
 import com.android.plantpal.data.remote.response.DiseaseResponse
 import com.android.plantpal.data.remote.response.LikeOrDislikeResponse
