@@ -30,9 +30,23 @@ class ReminderNotification : BroadcastReceiver()
         }
     }
 
+//    override fun onReceive(context: Context, intent: Intent) {
+//        playAlarmSound(context)
+//        createNotification(context, intent.getStringExtra(titleExtra), intent.getStringExtra(messageExtra))
+//    }
+
     override fun onReceive(context: Context, intent: Intent) {
-        playAlarmSound(context)
-        createNotification(context, intent.getStringExtra(titleExtra), intent.getStringExtra(messageExtra))
+        when (intent.action) {
+            "STOP_ALARM" -> stopAlarm(context)
+            "SNOOZE_ALARM" -> {
+                stopAlarm(context)
+                // Add snooze logic here (e.g., set a new alarm after 5 minutes)
+            }
+            else -> {
+                playAlarmSound(context)
+                createNotification(context, intent.getStringExtra(titleExtra), intent.getStringExtra(messageExtra))
+            }
+        }
     }
 
     private fun playAlarmSound(context: Context) {
@@ -43,12 +57,45 @@ class ReminderNotification : BroadcastReceiver()
         ringtone?.play()
     }
 
+//    private fun createNotification(context: Context, title: String?, message: String?) {
+//        val deepLinkIntent = Intent(Intent.ACTION_VIEW).apply {
+//            data = Uri.parse("plantpal://reminders")
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//
+//        val pendingIntent = PendingIntent.getActivity(
+//            context,
+//            notificationID,
+//            deepLinkIntent,
+//            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+//        )
+//
+//        val notification = NotificationCompat.Builder(context, channelID)
+//            .setSmallIcon(R.drawable.ic_launcher_foreground)
+//            .setContentTitle(title ?: "Pengingat")
+//            .setContentText(message ?: "Sudah Waktunya!")
+//            .setPriority(NotificationCompat.PRIORITY_HIGH)
+//            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true)
+//            .build()
+//
+//        val manager = NotificationManagerCompat.from(context)
+//        if (ActivityCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.POST_NOTIFICATIONS
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            return
+//        }
+//        manager.notify(notificationID, notification)
+//    }
+
     private fun createNotification(context: Context, title: String?, message: String?) {
         val deepLinkIntent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("plantpal://reminders")
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-
         val pendingIntent = PendingIntent.getActivity(
             context,
             notificationID,
@@ -56,15 +103,36 @@ class ReminderNotification : BroadcastReceiver()
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        val stopAlarmIntent = Intent(context, ReminderNotification::class.java).apply {
+            action = "STOP_ALARM"
+        }
+        val stopAlarmPendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            stopAlarmIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val snoozeIntent = Intent(context, ReminderNotification::class.java).apply {
+            action = "SNOOZE_ALARM"
+        }
+        val snoozePendingIntent = PendingIntent.getBroadcast(
+            context,
+            1,
+            snoozeIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(title ?: "Reminder")
-            .setContentText(message ?: "It's time!")
+            .setContentTitle(title ?: "Pengingat")
+            .setContentText(message ?: "Sudah Waktunya!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .addAction(R.drawable.icon_plantpal, "Stop", stopAlarmPendingIntent)
+            .addAction(R.drawable.icon_plantpal, "Snooze", snoozePendingIntent)
             .build()
 
         val manager = NotificationManagerCompat.from(context)
