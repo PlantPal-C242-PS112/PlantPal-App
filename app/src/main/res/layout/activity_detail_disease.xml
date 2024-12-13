@@ -42,7 +42,7 @@
                     android:src="@drawable/think"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    android:contentDescription="Think Icon"
+                    android:contentDescription="@string/think_icon"
                     app:layout_constraintBottom_toTopOf="@id/card_desc"
                     app:layout_constraintStart_toStartOf="parent"/>
 
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingTop="16dp"
-                    android:text="Disease Name"
+                    android:text="@string/disease_name"
                     android:textColor="@color/green_text"
                     android:textSize="28sp"
                     android:textStyle="bold"
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="Disease Type"
+                        android:text="@string/disease_type"
                         android:textColor="@color/green_text"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -108,7 +108,7 @@
 
                         <ImageView
                             android:id="@+id/icon_desc"
-                            android:contentDescription="Desc Icon"
+                            android:contentDescription="@string/desc_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/baseline_description_24"
@@ -121,7 +121,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Deskripsi"
+                            android:text="@string/deskripsi"
                             android:textColor="@color/green"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -165,7 +165,7 @@
                         android:paddingTop="16dp">
 
                         <ImageView
-                            android:contentDescription="Icon Prevention"
+                            android:contentDescription="@string/icon_prevention"
                             android:id="@+id/icon_prevention"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Pencegahan"
+                            android:text="@string/pencegahan"
                             android:textColor="@color/green"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -229,7 +229,7 @@
                             android:src="@drawable/baseline_medical_services_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:contentDescription="Icon Medic"
+                            android:contentDescription="@string/icon_medic"
                             app:tint="@color/green" />
 
                         <TextView
@@ -237,7 +237,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Pengobatan"
+                            android:text="@string/pengobatan"
                             android:textColor="@color/green"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -289,7 +289,7 @@
                             android:src="@drawable/baseline_recommend_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:contentDescription="Icon Cure"
+                            android:contentDescription="@string/icon_cure"
                             app:tint="@color/green" />
 
                         <TextView
@@ -297,7 +297,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Saran Obat Penyakit"
+                            android:text="@string/saran_obat_penyakit"
                             android:textColor="@color/green"
                             android:textSize="20sp"
                             android:textStyle="bold"

@@ -108,6 +108,16 @@ class AnalyzeActivity : AppCompatActivity() {
                             onPositive = { startCamera() },
                             onNegative = { navigateToDiscussion() }
                         )
+                    } else if (diagnose.message.endsWith("No disease detected.", ignoreCase = true)){
+                        showAlertDialog(
+                            this,
+                            title = "Tidak ada penyakit terdeteksi",
+                            message = "PlantPal tidak mendeteksi penyakit, tanaman anda sehat!",
+                            positiveButtonText = "Coba foto lain",
+                            negativeButtonText = "Oke",
+                            onPositive = { startCamera() },
+                            onNegative = { }
+                        )
                     } else{
                         successDialog.startSuccessDialog("Berhasil Mendeteksi Penyakit!")
                         navigateToResult(result.data, it)

@@ -51,6 +51,7 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AccountViewModel::class.java]
 
         setupData()
+        supportActionBar?.title = "Edit Data Akun"
     }
 
     private fun setupData() {

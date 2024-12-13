@@ -28,6 +28,7 @@ class PlantActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[PlantsViewModel::class.java]
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Ensiklopedia Tanaman"
         observePlant()
     }
 

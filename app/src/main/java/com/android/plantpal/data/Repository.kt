@@ -474,6 +474,20 @@ class Repository (
         }
     }
 
+    fun searchDiscussions(query: String): LiveData<PagingData<ListItemDiscussions>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = { database.discussionDao().searchByTitleOrContent(query) }
+        ).liveData
+    }
+
+    fun filterDiscussionsByPlantId(plant: String): LiveData<PagingData<ListItemDiscussions>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = { database.discussionDao().filterByPlantId(plant) }
+        ).liveData
+    }
+
 
     companion object {
         fun getInstance(

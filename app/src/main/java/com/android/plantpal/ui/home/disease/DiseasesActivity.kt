@@ -50,7 +50,7 @@ class DiseasesActivity : AppCompatActivity() {
     }
 
     private fun setDisease(disease: List<ListItemDisease>) {
-        supportActionBar?.title = "Penyakit"
+        supportActionBar?.title = "Ensiklopedia Penyakit"
         binding.rvDisease.layoutManager = GridLayoutManager(this, 2)
         val adapter = DiseaseAdapter(disease)
         binding.rvDisease.adapter = adapter

@@ -110,6 +110,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_analyze"
             android:layout_width="0dp"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="24dp"
@@ -178,6 +179,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_plant_menu"
             android:layout_width="0dp"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="28dp"
@@ -236,6 +238,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_disease_menu"
             android:layout_width="0dp"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="28dp"
@@ -298,6 +301,7 @@
             app:cardCornerRadius="24dp"
             app:cardElevation="6dp"
             android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_marginBottom="45dp"
             android:layout_marginHorizontal="5dp"
             app:layout_constraintEnd_toEndOf="parent"
