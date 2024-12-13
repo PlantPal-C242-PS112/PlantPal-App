@@ -12,6 +12,7 @@ import android.net.Uri
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.android.plantpal.MainActivity
 import com.android.plantpal.R
 
 const val notificationID = 1
@@ -44,8 +45,7 @@ class ReminderNotification : BroadcastReceiver()
     }
 
     private fun createNotification(context: Context, title: String?, message: String?) {
-        val deepLinkIntent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("plantpal://reminders")
+        val deepLinkIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
@@ -55,6 +55,7 @@ class ReminderNotification : BroadcastReceiver()
             deepLinkIntent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
+
 
 
         val notification = NotificationCompat.Builder(context, channelID)
