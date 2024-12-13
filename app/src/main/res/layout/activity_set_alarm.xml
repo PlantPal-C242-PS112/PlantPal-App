@@ -17,6 +17,7 @@
             android:layout_marginBottom="4dp"
             android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
             app:cardElevation="4dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="30dp"
             android:padding="16dp">
 
@@ -25,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/txtView"
@@ -34,6 +35,7 @@
                     android:layout_marginBottom="8dp"
                     android:gravity="center_horizontal"
                     android:text="Pilih Perawatan"
+                    android:layout_marginTop="8dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -68,9 +70,10 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="3dp"
+                    android:textSize="16sp"
+                    android:paddingHorizontal="8dp"
                     android:background="@drawable/border_rounded"
-                    android:inputType="none"
-                    app:paddingStart="2dp"/>
+                    android:inputType="none"/>
 
             </LinearLayout>
 
@@ -80,6 +83,7 @@
             android:id="@+id/timePickerCardView"
             android:layout_width="match_parent"
             android:layout_height="210dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="32dp"
@@ -94,6 +98,7 @@
                     android:id="@+id/dateDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="1dp"
                     android:text="Atur Tanggal"
@@ -117,6 +122,7 @@
             android:id="@+id/datePickerCardView"
             android:layout_width="match_parent"
             android:layout_height="210dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="32dp"
@@ -133,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Atur Waktu"
+                    android:layout_marginTop="16dp"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textStyle="bold"
                     android:layout_marginBottom="16dp"
@@ -150,13 +157,15 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/submitButton"
+            app:cornerRadius="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/schedule_notification"
             android:layout_marginTop="16dp"
             android:paddingVertical="12dp"
+            android:layout_marginHorizontal="16dp"
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="?attr/colorOnPrimary" />
 

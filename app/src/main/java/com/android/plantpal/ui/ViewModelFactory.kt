@@ -10,14 +10,13 @@ import com.android.plantpal.ui.account.AccountViewModel
 import com.android.plantpal.ui.changepassword.ChangePasswordViewModel
 import com.android.plantpal.ui.discussion.DiscussionViewModel
 import com.android.plantpal.ui.discussion.add.AddDiscussionViewModel
-import com.android.plantpal.ui.home.analyze.AnalyzeViewModel
-import com.android.plantpal.ui.home.plants.PlantsViewModel
 import com.android.plantpal.ui.forgotpw.ForgotPasswordViewModel
+import com.android.plantpal.ui.home.analyze.AnalyzeViewModel
 import com.android.plantpal.ui.home.disease.DiseaseViewModel
+import com.android.plantpal.ui.home.plants.PlantsViewModel
 import com.android.plantpal.ui.login.LoginViewModel
 import com.android.plantpal.ui.otp.OtpVerificationViewModel
 import com.android.plantpal.ui.plant.analysis.AnalysisHistoryViewModel
-import com.android.plantpal.ui.plant.reminder.ReminderViewModel
 import com.android.plantpal.ui.plant.myplant.MyPlantsViewModel
 import com.android.plantpal.ui.register.RegisterViewModel
 

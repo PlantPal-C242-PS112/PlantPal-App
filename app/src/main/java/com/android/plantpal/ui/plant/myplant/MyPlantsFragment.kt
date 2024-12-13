@@ -15,8 +15,8 @@ import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.home.plants.DetailPlantActivity
 import com.android.plantpal.ui.home.plants.PlantActivity
 import com.android.plantpal.ui.plant.reminder.SetAlarmActivity
-import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.Result
+import com.android.plantpal.ui.utils.dialog.LoadingDialog
 
 class MyPlantsFragment : Fragment() {
 
@@ -30,7 +30,7 @@ class MyPlantsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMyPlantsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -65,7 +65,7 @@ class MyPlantsFragment : Fragment() {
         }
 
 
-        myPlantsViewModel.getUserPlants().observe(viewLifecycleOwner, Observer { result ->
+        myPlantsViewModel.getUserPlants().observe(viewLifecycleOwner, { result ->
             when (result) {
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
