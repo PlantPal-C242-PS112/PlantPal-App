@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         if (deepLinkIntent != null && deepLinkIntent.action == Intent.ACTION_VIEW) {
             val deepLinkUri = deepLinkIntent.data
             if (deepLinkUri != null && deepLinkUri.host == "reminders") {
-                navController.navigate(R.id.navigation_reminders)
+                navController.navigate(R.id.navigation_home)
             }
         }
     }
