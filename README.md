@@ -48,10 +48,11 @@ To use or build the app, ensure you have the following:
 
 ## 🛠️ Installation Guide
 ### For Mobile Users
-- Visit [Download PlantPal](URL)
+- Visit [Download PlantPal](https://github.com/qnyara5/PlantPal-App/blob/2296c20be4a388b825a6162aa3db98146d954fe0/app-debug.apk)
 - Download the APK file.
 - Locate the APK file in your downloads folder.
 - Install the APK and open PlantPal to start exploring!
+- <strong>Use light mode for better experience!!</strong>
 
 ### For Developers
 - Clone the Repository
