@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.android.plantpal.R
 import com.android.plantpal.databinding.ActivityEditProfileBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.account.AccountViewModel
@@ -50,6 +51,7 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AccountViewModel::class.java]
 
         setupData()
+        supportActionBar?.title = "Edit Data Akun"
     }
 
     private fun setupData() {
@@ -63,11 +65,12 @@ class EditProfileActivity : AppCompatActivity() {
                     val userData = result.data.data
                     val fullname = viewModel.fullname ?: userData.fullname
                     val photoUri = viewModel.currentImageUri ?: Uri.parse(userData.profilePhoto.toString())
-                    Log.d("UpdateProfile", "$fullname")
+                    Log.d("UpdateProfile", fullname)
 
                     binding.edFullnameProf.setText(fullname)
                     Glide.with(binding.profilePic.context)
                         .load(photoUri)
+                        .error(R.drawable.person_pc)
                         .into(binding.profilePic)
 
                     Log.d("UpdateProfile", "$photoUri")
@@ -116,7 +119,7 @@ class EditProfileActivity : AppCompatActivity() {
                 } else null
 
                 updateProfile(imageFile, initialFullname)
-                Log.d("Updet", "${initialFullname}")
+                Log.d("Updet", initialFullname)
             }
         }
     }

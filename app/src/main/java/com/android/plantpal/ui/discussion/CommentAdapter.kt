@@ -3,6 +3,7 @@ package com.android.plantpal.ui.discussion
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.plantpal.R
 import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.databinding.ItemCommentBinding
 import com.android.plantpal.ui.utils.calculateTimeDifference
@@ -17,11 +18,12 @@ class CommentAdapter(private val listComments: List<ListItemComment>) : Recycler
             binding.username.text = comment.user.username
             Glide.with(binding.profilePic.context)
                 .load(comment.user.profilePhoto)
+                .error(R.drawable.person_pc)
                 .into(binding.profilePic)
 
             val updatedAt = comment.updatedAt
             val hoursDifference = calculateTimeDifference(updatedAt)
-            binding.hour.text = "$hoursDifference"
+            binding.hour.text = hoursDifference
 
             binding.root.setOnClickListener {
                 callback?.onItemClicked(comment)

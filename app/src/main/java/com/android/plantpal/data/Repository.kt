@@ -11,10 +11,8 @@ import androidx.paging.liveData
 import com.android.plantpal.data.database.DiscussionRoomDatabase
 import com.android.plantpal.data.preference.UserModel
 import com.android.plantpal.data.preference.UserPreference
-import com.android.plantpal.data.remote.AddPlantRequest
 import com.android.plantpal.data.remote.ChangeForgotPasswordRequest
 import com.android.plantpal.data.remote.CommentRequest
-import com.android.plantpal.data.remote.DeletePlantRequest
 import com.android.plantpal.data.remote.LoginRequest
 import com.android.plantpal.data.remote.RegisterRequest
 import com.android.plantpal.data.remote.SendOtpRequest
@@ -25,7 +23,6 @@ import com.android.plantpal.data.remote.response.CreateCommentResponse
 import com.android.plantpal.data.remote.response.CreateDiscussionResponse
 import com.android.plantpal.data.remote.response.CultivationData
 import com.android.plantpal.data.remote.response.DeleteDiscussionResponse
-import com.android.plantpal.data.remote.response.DeletePlantResponse
 import com.android.plantpal.data.remote.response.DetailDiscussionData
 import com.android.plantpal.data.remote.response.DetailDiseaseData
 import com.android.plantpal.data.remote.response.DetailPlantData
@@ -36,6 +33,7 @@ import com.android.plantpal.data.remote.response.ListItemComment
 import com.android.plantpal.data.remote.response.ListItemDiscussions
 import com.android.plantpal.data.remote.response.ListItemDisease
 import com.android.plantpal.data.remote.response.ListItemPlant
+import com.android.plantpal.data.remote.response.ListPlantDisease
 import com.android.plantpal.data.remote.response.LoginResponse
 import com.android.plantpal.data.remote.response.RegisterResponse
 import com.android.plantpal.data.remote.response.SendOtpResponse
@@ -45,10 +43,8 @@ import com.android.plantpal.data.remote.response.UserPlant
 import com.android.plantpal.data.remote.response.VerifyOtpResponse
 import com.android.plantpal.data.remote.retrofit.ApiService
 import com.android.plantpal.ui.utils.Result
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -403,17 +399,7 @@ class Repository (
     fun getUserPlants(): LiveData<Result<List<UserPlant>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val userSession = userPreference.getSession().first()
-
-            val token = userSession.token
-
-            if (token.isEmpty()) {
-                emit(Result.Error("Token is missing"))
-                return@liveData
-            }
-
             val response = apiService.getUserPlants()
-
             if (response.status) {
                 emit(Result.Success(response.data))
             } else {
@@ -427,24 +413,18 @@ class Repository (
     fun addPlant(plantId: Int): LiveData<Result<AddPlantResponse>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.addPlant(AddPlantRequest(plantId))
-
-            if (response.status) {
-                Result.Success(true)
-            } else {
-                Result.Error("Failed to add plant: ${response.message}")
-            }
+            val response = apiService.addPlant(plantId)
+            emit(Result.Success(response))
         } catch (e: Exception) {
-            Result.Error(e.message ?: "Unknown error occurred")
+            emit(Result.Error("Error: ${e.message}"))
         }
     }
 
-
-    fun deletePlant(plantId: Int): LiveData<Result<DeletePlantResponse>> = liveData(Dispatchers.IO) {
+    fun deletePlant(plantId: Int): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try{
-            val response = apiService.deletePlant(DeletePlantRequest(plantId))
-            emit(Result.Success(response))
+            apiService.deletePlant(plantId)
+            emit(Result.Success(true))
         } catch (e: Exception) {
             emit(Result.Error("ErrorDel: ${e.message}"))
         }
@@ -462,6 +442,50 @@ class Repository (
         } catch (e: Exception) {
             emit(Result.Error("Error: ${e.message}"))
         }
+    }
+
+    fun deleteHistory(id: String): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            apiService.deleteHistory(id)
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun deleteAllHistory(): LiveData<Result<Boolean>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            apiService.deleteAllHistory()
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error("ErrorDel: ${e.message}"))
+        }
+    }
+
+    fun getPlantDiseases(id: Int): LiveData<Result<List<ListPlantDisease>>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getPlantDiseases(id)
+            emit(Result.Success(response.data))
+        } catch (e: Exception) {
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+    fun searchDiscussions(query: String): LiveData<PagingData<ListItemDiscussions>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = { database.discussionDao().searchByTitleOrContent(query) }
+        ).liveData
+    }
+
+    fun filterDiscussionsByPlantId(plant: String): LiveData<PagingData<ListItemDiscussions>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = { database.discussionDao().filterByPlantId(plant) }
+        ).liveData
     }
 
 

@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    var BASE_URL = BuildConfig.BASE_URL
+    private var BASE_URL = BuildConfig.BASE_URL
 
     fun getApiService(token: String): ApiService {
         Log.d("ApiConfig", "BASE_URL: $BASE_URL")

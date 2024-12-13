@@ -2,6 +2,7 @@ package com.android.plantpal.ui.home.plants
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.android.plantpal.databinding.ActivityPlantBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.utils.Result
 
+@Suppress("DEPRECATION")
 class PlantActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlantBinding
@@ -25,6 +27,8 @@ class PlantActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, viewModelFactory)[PlantsViewModel::class.java]
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Ensiklopedia Tanaman"
         observePlant()
     }
 
@@ -57,6 +61,16 @@ class PlantActivity : AppCompatActivity() {
                 sendSelectedDPlant(data)
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun sendSelectedDPlant(data: ListItemPlant) {

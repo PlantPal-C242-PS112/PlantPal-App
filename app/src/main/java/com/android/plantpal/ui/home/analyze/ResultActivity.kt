@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.plantpal.data.remote.response.DiagnosisResponse
 import com.android.plantpal.databinding.ActivityResultBinding
 import com.android.plantpal.ui.home.disease.DetailDiseaseActivity
-import com.android.plantpal.ui.utils.dialog.SuccessDialog
 
 @Suppress("DEPRECATION")
 class ResultActivity : AppCompatActivity() {

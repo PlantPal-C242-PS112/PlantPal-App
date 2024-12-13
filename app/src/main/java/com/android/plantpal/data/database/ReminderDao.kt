@@ -14,7 +14,7 @@ interface ReminderDao {
     @Insert
     suspend fun insert(reminder: ReminderEntity)
 
-    @Query("SELECT * FROM reminder_table")
+    @Query("SELECT * FROM reminder_table ORDER BY time DESC")
     fun getAllReminders(): LiveData<List<ReminderEntity>>
 
     @Update

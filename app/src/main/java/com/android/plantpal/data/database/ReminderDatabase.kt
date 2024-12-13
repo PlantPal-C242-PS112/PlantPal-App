@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.android.plantpal.data.remote.ReminderEntity
 
-@Database(entities = [ReminderEntity::class], version = 5)
+@Database(entities = [ReminderEntity::class],
+    version = 5,
+    exportSchema = false)
 abstract class ReminderDatabase : RoomDatabase() {
     abstract fun reminderDao(): ReminderDao
 

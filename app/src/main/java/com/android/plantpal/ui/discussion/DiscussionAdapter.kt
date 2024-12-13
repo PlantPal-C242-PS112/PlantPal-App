@@ -1,5 +1,6 @@
 package com.android.plantpal.ui.discussion
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -24,13 +25,15 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
             binding.plantTypeText.text = discussion.plant.name
             Glide.with(binding.ivItemPhoto.context)
                 .load(discussion.mediaUrl)
+                .error(R.drawable.ic_place_holder)
                 .into(binding.ivItemPhoto)
 
             Glide.with(binding.profilePic.context)
                 .load(discussion.user.profilePhoto)
+                .error(R.drawable.person_pc)
                 .into(binding.profilePic)
 
-            val updatedAt = discussion.updatedAt
+            val updatedAt = discussion.createdAt
             val hoursDifference = updatedAt?.let { calculateTimeDifference(it) }
             binding.hour.text = "$hoursDifference"
 
@@ -38,16 +41,15 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
                 callback?.onItemClicked(discussion)
             }
 
-            var isLiked = false
+            if(discussion.isLiked){
+                binding.like.setImageResource(R.drawable.baseline_favorite_24)
+            }else{
+                binding.like.setImageResource(R.drawable.baseline_favorite_border_24)
+            }
 
             binding.like.setOnClickListener {
-                isLiked = !isLiked
-
-                if (isLiked) {
-                    binding.like.setImageResource(R.drawable.baseline_favorite_24)
-                } else {
-                    binding.like.setImageResource(R.drawable.baseline_favorite_border_24)
-                }
+                val updatedDiscussion = discussion.copy(isLiked = !discussion.isLiked)
+                callback?.onLikeClicked(updatedDiscussion)
             }
         }
     }
@@ -61,11 +63,14 @@ class DiscussionAdapter: PagingDataAdapter <ListItemDiscussions, DiscussionAdapt
         val discussion = getItem(position)
         if (discussion != null) {
             holder.bind(discussion, onItemClickCallback)
+        } else {
+            Log.e("DiscussionAdapter", "Item at position $position is null")
         }
     }
 
     interface OnItemClickCallback {
         fun onItemClicked(data: ListItemDiscussions)
+        fun onLikeClicked(discussion: ListItemDiscussions)
     }
 
     fun setOnItemClickCallback(callback: OnItemClickCallback) {

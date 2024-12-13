@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/super_green"
     tools:context=".ui.home.analyze.AnalyzeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_place_holder"
-            android:contentDescription="Photo" />
+            android:contentDescription="@string/photo" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_gallery"
@@ -48,13 +49,13 @@
                     android:src="@drawable/baseline_photo_library_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Icon plant" />
+                    android:contentDescription="@string/icon_plant" />
 
                 <TextView
                     android:id="@+id/text_heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Galeri"
+                    android:text="@string/galeri"
                     android:layout_marginTop="25dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Pilih foto dari galeri dan analisis tanaman"
+                    android:text="@string/pilih_foto_dari_galeri_dan_analisis_tanaman"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,13 +103,13 @@
                     android:src="@drawable/baseline_photo_camera_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Icon disease" />
+                    android:contentDescription="@string/icon_disease" />
 
                 <TextView
                     android:id="@+id/text_heading2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kamera"
+                    android:text="@string/kamera"
                     android:layout_marginTop="25dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -121,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Ambil foto dari kamera dan analisis tanaman"
+                    android:text="@string/ambil_foto_dari_kamera_dan_analisis_tanaman"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +139,7 @@
             app:icon="@drawable/baseline_tips_and_updates_24"
             app:iconGravity="textStart"
             android:textAllCaps="false"
-            android:text="Analisis Tanaman Saya"
+            android:text="@string/analisis_tanaman_saya"
             android:icon="@drawable/baseline_tips_and_updates_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_camera"

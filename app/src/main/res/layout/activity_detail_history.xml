@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.analyze.DetailHistoryActivity">
+    android:background="@color/super_green"
+    tools:context=".ui.plant.analysis.DetailHistoryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,13 +20,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_place_holder"
-            android:contentDescription="Photo" />
+            android:contentDescription="@string/photo" />
 
         <TextView
             android:id="@+id/text_result_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hasil Diagnosa Penyakit"
+            android:text="@string/hasil_diagnosa_penyakit"
             android:textSize="25sp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
@@ -43,7 +44,7 @@
             android:clickable="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_result_title"
@@ -63,13 +64,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:contentDescription="Icon one" />
+                    android:contentDescription="@string/icon_one" />
 
                 <TextView
                     android:id="@+id/text_result1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Nama Penyakit"
+                    android:text="@string/nama_penyakit"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:maxLines="2"
@@ -96,7 +97,7 @@
                         android:id="@+id/plant_type1_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Plant Type"
+                        android:text="@string/plant_type"
                         android:textColor="@color/green"
                         android:textSize="12sp"
                         android:padding="5dp" />
@@ -108,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Nilai Keyakinan Analisis: "
+                    android:text="@string/nilai_keyakinan_analisis"
                     android:textSize="14sp"
                     app:layout_constraintTop_toBottomOf="@id/plant_type1"
                     app:layout_constraintStart_toEndOf="@id/icon_one"
@@ -120,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
-                    android:text="99.9"
+                    android:text="@string/_99_9"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/text_confidence_score_layout"
@@ -136,7 +137,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:contentDescription="Icon one" />
+                    android:contentDescription="@string/icon_two" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

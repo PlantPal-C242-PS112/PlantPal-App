@@ -12,4 +12,8 @@ class AnalysisHistoryViewModel(private val repository: Repository) : ViewModel()
     fun getDiagnosisHistory(): LiveData<Result<List<DiagnosisItem>>> {
         return repository.getDiagnosisHistory()
     }
+
+    fun deleteHistory(id: String) = repository.deleteHistory(id)
+
+    fun deleteAllHistory() = repository.deleteAllHistory()
 }

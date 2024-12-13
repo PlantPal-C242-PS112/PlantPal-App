@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="@id/icon_login"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:contentDescription="Icon Jeruk" />
+            android:contentDescription="@string/icon_jeruk" />
 
         <ImageView
             android:id="@+id/icon_bunga"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="@id/icon_login"
             android:layout_marginTop="-30dp"
             android:layout_marginStart="5dp"
-            android:contentDescription="Icon Bunga" />
+            android:contentDescription="@string/icon_bunga" />
 
         <ImageView
             android:id="@+id/icon_tunas"
@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="@id/icon_login"
             android:layout_marginBottom="-70dp"
             android:layout_marginEnd="35dp"
-            android:contentDescription="Icon Bunga" />
+            android:contentDescription="@string/icon_bunga" />
 
         <ImageView
             android:id="@+id/icon_tomat"
@@ -54,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="@id/icon_login"
             android:layout_marginBottom="-5dp"
             android:layout_marginStart="25dp"
-            android:contentDescription="Icon Tomat" />
+            android:contentDescription="@string/icon_tomat" />
 
         <ImageView
             android:id="@+id/icon_login"
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/card"
-            android:contentDescription="Icon" />
+            android:contentDescription="@string/icon" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
@@ -81,7 +81,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="550dp"
+                android:layout_height="570dp"
                 android:orientation="vertical"
                 android:padding="28dp">
 
@@ -258,7 +258,8 @@
                     android:gravity="center_horizontal"
                     android:text="@string/sudah_punya_akun"
                     android:textStyle="bold"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:focusable="true" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

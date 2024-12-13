@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/card"
-            android:contentDescription="Icon" />
+            android:contentDescription="@string/icon" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
@@ -46,7 +46,7 @@
                     android:id="@+id/otp_verificaiton_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Verifikasi Email Anda"
+                    android:text="@string/verifikasi_email_anda"
                     android:textSize="32sp"
                     android:textStyle="bold" />
 

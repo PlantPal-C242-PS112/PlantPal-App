@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +26,7 @@ import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.dialog.SuccessDialog
 import com.android.plantpal.ui.utils.getImageUri
 import com.android.plantpal.ui.utils.reduceFileImage
+import com.android.plantpal.ui.utils.showAlertDialog
 import com.android.plantpal.ui.utils.uriToFile
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.delay
@@ -100,12 +100,23 @@ class AnalyzeActivity : AppCompatActivity() {
                     val diagnose = result.data
                     if (diagnose.message.startsWith("We are not sure", ignoreCase = true)) {
                         showAlertDialog(
+                            this,
                             title = "Penyakit tidak dikenal terdeteksi",
                             message = "Mohon maaf, PlantPal belum dapat mendeteksi penyakit ini",
                             positiveButtonText = "Coba foto lain",
                             negativeButtonText = "Tanyakan forum diskusi",
                             onPositive = { startCamera() },
                             onNegative = { navigateToDiscussion() }
+                        )
+                    } else if (diagnose.message.endsWith("No disease detected.", ignoreCase = true)){
+                        showAlertDialog(
+                            this,
+                            title = "Tidak ada penyakit terdeteksi",
+                            message = "PlantPal tidak mendeteksi penyakit, tanaman anda sehat!",
+                            positiveButtonText = "Coba foto lain",
+                            negativeButtonText = "Oke",
+                            onPositive = { startCamera() },
+                            onNegative = { }
                         )
                     } else{
                         successDialog.startSuccessDialog("Berhasil Mendeteksi Penyakit!")
@@ -231,30 +242,6 @@ class AnalyzeActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showAlertDialog(
-        title: String,
-        message: String?,
-        positiveButtonText: String,
-        negativeButtonText: String,
-        onPositive: (() -> Unit)? = null,
-        onNegative: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(this).apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton(positiveButtonText) { dialog, _ ->
-                onPositive?.invoke()
-                dialog.dismiss()
-            }
-            setNegativeButton(negativeButtonText) { dialog, _ ->
-                onNegative?.invoke()
-                dialog.dismiss()
-            }
-            create()
-            show()
-        }
     }
 
     companion object {

@@ -30,7 +30,7 @@ class SliderAdapter(
         return sliderItems.size
     }
 
-    class SliderAdapterViewHolder(itemView: View) : SliderViewAdapter.ViewHolder(itemView) {
+    class SliderAdapterViewHolder(itemView: View) : ViewHolder(itemView) {
         val imageViewBackground: ImageView = itemView.findViewById(R.id.myimage)
     }
 }

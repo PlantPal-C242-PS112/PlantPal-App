@@ -4,13 +4,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import com.android.plantpal.ui.utils.Result
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.plantpal.MainActivity
@@ -21,6 +20,7 @@ import com.android.plantpal.databinding.ActivityLoginBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.forgotpw.ForgotPasswordActivity
 import com.android.plantpal.ui.register.RegisterActivity
+import com.android.plantpal.ui.utils.Result
 import com.android.plantpal.ui.utils.dialog.FailedDialog
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.dialog.SuccessDialog

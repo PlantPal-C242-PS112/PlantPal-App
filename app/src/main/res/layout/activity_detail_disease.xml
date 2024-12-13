@@ -4,156 +4,342 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/super_green"
     tools:context=".ui.home.disease.DetailDiseaseActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="16dp"
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_photo_diseases"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/disease_plant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="24dp"
-            app:strokeColor="@color/green"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            app:cardBackgroundColor="@color/super_green2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toBottomOf="@id/rv_photo_diseases"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
-            app:strokeWidth="1dp">
-
-            <TextView
-                android:id="@+id/disease_type_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Disease Type"
-                android:textColor="@color/green"
-                android:textSize="15sp"
-                android:padding="5dp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/disease_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/disease_plant"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Disease Name"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/disease_desc_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/disease_name"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Deskripsi"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/green"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/disease_desc_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp"
-            android:text="@string/lorem"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disease_desc_layout"
-            tools:ignore="TextSizeCheck" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="-30dp"
+            app:cardCornerRadius="30dp">
 
-        <TextView
-            android:id="@+id/disease_prevention_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/disease_desc_text"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Pencegahan"
-            android:textStyle="bold"
-            android:textColor="@color/green"
-            android:textSize="18sp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/disease_prevention_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/lorem"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disease_prevention_layout"
-            tools:ignore="TextSizeCheck" />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/think"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/think_icon"
+                    app:layout_constraintBottom_toTopOf="@id/card_desc"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:id="@+id/disease_treatment_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/disease_prevention_text"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Pengobatan"
-            android:textStyle="bold"
-            android:textColor="@color/green"
-            android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/disease_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingTop="16dp"
+                    android:text="@string/disease_name"
+                    android:textColor="@color/green_text"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="30dp"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/disease_treatment_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/lorem"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disease_treatment_layout"
-            tools:ignore="TextSizeCheck" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/disease_plant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/disease_name"
+                    app:strokeColor="@color/green"
+                    app:strokeWidth="2dp">
 
-        <TextView
-            android:id="@+id/disease_cure_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/disease_treatment_text"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:text="Saran Obat Penyakit"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/disease_cure_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/lorem"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disease_cure_layout"
-            tools:ignore="TextSizeCheck" />
+                    <TextView
+                        android:id="@+id/disease_type_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/disease_type"
+                        android:textColor="@color/green_text"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cure_diseases"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@id/disease_cure_text"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/disease_plant"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_desc"
+                            android:contentDescription="@string/desc_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_description_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_desc_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/deskripsi"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_desc"
+                            app:layout_constraintStart_toEndOf="@id/icon_desc"
+                            app:layout_constraintTop_toTopOf="@id/icon_desc" />
+
+                        <TextView
+                            android:id="@+id/disease_desc_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lorem"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_desc_layout"
+                            tools:ignore="TextSizeCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_prev"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_desc"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
+
+                        <ImageView
+                            android:contentDescription="@string/icon_prevention"
+                            android:id="@+id/icon_prevention"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_health_and_safety_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_prevention_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/pencegahan"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_prevention"
+                            app:layout_constraintStart_toEndOf="@id/icon_prevention"
+                            app:layout_constraintTop_toTopOf="@id/icon_prevention" />
+
+                        <TextView
+                            android:id="@+id/disease_prevention_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lorem"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_prevention_layout"
+                            tools:ignore="TextSizeCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_med"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_prev"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_medic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_medical_services_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/icon_medic"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_treatment_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/pengobatan"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_medic"
+                            app:layout_constraintStart_toEndOf="@id/icon_medic"
+                            app:layout_constraintTop_toTopOf="@id/icon_medic" />
+
+                        <TextView
+                            android:id="@+id/disease_treatment_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lorem"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_treatment_layout"
+                            tools:ignore="TextSizeCheck" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_med"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_cure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_recommend_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/icon_cure"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_cure_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/saran_obat_penyakit"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_cure"
+                            app:layout_constraintStart_toEndOf="@id/icon_cure"
+                            app:layout_constraintTop_toTopOf="@id/icon_cure" />
+
+                        <TextView
+                            android:id="@+id/disease_cure_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lorem"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_cure_layout"
+                            tools:ignore="TextSizeCheck" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cure_diseases"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_cure" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

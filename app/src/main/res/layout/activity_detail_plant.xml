@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/super_green"
     tools:context=".ui.home.plants.DetailPlantActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,115 +12,248 @@
         android:layout_height="wrap_content">
 
 
-
         <ImageView
             android:id="@+id/img_plant"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image_plant"
             tools:src="@drawable/ic_image" />
 
-        <TextView
-            android:id="@+id/tv_plant_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tomat"
-            android:textSize="24sp"
-            android:textStyle="bold"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            app:cardBackgroundColor="@color/super_green2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/img_plant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="-30dp"
+            app:cardCornerRadius="30dp">
 
-        <ImageButton
-            android:id="@+id/btn_favorite"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/bookmark"
-            android:layout_marginTop="8dp"
-            app:srcCompat="@drawable/ic_favorite"
-            app:layout_constraintTop_toTopOf="@id/tv_plant_name"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!-- Description Section -->
-        <TextView
-            android:id="@+id/tv_description_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Deskripsi"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_plant_name"
-            app:layout_constraintStart_toStartOf="parent" />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/yey"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/yey"
+                    app:layout_constraintBottom_toTopOf="@id/card_desc"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet..."
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_description_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/tv_plant_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingTop="16dp"
+                    android:text="@string/plant_name"
+                    android:textColor="@color/green_text"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="30dp"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_tips_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kiat Budidaya"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_description"
-            app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_favorite"
+                    android:layout_width="47dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/bookmark"
+                    style="@style/Widget.MaterialComponents.Button"
+                    app:cornerRadius="24dp"
+                    android:padding="8dp"
+                    app:iconSize="30dp"
+                    android:layout_marginEnd="25dp"
+                    app:icon="@drawable/ic_favorite"
+                    app:layout_constraintBottom_toTopOf="@id/card_desc"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_description_cultivation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet..."
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tips_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_plant_name"
+                    app:strokeWidth="1dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cultivation_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description_cultivation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/tv_additional_tips_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kiat Tambahan"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/rv_cultivation_tips"
-            app:layout_constraintStart_toStartOf="parent" />
+                        <ImageView
+                            android:id="@+id/icon_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_description_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/icon_desc"
+                            app:tint="@color/green" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_additional_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_additional_tips_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                        <TextView
+                            android:id="@+id/disease_desc_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/deskripsi"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_desc"
+                            app:layout_constraintStart_toEndOf="@id/icon_desc"
+                            app:layout_constraintTop_toTopOf="@id/icon_desc" />
+
+                        <TextView
+                            android:id="@+id/tv_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/lorem"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_desc_layout"
+                            tools:ignore="TextSizeCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_desc"
+                    app:strokeWidth="1dp">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_prevention"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/icon_prevention"
+                            android:src="@drawable/baseline_local_florist_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_cultivation_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/tips_budidaya"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_prevention"
+                            app:layout_constraintStart_toEndOf="@id/icon_prevention"
+                            app:layout_constraintTop_toTopOf="@id/icon_prevention" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_cult"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/disease_cultivation_layout" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_dis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_cult"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_dis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_warning_amber_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:contentDescription="@string/icon_disease"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/disease_dis_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/penyakit_terkait_tanaman_ini"
+                            android:textColor="@color/green"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/icon_dis"
+                            app:layout_constraintStart_toEndOf="@id/icon_dis"
+                            app:layout_constraintTop_toTopOf="@id/icon_dis" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_diseases"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingVertical="16dp"
+                    android:layout_marginBottom="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_dis" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

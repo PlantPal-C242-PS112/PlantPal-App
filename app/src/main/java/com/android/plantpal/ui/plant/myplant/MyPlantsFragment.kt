@@ -14,8 +14,6 @@ import com.android.plantpal.databinding.FragmentMyPlantsBinding
 import com.android.plantpal.ui.ViewModelFactory
 import com.android.plantpal.ui.home.plants.DetailPlantActivity
 import com.android.plantpal.ui.home.plants.PlantActivity
-import com.android.plantpal.ui.plant.MyPlantsViewModel
-import com.android.plantpal.ui.plant.myplantdetail.DetailMyPlantsActivity
 import com.android.plantpal.ui.plant.reminder.SetAlarmActivity
 import com.android.plantpal.ui.utils.dialog.LoadingDialog
 import com.android.plantpal.ui.utils.Result

@@ -45,10 +45,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleDeepLink(navController: NavController) {
         val deepLinkIntent = intent
-        if (deepLinkIntent?.action == Intent.ACTION_VIEW) {
-            navController.navigate(R.id.navigation_home)
+        if (deepLinkIntent != null && deepLinkIntent.action == Intent.ACTION_VIEW) {
+            val deepLinkUri = deepLinkIntent.data
+            if (deepLinkUri != null && deepLinkUri.host == "reminders") {
+                navController.navigate(R.id.navigation_home)
+            }
         }
-
     }
 
     private fun checkLogin() {

@@ -22,6 +22,7 @@ import com.android.plantpal.databinding.ActivitySetAlarmBinding
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import com.android.plantpal.ui.utils.showAlertDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -134,8 +135,6 @@ class SetAlarmActivity : AppCompatActivity() {
             saveReminderToDatabase(title, message, time, plantId, imageResId)
         }
 
-
-
         val intent = Intent(applicationContext, ReminderNotification::class.java)
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
@@ -172,13 +171,14 @@ class SetAlarmActivity : AppCompatActivity() {
         val dateFormat = android.text.format.DateFormat.getLongDateFormat(applicationContext)
         val timeFormat = android.text.format.DateFormat.getTimeFormat(applicationContext)
 
-        AlertDialog.Builder(this)
-            .setTitle("Notification Scheduled")
-            .setMessage(
-                "Title: $title\nMessage: $message\nAt: ${dateFormat.format(date)} ${timeFormat.format(date)}"
-            )
-            .setPositiveButton("Okay") { _, _ -> }
-            .show()
+        showAlertDialog(
+            this,
+            "Pengingat Berhasil Dibuat",
+            "Title: $title\nMessage: $message\nAt: ${dateFormat.format(date)} ${timeFormat.format(date)}",
+            positiveButtonText = "Oke!",
+            negativeButtonText = "Kembali",
+            onPositive = { finish() }
+        )
     }
 
     private fun getTime(): Long {
