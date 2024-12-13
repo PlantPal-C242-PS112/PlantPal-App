@@ -20,6 +20,7 @@ PlantPal is an innovative mobile app designed to simplify plant care and ensure 
 4. Disease Ensyclopedia <br>
    <img src="https://github.com/qnyara5/asset/blob/973f6c418ca0b91146dd623a33c7ca8f6f0e94c9/ensiklopedi_penyakit.gif" width="auto" height="400" alt="diseaseE"/>
 5. Plant Reminders <br>
+   <img src="https://github.com/qnyara5/asset/blob/f467e553337c170bfc9f6cd7d8c4ddb61f5c4c70/reminders.GIF" width="auto" height="400" alt="reminders"/>
 6. History Diagnose <br>
    <img src="https://github.com/qnyara5/asset/blob/3495f2ac397b8a84a45d71919fd380c97bba87a6/history.gif" width="auto" height="400" alt="history">
 7. Discussion Forum <br>
