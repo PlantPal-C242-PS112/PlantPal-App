@@ -9,5 +9,7 @@ data class ReminderEntity(
     val title: String,
     val message: String,
     val time: Long,
-    var isDone: Boolean = false
+    var isDone: Boolean = false,
+    val plantId: Int,
+    val imageResId: Int
 )

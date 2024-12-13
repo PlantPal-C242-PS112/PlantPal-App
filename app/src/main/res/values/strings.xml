@@ -102,6 +102,10 @@
     <string name="message">Message</string>
     <string name="time">Time</string>
     <string name="messageAlarm">Tanaman apa yang ingin diberi pengingat?</string>
+    <string name="label">Pilih Tanaman</string>
+    <string name="image_desc">beri pupuk</string>
+    <string name="image_pupuk">beri pupuk</string>
+    <string name="image_siram">siram tanaman</string>
 
     <integer-array name="banners">
         <item>@drawable/welcome_banner</item>

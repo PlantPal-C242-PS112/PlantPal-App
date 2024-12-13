@@ -1,7 +1,9 @@
 package com.android.plantpal.ui.plant.reminder
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,8 +33,25 @@ class ReminderItemAdapter (
             binding.messageTextView.text = reminder.message
 
             val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
-            val formattedTime = dateFormat.format(reminder.time) // Pastikan reminder.time bertipe Date atau Long
+            val formattedTime = dateFormat.format(reminder.time)
             binding.timeTextView.text = formattedTime
+
+            if (reminder.imageResId != 0) {
+                binding.imageView.visibility = View.VISIBLE
+                binding.imageView.setImageResource(reminder.imageResId)
+            } else {
+                binding.imageView.visibility = View.GONE
+            }
+
+
+            if (reminder.isDone) {
+                binding.completedTextView.text = "Selesai"
+                binding.completedTextView.visibility = View.VISIBLE
+                binding.doneButton.isEnabled = false
+            } else {
+                binding.completedTextView.visibility = View.GONE
+                binding.doneButton.isEnabled = true
+            }
 
             binding.cancelButton.setOnClickListener {
                 onCancelClick(reminder)
@@ -40,6 +59,9 @@ class ReminderItemAdapter (
 
             binding.doneButton.setOnClickListener {
                 onDoneClick(reminder)
+                ReminderNotification.stopAlarm(binding.root.context)
+                reminder.isDone = true
+                notifyItemChanged(bindingAdapterPosition)
             }
         }
     }

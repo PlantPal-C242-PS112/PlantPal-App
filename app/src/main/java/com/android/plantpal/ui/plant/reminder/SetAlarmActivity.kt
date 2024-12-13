@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -18,12 +19,21 @@ import com.android.plantpal.R
 import com.android.plantpal.data.di.DatabaseProvider
 import com.android.plantpal.data.remote.ReminderEntity
 import com.android.plantpal.databinding.ActivitySetAlarmBinding
+import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.sql.Date
 import java.util.Calendar
 
 class SetAlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySetAlarmBinding
+    private var plantId: Int  = -1
+    private var plantName: String? = null
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,39 +41,68 @@ class SetAlarmActivity : AppCompatActivity() {
         binding = ActivitySetAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.timePicker.setIs24HourView(false)
+        plantId = intent.getIntExtra("PLANT_ID", -1)
+        plantName = intent.getStringExtra("PLANT_NAME")
 
+        if (plantId != -1 && plantName != null) {
+            Log.d("SetAlarmActivity", "PLANT_ID received: $plantId, PLANT_NAME: $plantName")
+        }
+
+        binding.messageAlarmDropdown.setText(plantName)
+        binding.timePicker.setIs24HourView(false)
 
         initDropdown()
 
         createNotificationChannel()
-        binding.submitButton.setOnClickListener { scheduleNotification() }
+        binding.submitButton.setOnClickListener {
+            scheduleNotification()
+        }
     }
 
+
     private fun initDropdown() {
+        val plantId = intent.getIntExtra("PLANT_ID", -1)
+        if (plantId != 1) {
+            loadRemindersForPlant(plantId)
+        }
+
+
         val titleAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.title_alarm_list,
             android.R.layout.simple_dropdown_item_1line
         )
         binding.titleAlarmDropdown.setAdapter(titleAdapter)
-
-        val messageAdapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.message_alarm_list,
-            android.R.layout.simple_dropdown_item_1line
-        )
-        binding.messageAlarmDropdown.setAdapter(messageAdapter)
     }
 
-    private fun saveReminderToDatabase(title: String, message: String, time: Long) {
-        val reminder = ReminderEntity(title = title, message = message, time = time)
 
+    private fun loadRemindersForPlant(plantId: Int) {
         lifecycleScope.launch {
-            val db = DatabaseProvider.getDatabase(applicationContext)
-            db.reminderDao().insert(reminder)
+            withContext(Dispatchers.IO) {
+                val db = DatabaseProvider.getDatabase(applicationContext)
+                val reminders = db.reminderDao().getRemindersForPlant(plantId)
+
+                withContext(Dispatchers.Main) {
+                    updateMessageDropdown(reminders.map { it.message })
+                }
+            }
         }
     }
+
+    private fun updateMessageDropdown(messages: List<String>) {
+        val messageAdapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            messages
+        )
+        binding.messageAlarmDropdown.setAdapter(messageAdapter)
+
+        if (messages.isNotEmpty()) {
+            binding.messageAlarmDropdown.setText(messages[0], false)
+        }
+    }
+
+
 
     private fun scheduleNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !checkExactAlarmPermission()) {
@@ -72,7 +111,7 @@ class SetAlarmActivity : AppCompatActivity() {
         }
 
         val title = binding.titleAlarmDropdown.selectedItem.toString()
-        val message = binding.messageAlarmDropdown.selectedItem.toString()
+        val message = "$plantName"
 
         if (title.isBlank() || message.isBlank()) {
             AlertDialog.Builder(this)
@@ -85,7 +124,17 @@ class SetAlarmActivity : AppCompatActivity() {
 
         val time = getTime()
 
-        saveReminderToDatabase(title, message, time)
+        val imageResId = when (binding.titleAlarmDropdown.selectedItem.toString()) {
+            "Beri Pupuk" -> R.drawable.beri_pupuk
+            "Siram Tanaman" -> R.drawable.siram_tanaman
+            else -> {R.drawable.ic_place_holder}
+        }
+
+        if (plantId != -1) {
+            saveReminderToDatabase(title, message, time, plantId, imageResId)
+        }
+
+
 
         val intent = Intent(applicationContext, ReminderNotification::class.java)
         intent.putExtra(titleExtra, title)
@@ -101,6 +150,21 @@ class SetAlarmActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent)
         showAlert(time, title, message)
+    }
+
+    private fun saveReminderToDatabase(title: String, message: String, time: Long, plantId: Int,  imageResId: Int) {
+        val reminder = ReminderEntity(
+            title = title,
+            message = message,
+            time = time,
+            plantId = plantId,
+            imageResId = imageResId
+        )
+
+        lifecycleScope.launch {
+            val db = DatabaseProvider.getDatabase(applicationContext)
+            db.reminderDao().insert(reminder)
+        }
     }
 
     private fun showAlert(time: Long, title: String, message: String) {
@@ -160,9 +224,30 @@ class SetAlarmActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (!alarmManager.canScheduleExactAlarms()) {
-                requestExactAlarmPermission()
-                return
+                Log.d("PermissionCheck", "Exact alarm permission not granted. Showing dialog...")
+                showPermissionDialog()
+            } else {
+                Log.d("PermissionCheck", "Exact alarm permission already granted.")
             }
         }
     }
+
+
+    private fun showPermissionDialog() {
+        Log.d("PermissionCheck", "Checking exact alarm permission...")
+        AlertDialog.Builder(this)
+            .setTitle("Izinkan Pengaturan Alarm")
+            .setMessage("Untuk menggunakan fitur ini, Anda perlu mengaktifkan izin untuk menjadwalkan alarm yang tepat. Pergi ke Pengaturan?")
+            .setPositiveButton("Ya") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+            .setNegativeButton("Tidak") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
 }
